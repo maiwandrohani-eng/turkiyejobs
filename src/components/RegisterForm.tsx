@@ -51,8 +51,8 @@ export function RegisterForm() {
     if (!name.trim() || !email.includes("@")) {
       setError(
         role === "organization"
-          ? "Please enter the contact person’s name and a valid email."
-          : "Please enter your name and a valid email.",
+          ? t("errRegisterOrgContact")
+          : t("errRegisterNameEmail"),
       );
       return;
     }
