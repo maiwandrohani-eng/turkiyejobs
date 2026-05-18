@@ -1,4 +1,6 @@
-export type EventsLocale = "en" | "tr";
+import type { AppLocale } from "@/lib/i18n/locale";
+
+export type EventsLocale = AppLocale;
 
 export const EVENTS_TRANSLATIONS = {
   en: {

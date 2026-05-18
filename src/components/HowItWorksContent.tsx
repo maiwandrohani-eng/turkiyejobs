@@ -7,7 +7,7 @@ import { PageIntro } from "@/components/PageShell";
 
 export function HowItWorksContent() {
   const { locale } = useLanguage();
-  const t = HOW_IT_WORKS_TRANSLATIONS[locale];
+  const t = HOW_IT_WORKS_TRANSLATIONS[locale] ?? HOW_IT_WORKS_TRANSLATIONS.en;
 
   return (
     <>

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { cookies } from "next/headers";
+import { getServerSession } from "next-auth/next";
 import "./globals.css";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Providers } from "@/components/Providers";
+import { authOptions } from "@/lib/auth-options";
+import { LOCALE_COOKIE_KEY, normalizeLocale } from "@/lib/i18n/locale";
 import { getContactPublicData } from "@/lib/site-contact";
 
 const geistSans = Geist({
@@ -45,18 +49,24 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const contact = await getContactPublicData();
+  const [contact, session, cookieStore] = await Promise.all([
+    getContactPublicData(),
+    getServerSession(authOptions),
+    cookies(),
+  ]);
+
+  const htmlLocale = normalizeLocale(cookieStore.get(LOCALE_COOKIE_KEY)?.value);
 
   return (
     <html
-      lang="en"
+      lang={htmlLocale === "tr" ? "tr" : "en"}
       dir="ltr"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject body attributes after SSR */}
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <Providers>
+        <Providers session={session}>
           <SiteHeader />
           <div className="flex-1">{children}</div>
           <SiteFooter social={contact.social} />

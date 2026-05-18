@@ -7,7 +7,7 @@ import { PageIntro, PageShell } from "@/components/PageShell";
 
 export default function AboutPage() {
   const { locale } = useLanguage();
-  const t = ABOUT_TRANSLATIONS[locale];
+  const t = ABOUT_TRANSLATIONS[locale] ?? ABOUT_TRANSLATIONS.en;
 
   return (
     <div className="min-h-[60vh] bg-background">

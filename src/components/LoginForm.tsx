@@ -2,7 +2,7 @@
 
 import { getSession, signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
@@ -15,10 +15,16 @@ function inferRole(email: string): UserRole {
   return "individual";
 }
 
-export function LoginForm() {
+type LoginFormProps = {
+  resetOk?: boolean;
+  callbackUrl?: string;
+};
+
+export function LoginForm({
+  resetOk = false,
+  callbackUrl: callbackUrlProp = "/dashboard/user",
+}: LoginFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const resetOk = searchParams.get("reset") === "1";
   const { login, exitPreviewSession } = useTurkiyeJobs();
   const previewAuth = isDemoAuthEnabled();
   const [signInMode, setSignInMode] = useState<"preview" | "database">(
@@ -65,11 +71,7 @@ export function LoginForm() {
     }
 
     setBusy(true);
-    const rawCallback = searchParams.get("callbackUrl") ?? "/dashboard/user";
-    const callbackUrl =
-      rawCallback.startsWith("/") && !rawCallback.startsWith("//")
-        ? rawCallback
-        : "/dashboard/user";
+    const callbackUrl = callbackUrlProp;
 
     const res = await signIn("credentials", {
       email: email.trim(),

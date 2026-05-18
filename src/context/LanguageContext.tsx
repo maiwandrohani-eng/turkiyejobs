@@ -1,58 +1,68 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState,
+  startTransition,
 } from "react";
 import {
   HOME_TRANSLATIONS,
-  type HomeLocale,
   type HomeTranslationKey,
 } from "@/lib/i18n/home-translations";
+import {
+  type AppLocale,
+  readStoredLocale,
+  writeLocaleCookie,
+  writeStoredLocale,
+} from "@/lib/i18n/locale";
 
-const STORAGE_KEY = "turkiyejobs:locale";
+export type HomeLocale = AppLocale;
 
 type LanguageContextValue = {
-  locale: HomeLocale;
-  setLocale: (locale: HomeLocale) => void;
+  locale: AppLocale;
+  setLocale: (locale: AppLocale) => void;
   toggleLocale: () => void;
   t: (key: HomeTranslationKey) => string;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-function readStoredLocale(): HomeLocale {
-  if (typeof window === "undefined") return "en";
-  try {
-    const v = localStorage.getItem(STORAGE_KEY);
-    return v === "tr" ? "tr" : "en";
-  } catch {
-    return "en";
-  }
+function applyDocumentLocale(locale: AppLocale) {
+  document.documentElement.lang = locale === "tr" ? "tr" : "en";
+  document.documentElement.dir = "ltr";
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<HomeLocale>("en");
+  const router = useRouter();
+  const [locale, setLocaleState] = useState<AppLocale>("en");
+  const skipRefresh = useRef(true);
 
-  useEffect(() => {
-    setLocaleState(readStoredLocale());
+  useLayoutEffect(() => {
+    const stored = readStoredLocale();
+    setLocaleState(stored);
+    applyDocumentLocale(stored);
+    writeLocaleCookie(stored);
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = locale === "tr" ? "tr" : "en";
-    document.documentElement.dir = "ltr";
-    try {
-      localStorage.setItem(STORAGE_KEY, locale);
-    } catch {
-      /* ignore */
+    writeStoredLocale(locale);
+    writeLocaleCookie(locale);
+    applyDocumentLocale(locale);
+    if (skipRefresh.current) {
+      skipRefresh.current = false;
+      return;
     }
-  }, [locale]);
+    startTransition(() => router.refresh());
+  }, [locale, router]);
 
-  const setLocale = useCallback((next: HomeLocale) => {
+  const setLocale = useCallback((next: AppLocale) => {
     setLocaleState(next);
   }, []);
 
@@ -61,7 +71,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const t = useCallback(
-    (key: HomeTranslationKey) => HOME_TRANSLATIONS[locale][key],
+    (key: HomeTranslationKey) => {
+      const table = HOME_TRANSLATIONS[locale];
+      const value = table[key];
+      if (value !== undefined) return value;
+      return HOME_TRANSLATIONS.en[key] ?? key;
+    },
     [locale],
   );
 

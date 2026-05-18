@@ -34,12 +34,12 @@ export default function OpportunityDetailPageClient({
 }: Props) {
   const params = useParams();
   const raw = typeof params?.id === "string" ? params.id : pathParam;
-  const { getOpportunityById, hydrated, session, suppressedCatalogIds } =
+  const { getOpportunityById, bootReady, session, suppressedCatalogIds } =
     useTurkiyeJobs();
 
   const waitingHydration =
-    (initialOpportunity === undefined && !hydrated) ||
-    (initialOpportunity === null && !hydrated);
+    (initialOpportunity === undefined && !bootReady) ||
+    (initialOpportunity === null && !bootReady);
 
   if (waitingHydration) {
     return (

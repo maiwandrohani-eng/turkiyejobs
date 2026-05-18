@@ -53,8 +53,8 @@ function LanguageToggle({ className }: { className?: string }) {
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const { session, hydrated } = useTurkiyeJobs();
-  const { t } = useLanguage();
+  const { session } = useTurkiyeJobs();
+  const { locale, t } = useLanguage();
 
   const dashboardHref =
     session?.role === "organization"
@@ -73,7 +73,7 @@ export function SiteHeader() {
           <span className="sr-only">TürkiyeJobs.org home</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav key={locale} className="hidden items-center gap-1 md:flex">
           {NAV_KEYS.map((item) => (
             <Link
               key={item.href}
@@ -87,15 +87,14 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <LanguageToggle />
-          {hydrated && session ? (
+          {session ? (
             <Link
               href={dashboardHref}
               className="btn-outline px-3 py-2 text-sm shadow-sm"
             >
               {t("navDashboard")}
             </Link>
-          ) : null}
-          {hydrated && !session ? (
+          ) : (
             <>
               <Link
                 href="/login"
@@ -110,7 +109,7 @@ export function SiteHeader() {
                 {t("navRegister")}
               </Link>
             </>
-          ) : null}
+          )}
         </div>
 
         <button
@@ -130,7 +129,7 @@ export function SiteHeader() {
           open ? "block" : "hidden",
         )}
       >
-        <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
+        <nav key={`mobile-${locale}`} className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
           <div className="px-3 py-2">
             <LanguageToggle className="w-fit" />
           </div>
@@ -144,7 +143,7 @@ export function SiteHeader() {
               {t(item.key)}
             </Link>
           ))}
-          {hydrated && session ? (
+          {session ? (
             <Link
               href={dashboardHref}
               onClick={() => setOpen(false)}
@@ -152,8 +151,7 @@ export function SiteHeader() {
             >
               {t("navDashboard")}
             </Link>
-          ) : null}
-          {hydrated && !session ? (
+          ) : (
             <div className="mt-2 flex flex-col gap-2 border-t border-brand-border pt-3">
               <Link
                 href="/login"
@@ -170,7 +168,7 @@ export function SiteHeader() {
                 {t("navRegister")}
               </Link>
             </div>
-          ) : null}
+          )}
         </nav>
       </div>
     </header>

@@ -1,4 +1,6 @@
-export type ImpactLocale = "en" | "tr";
+import type { AppLocale } from "@/lib/i18n/locale";
+
+export type ImpactLocale = AppLocale;
 
 export const IMPACT_TRANSLATIONS = {
   en: {

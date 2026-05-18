@@ -12,7 +12,7 @@ type Props = {
 
 export function EventsContent({ events }: Props) {
   const { locale } = useLanguage();
-  const t = EVENTS_TRANSLATIONS[locale];
+  const t = EVENTS_TRANSLATIONS[locale] ?? EVENTS_TRANSLATIONS.en;
   const hasUnconfirmed = events.some((e) => !e.confirmed);
 
   return (

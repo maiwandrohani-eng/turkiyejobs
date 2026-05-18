@@ -1,16 +1,32 @@
-import { Suspense } from "react";
 import { OpportunitiesPageClient } from "@/components/OpportunitiesPageClient";
 
-export default function OpportunitiesPage() {
+type OpportunitiesPageProps = {
+  searchParams: Promise<{
+    orgId?: string;
+    org?: string;
+    category?: string;
+  }>;
+};
+
+function decodeQueryParam(value: string | undefined): string {
+  if (!value?.trim()) return "";
+  try {
+    return decodeURIComponent(value.trim());
+  } catch {
+    return value.trim();
+  }
+}
+
+export default async function OpportunitiesPage({
+  searchParams,
+}: OpportunitiesPageProps) {
+  const sp = await searchParams;
+
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-[40vh] bg-background px-4 py-10 text-sm text-foreground/60">
-          Loading opportunities…
-        </div>
-      }
-    >
-      <OpportunitiesPageClient />
-    </Suspense>
+    <OpportunitiesPageClient
+      orgIdFilter={decodeQueryParam(sp.orgId)}
+      orgFilter={decodeQueryParam(sp.org)}
+      categoryFilter={sp.category ?? null}
+    />
   );
 }

@@ -8,21 +8,12 @@ import { usePersistedViewMode } from "@/hooks/usePersistedViewMode";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function HomeCatalog() {
-  const { opportunities, hydrated } = useTurkiyeJobs();
+  const { opportunities } = useTurkiyeJobs();
   const { t } = useLanguage();
   const { mode: homeViewMode, setMode: setHomeViewMode } = usePersistedViewMode(
     "turkiyejobs:v1:viewHomeOpportunities",
   );
 
-  if (!hydrated) {
-    return (
-      <>
-        <section className="mx-auto max-w-6xl px-4 py-14">
-          <p className="text-sm text-foreground/60">{t("catalogLoading")}</p>
-        </section>
-      </>
-    );
-  }
   const featured = opportunities.filter((o) => o.featured).slice(0, 3);
   const latest = [...opportunities]
     .sort((a, b) => b.deadline.localeCompare(a.deadline))

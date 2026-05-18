@@ -1,9 +1,22 @@
 import Link from "next/link";
-import { Suspense } from "react";
 import { LoginForm } from "@/components/LoginForm";
 import { PageIntro, PageShell } from "@/components/PageShell";
 
-export default function LoginPage() {
+type LoginPageProps = {
+  searchParams: Promise<{
+    reset?: string;
+    callbackUrl?: string;
+  }>;
+};
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const sp = await searchParams;
+  const resetOk = sp.reset === "1";
+  const callbackUrl =
+    sp.callbackUrl?.startsWith("/") && !sp.callbackUrl.startsWith("//")
+      ? sp.callbackUrl
+      : "/dashboard/user";
+
   return (
     <div className="min-h-[60vh] surface-hero">
       <PageShell className="max-w-lg">
@@ -12,9 +25,7 @@ export default function LoginPage() {
           title="Sign in to TürkiyeJobs.org"
           description="Sign in with your TürkiyeJobs.org account to open your applicant workspace, employer tools, or administrator console."
         />
-        <Suspense fallback={<p className="text-sm text-foreground/60">Loading…</p>}>
-          <LoginForm />
-        </Suspense>
+        <LoginForm resetOk={resetOk} callbackUrl={callbackUrl} />
         <p className="mt-6 text-center text-xs text-foreground/55">
           <Link href="/privacy" className="underline hover:text-brand-navy">
             Privacy

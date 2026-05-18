@@ -7,16 +7,16 @@ import { PageIntro, PageShell } from "@/components/PageShell";
 import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 
 export default function DashboardHubPage() {
-  const { session, hydrated } = useTurkiyeJobs();
+  const { session, sessionReady } = useTurkiyeJobs();
   const router = useRouter();
 
   useEffect(() => {
-    if (!hydrated || !session) return;
+    if (!sessionReady || !session) return;
     if (session.role === "admin") router.replace("/dashboard/admin");
     else if (session.role === "organization")
       router.replace("/dashboard/organization");
     else if (session.role === "individual") router.replace("/dashboard/user");
-  }, [hydrated, session, router]);
+  }, [sessionReady, session, router]);
 
   return (
     <PageShell className="!py-0">

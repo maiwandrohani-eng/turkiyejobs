@@ -5,8 +5,10 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
+  useSyncExternalStore,
 } from "react";
 import { signOut, useSession } from "next-auth/react";
 import {
@@ -121,6 +123,10 @@ type TürkiyeJobsContextValue = {
   /** Clears browser preview sign-in only; use before signing in with a database account while preview auth is enabled. */
   exitPreviewSession: () => void;
   logout: () => void;
+  /** Browser storage + catalog bootstrap finished (public pages can render). */
+  bootReady: boolean;
+  /** Session resolution finished (use for auth-gated UI). */
+  sessionReady: boolean;
   hydrated: boolean;
 
   opportunities: Opportunity[];
@@ -380,14 +386,31 @@ export function TurkiyeJobsProvider({ children }: { children: React.ReactNode })
     return () => window.removeEventListener("focus", onFocus);
   }, [demoMode, session?.role, refreshOrgPostingAllowed]);
 
-  const hydrated = useMemo(() => {
-    if (!localStorageReady) return false;
-    if (isDemoAuthEnabled() && demoSession) return true;
-    return nextAuth.status !== "loading";
-  }, [localStorageReady, nextAuth.status, demoSession]);
+  /** True on the client immediately after hydration — must not wait on localStorage or auth. */
+  const bootReady = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  const [authSettled, setAuthSettled] = useState(isDemoAuthEnabled());
+
+  useEffect(() => {
+    if (isDemoAuthEnabled()) return;
+    if (nextAuth.status !== "loading") {
+      setAuthSettled(true);
+      return;
+    }
+    const timer = window.setTimeout(() => setAuthSettled(true), 2000);
+    return () => window.clearTimeout(timer);
+  }, [nextAuth.status]);
+
+  const sessionReady = isDemoAuthEnabled() || authSettled;
+
+  const hydrated = bootReady && sessionReady;
 
   /* eslint-disable react-hooks/set-state-in-effect -- single-pass browser restore */
-  useEffect(() => {
+  useLayoutEffect(() => {
     const demo = isDemoAuthEnabled();
     if (demo) {
       setDemoSession(loadJson<SessionUser | null>(STORAGE.session, null));
@@ -1727,6 +1750,8 @@ export function TurkiyeJobsProvider({ children }: { children: React.ReactNode })
       login,
       exitPreviewSession,
       logout,
+      bootReady,
+      sessionReady,
       hydrated,
       opportunities: publishedOpportunities,
       organizations: catalogOrganizations,
@@ -1771,6 +1796,8 @@ export function TurkiyeJobsProvider({ children }: { children: React.ReactNode })
       login,
       exitPreviewSession,
       logout,
+      bootReady,
+      sessionReady,
       hydrated,
       publishedOpportunities,
       catalogOrganizations,

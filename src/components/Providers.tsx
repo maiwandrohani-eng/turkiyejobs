@@ -1,12 +1,23 @@
 "use client";
 
+import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { TurkiyeJobsProvider } from "@/context/TurkiyeJobsProvider";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+type ProvidersProps = {
+  children: React.ReactNode;
+  /** From `getServerSession` in root layout — avoids client session stuck on "loading". */
+  session?: Session | null;
+};
+
+export function Providers({ children, session = null }: ProvidersProps) {
   return (
-    <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus>
+    <SessionProvider
+      session={session}
+      refetchInterval={0}
+      refetchOnWindowFocus={false}
+    >
       <LanguageProvider>
         <TurkiyeJobsProvider>{children}</TurkiyeJobsProvider>
       </LanguageProvider>

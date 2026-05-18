@@ -7,7 +7,7 @@ import { PageIntro } from "@/components/PageShell";
 
 export function ImpactContent() {
   const { locale } = useLanguage();
-  const t = IMPACT_TRANSLATIONS[locale];
+  const t = IMPACT_TRANSLATIONS[locale] ?? IMPACT_TRANSLATIONS.en;
 
   return (
     <>

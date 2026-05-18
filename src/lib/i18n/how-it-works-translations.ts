@@ -1,4 +1,6 @@
-export type HowItWorksLocale = "en" | "tr";
+import type { AppLocale } from "@/lib/i18n/locale";
+
+export type HowItWorksLocale = AppLocale;
 
 export const HOW_IT_WORKS_TRANSLATIONS = {
   en: {
