@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 import { SAMPLE_ORGANIZATIONS } from "@/lib/demo/catalog";
+import { useAuthT } from "@/lib/i18n/use-auth-translations";
 import type { PendingOrgRecord, SessionUser, UserRole } from "@/lib/types";
 
 function today() {
@@ -14,10 +15,10 @@ function today() {
 }
 
 /** API may return `error` as a string or Zod-style field maps (string[][]). */
-function registerApiErrorMessage(error: unknown): string {
+function registerApiErrorMessage(error: unknown, fallback: string): string {
   if (typeof error === "string" && error.trim()) return error;
   if (!error || typeof error !== "object") {
-    return "Registration failed. Check your details and try again.";
+    return fallback;
   }
   const lines: string[] = [];
   for (const value of Object.values(error as Record<string, unknown>)) {
@@ -27,13 +28,12 @@ function registerApiErrorMessage(error: unknown): string {
       }
     }
   }
-  return lines.length > 0
-    ? lines.join(" ")
-    : "Registration failed. Check your details and try again.";
+  return lines.length > 0 ? lines.join(" ") : fallback;
 }
 
 export function RegisterForm() {
   const router = useRouter();
+  const t = useAuthT();
   const { login, registerPendingOrganization, registerUserProfile } =
     useTurkiyeJobs();
   const demo = isDemoAuthEnabled();
@@ -57,7 +57,7 @@ export function RegisterForm() {
       return;
     }
     if (role === "organization" && !orgName.trim()) {
-      setError("Please enter your organization name.");
+      setError(t("errRegisterOrgName"));
       return;
     }
 
@@ -103,7 +103,7 @@ export function RegisterForm() {
     }
 
     if (password.length < 10) {
-      setError("Password must be at least 10 characters.");
+      setError(t("errPasswordMin"));
       return;
     }
 
@@ -128,9 +128,9 @@ export function RegisterForm() {
     if (!res.ok) {
       setBusy(false);
       if (res.status === 409) {
-        setError("That email is already registered. Try logging in.");
+        setError(t("errEmailTaken"));
       } else {
-        setError(registerApiErrorMessage(data.error));
+        setError(registerApiErrorMessage(data.error, t("errRegisterFailed")));
       }
       return;
     }
@@ -142,14 +142,14 @@ export function RegisterForm() {
     });
     setBusy(false);
     if (!sign || sign.error || sign.ok === false) {
-      setError("Account created but sign-in failed. Please log in manually.");
+      setError(t("errCreatedSignInFailed"));
       router.push("/login");
       return;
     }
 
     const sess = await getSession();
     if (!sess?.user) {
-      setError("Account created. Please sign in from the login page.");
+      setError(t("errCreatedPleaseLogin"));
       router.push("/login");
       return;
     }
@@ -166,7 +166,7 @@ export function RegisterForm() {
     >
       <fieldset>
         <legend className="text-xs font-semibold text-brand-navy">
-          I am registering as
+          {t("registeringAs")}
         </legend>
         <div className="mt-3 flex flex-col gap-2 sm:flex-row">
           <label className="flex flex-1 cursor-pointer items-center gap-2 rounded-xl border border-brand-border bg-brand-muted/30 px-4 py-3 has-[:checked]:border-brand-gold has-[:checked]:bg-brand-gold-muted">
@@ -178,7 +178,7 @@ export function RegisterForm() {
               className="text-brand-gold accent-brand-gold"
             />
             <span className="text-sm font-medium text-brand-navy">
-              Individual applicant
+              {t("individualApplicant")}
             </span>
           </label>
           <label className="flex flex-1 cursor-pointer items-center gap-2 rounded-xl border border-brand-border bg-brand-muted/30 px-4 py-3 has-[:checked]:border-brand-gold has-[:checked]:bg-brand-gold-muted">
@@ -190,55 +190,52 @@ export function RegisterForm() {
               className="text-brand-gold accent-brand-gold"
             />
             <span className="text-sm font-medium text-brand-navy">
-              Organization / employer
+              {t("organizationEmployer")}
             </span>
           </label>
         </div>
       </fieldset>
 
       <label className="mt-6 block text-xs font-semibold text-brand-navy">
-        {role === "organization" ? "Your name (contact person)" : "Full name"}
+        {role === "organization" ? t("contactPersonName") : t("fullName")}
       </label>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
-        placeholder="e.g. Nour El-Din"
+        placeholder={t("namePlaceholder")}
       />
 
       {role === "organization" ? (
         <>
           <label className="mt-4 block text-xs font-semibold text-brand-navy">
-            Organization name
+            {t("organizationName")}
           </label>
           <input
             value={orgName}
             onChange={(e) => setOrgName(e.target.value)}
             className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
-            placeholder="e.g. Care Türkiye Foundation"
+            placeholder={t("orgPlaceholder")}
           />
-          <p className="mt-1.5 text-xs text-foreground/60">
-            Use the public or legal name of the organization. This appears on every job listing and in the
-            directory—not your personal name.
-          </p>
+          <p className="mt-1.5 text-xs text-foreground/60">{t("orgNameHint")}</p>
         </>
       ) : null}
 
       <label className="mt-4 block text-xs font-semibold text-brand-navy">
-        Work email
+        {t("workEmail")}
       </label>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
-        placeholder="you@organization.org"
+        placeholder={t("emailPlaceholder")}
       />
 
       {!demo ? (
         <>
           <label className="mt-4 block text-xs font-semibold text-brand-navy">
-            Password (min 10 characters)
+            {t("passwordMin")}
           </label>
           <input
             type="password"
@@ -259,15 +256,15 @@ export function RegisterForm() {
         disabled={busy}
         className="btn-primary mt-6 w-full py-3 text-sm"
       >
-        {busy ? "Creating account…" : "Create account"}
+        {busy ? t("creatingAccount") : t("createAccount")}
       </button>
       <p className="mt-4 text-center text-sm text-foreground/70">
-        Already registered?{" "}
+        {t("alreadyRegistered")}{" "}
         <Link
           href="/login"
           className="font-semibold text-brand-gold underline decoration-brand-gold/50 underline-offset-2"
         >
-          Log in
+          {t("logIn")}
         </Link>
       </p>
     </form>

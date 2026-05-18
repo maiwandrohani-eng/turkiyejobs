@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuthT } from "@/lib/i18n/use-auth-translations";
 
 function fieldErrorsMessage(error: unknown): string | null {
   if (!error || typeof error !== "object") return null;
@@ -17,10 +18,13 @@ function fieldErrorsMessage(error: unknown): string | null {
   return lines.length ? lines.join(" ") : null;
 }
 
-export function ResetPasswordForm() {
+type ResetPasswordFormProps = {
+  token: string;
+};
+
+export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token")?.trim() ?? "";
+  const t = useAuthT();
 
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -31,15 +35,15 @@ export function ResetPasswordForm() {
     e.preventDefault();
     setError("");
     if (!token) {
-      setError("Missing reset token. Open the link from your email again.");
+      setError(t("errResetMissingToken"));
       return;
     }
     if (password.length < 10) {
-      setError("Password must be at least 10 characters.");
+      setError(t("errPasswordMin"));
       return;
     }
     if (password !== confirm) {
-      setError("Passwords do not match.");
+      setError(t("errPasswordsMismatch"));
       return;
     }
     setBusy(true);
@@ -56,7 +60,7 @@ export function ResetPasswordForm() {
       setError(
         typeof data.error === "string"
           ? data.error
-          : fe ?? "Reset failed. Request a new link from the forgot-password page.",
+          : fe ?? t("errResetFailed"),
       );
       return;
     }
@@ -68,11 +72,11 @@ export function ResetPasswordForm() {
     return (
       <div className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm md:p-8">
         <p className="text-sm text-red-700">
-          This page needs a valid reset link. Check your email or{" "}
+          {t("resetLinkInvalidBefore")}{" "}
           <Link href="/forgot-password" className="font-semibold text-brand-gold underline">
-            request a new reset
+            {t("resetLinkInvalidLink")}
           </Link>
-          .
+          {t("resetLinkInvalidAfter")}
         </p>
       </div>
     );
@@ -84,7 +88,7 @@ export function ResetPasswordForm() {
       className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm md:p-8"
     >
       <label className="block text-xs font-semibold text-brand-navy">
-        New password (min 10 characters)
+        {t("newPasswordLabel")}
       </label>
       <input
         type="password"
@@ -93,7 +97,9 @@ export function ResetPasswordForm() {
         className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
         autoComplete="new-password"
       />
-      <label className="mt-4 block text-xs font-semibold text-brand-navy">Confirm password</label>
+      <label className="mt-4 block text-xs font-semibold text-brand-navy">
+        {t("confirmPassword")}
+      </label>
       <input
         type="password"
         value={confirm}
@@ -107,11 +113,11 @@ export function ResetPasswordForm() {
         disabled={busy}
         className="mt-6 w-full btn-primary py-3 text-sm font-semibold text-white "
       >
-        {busy ? "Saving…" : "Save new password"}
+        {busy ? t("saving") : t("savePassword")}
       </button>
       <p className="mt-4 text-center text-sm text-foreground/70">
         <Link href="/login" className="font-semibold text-brand-gold underline">
-          Sign in
+          {t("signIn")}
         </Link>
       </p>
     </form>

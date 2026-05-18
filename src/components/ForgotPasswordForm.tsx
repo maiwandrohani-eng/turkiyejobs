@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuthT } from "@/lib/i18n/use-auth-translations";
 
 function fieldErrorsMessage(error: unknown): string | null {
   if (!error || typeof error !== "object") return null;
@@ -17,6 +18,7 @@ function fieldErrorsMessage(error: unknown): string | null {
 }
 
 export function ForgotPasswordForm() {
+  const t = useAuthT();
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -27,7 +29,7 @@ export function ForgotPasswordForm() {
     setError("");
     setInfo("");
     if (!email.includes("@")) {
-      setError("Enter the email you used to register.");
+      setError(t("errForgotEmail"));
       return;
     }
     setBusy(true);
@@ -49,15 +51,14 @@ export function ForgotPasswordForm() {
       setError(
         typeof data.error === "string"
           ? data.error
-          : fe ?? "Something went wrong. Try again later.",
+          : fe ?? t("errForgotGeneric"),
       );
       return;
     }
     setInfo(
       data.emailConfigured === false
-        ? `${data.message ?? "If an account exists for that email, you will receive reset instructions shortly."} This server is not configured to send email yet (set RESEND_API_KEY and EMAIL_FROM in Vercel). You can change your password while signed in from your dashboard, or ask an operator to run the bootstrap-user script.`
-        : (data.message ??
-            "If an account exists for that email, you will receive reset instructions shortly."),
+        ? `${data.message ?? t("forgotSuccess")}`
+        : (data.message ?? t("forgotSuccess")),
     );
   };
 
@@ -66,7 +67,7 @@ export function ForgotPasswordForm() {
       onSubmit={(e) => void onSubmit(e)}
       className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm md:p-8"
     >
-      <label className="block text-xs font-semibold text-brand-navy">Work email</label>
+      <label className="block text-xs font-semibold text-brand-navy">{t("workEmail")}</label>
       <input
         type="email"
         value={email}
@@ -81,14 +82,14 @@ export function ForgotPasswordForm() {
         disabled={busy}
         className="mt-6 w-full btn-primary py-3 text-sm font-semibold text-white "
       >
-        {busy ? "Sending…" : "Send reset link"}
+        {busy ? t("sending") : t("sendResetLink")}
       </button>
       <p className="mt-4 text-center text-sm text-foreground/70">
         <Link
           href="/login"
           className="font-semibold text-brand-gold underline decoration-brand-gold/50 underline-offset-2"
         >
-          Back to sign in
+          {t("backToSignIn")}
         </Link>
       </p>
     </form>
