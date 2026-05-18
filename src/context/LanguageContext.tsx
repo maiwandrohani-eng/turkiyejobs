@@ -57,18 +57,23 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     applyDocumentLocale(locale);
     if (skipRefresh.current) {
       skipRefresh.current = false;
-      return;
     }
-    startTransition(() => router.refresh());
-  }, [locale, router]);
+  }, [locale]);
 
-  const setLocale = useCallback((next: AppLocale) => {
-    setLocaleState(next);
-  }, []);
+  const setLocale = useCallback(
+    (next: AppLocale) => {
+      setLocaleState(next);
+      writeStoredLocale(next);
+      writeLocaleCookie(next);
+      applyDocumentLocale(next);
+      startTransition(() => router.refresh());
+    },
+    [router],
+  );
 
   const toggleLocale = useCallback(() => {
-    setLocaleState((prev) => (prev === "en" ? "tr" : "en"));
-  }, []);
+    setLocale(locale === "en" ? "tr" : "en");
+  }, [locale, setLocale]);
 
   const t = useCallback(
     (key: HomeTranslationKey) => {
