@@ -14,7 +14,8 @@
     "db:seed": "prisma db seed",
     "db:setup": "prisma generate && prisma db push && prisma db seed",
     "db:bootstrap-user": "tsx scripts/bootstrap-user.ts",
-    "db:bootstrap-admin": "tsx scripts/bootstrap-user.ts"
+    "db:bootstrap-admin": "tsx scripts/bootstrap-user.ts",
+    "db:verify-login": "tsx scripts/verify-login.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

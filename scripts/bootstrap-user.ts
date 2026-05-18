@@ -43,6 +43,13 @@ async function main() {
     process.exit(1);
   }
 
+  let dbHost = "(unknown)";
+  try {
+    dbHost = new URL(url.replace(/^postgres:/, "postgresql:")).hostname;
+  } catch {
+    /* ignore */
+  }
+
   const pool = new Pool({ connectionString: url });
   const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
   const passwordHash = await hash(password, 12);
@@ -59,7 +66,7 @@ async function main() {
         isActive: true,
       },
     });
-    console.log(`Updated user ${email} (role ${roleRaw}).`);
+    console.log(`Updated user ${email} (role ${roleRaw}) on ${dbHost}.`);
   } else {
     await prisma.user.create({
       data: {
@@ -71,7 +78,7 @@ async function main() {
         organizationId: null,
       },
     });
-    console.log(`Created user ${email} (role ${roleRaw}).`);
+    console.log(`Created user ${email} (role ${roleRaw}) on ${dbHost}.`);
   }
 
   await prisma.$disconnect();
