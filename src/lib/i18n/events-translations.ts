@@ -1,4 +1,4 @@
-export type EventsLocale = "en" | "ar";
+export type EventsLocale = "en" | "tr";
 
 export const EVENTS_TRANSLATIONS = {
   en: {
@@ -13,17 +13,18 @@ export const EVENTS_TRANSLATIONS = {
     contactTeamLabel: "Contact the team",
     wantListedAfter: " with date, audience, and registration details.",
   },
-  ar: {
-    eyebrow: "المجتمع",
-    title: "الفعاليات والتواريخ الرئيسية",
-    description: "التقويم التحريري للجلسات وأنماط التوظيف الموسمية.",
+  // TODO: extend Turkish translations to remaining pages
+  tr: {
+    eyebrow: "Topluluk",
+    title: "Etkinlikler ve önemli tarihler",
+    description: "Oturumlar ve mevsimsel işe alım ritimlerinin editoryal takvimi.",
     unconfirmedNotice:
-      "بعض الفعاليات أدناه غير مؤكدة بعد. عد للتحقق أو تواصل مع المنظِّم قبل التسجيل.",
-    unconfirmedBadge: "غير مؤكد",
-    relatedLink: "رابط ذو صلة",
-    wantListedBefore: "هل تريد إدراج فعالية؟",
-    contactTeamLabel: "تواصل مع الفريق",
-    wantListedAfter: " مع التاريخ والجمهور المستهدف وتفاصيل التسجيل.",
+      "Aşağıdaki bazı etkinlikler henüz onaylanmadı. Kayıt olmadan önce kontrol edin veya düzenleyiciyle iletişime geçin.",
+    unconfirmedBadge: "ONAYLANMADI",
+    relatedLink: "İlgili bağlantı →",
+    wantListedBefore: "Listelenmesini mi istiyorsunuz?",
+    contactTeamLabel: "Ekiple iletişime geçin",
+    wantListedAfter: " — tarih, hedef kitle ve kayıt bilgileriyle.",
   },
 } as const;
 

@@ -7,7 +7,7 @@ import type {
   WorkArrangement,
   Compensation,
 } from "@/lib/types";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import {
   getOrgSubmitFormProfile,
   listingTypesForCategory,
@@ -70,7 +70,7 @@ function emptyForm(): OrgOpportunitySubmissionInput {
 }
 
 export function OrgSubmitOpportunityForm() {
-  const { submitOrgOpportunity, session, organizationCanPost } = useMasrJobs();
+  const { submitOrgOpportunity, session, organizationCanPost } = useTurkiyeJobs();
   const [form, setForm] = useState<OrgOpportunitySubmissionInput>(emptyForm);
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -119,7 +119,7 @@ export function OrgSubmitOpportunityForm() {
     setMsg(null);
     if (!organizationCanPost) {
       setErr(
-        "Your organization account is not approved to post yet. Please wait for MasrJobs.org administrators to approve your registration.",
+        "Your organization account is not approved to post yet. Please wait for TürkiyeJobs.org administrators to approve your registration.",
       );
       return;
     }
@@ -187,7 +187,7 @@ export function OrgSubmitOpportunityForm() {
         Post a new opportunity
       </h2>
       <p className="mt-1 text-sm text-foreground/70">
-        Use this form for every service type MasrJobs.org supports:{" "}
+        Use this form for every service type TürkiyeJobs.org supports:{" "}
         <strong>
           jobs, consultancies, trainings, volunteer roles, tenders, and grants
         </strong>
@@ -258,7 +258,7 @@ export function OrgSubmitOpportunityForm() {
               value={form.location}
               onChange={(e) => set("location", e.target.value)}
               className={inputClass}
-              placeholder="Governorate, city, or “Remote (Egypt-based)”"
+              placeholder="Governorate, city, or “Remote (Türkiye-based)”"
             />
           </div>
           <div>
@@ -515,13 +515,13 @@ export function OrgSubmitOpportunityForm() {
             How candidates apply
           </legend>
           <p className="text-xs text-foreground/65">
-            Internal keeps applicants on MasrJobs.org (Neon database). Email and external
+            Internal keeps applicants on TürkiyeJobs.org (Neon database). Email and external
             options still allow users to save listings and log that they applied off-platform.
           </p>
           <div className="mt-3 flex flex-col gap-2">
             {(
               [
-                { value: "internal" as const, label: "Internal apply (MasrJobs.org form)" },
+                { value: "internal" as const, label: "Internal apply (TürkiyeJobs.org form)" },
                 { value: "email" as const, label: "Apply by email (mailto for applicants)" },
                 { value: "external" as const, label: "External apply link (employer’s site or portal)" },
               ] as const
@@ -626,7 +626,7 @@ export function OrgSubmitOpportunityForm() {
       <button
         type="submit"
         disabled={!organizationCanPost}
-        className="mt-6 rounded-xl bg-brand-navy px-8 py-3 text-sm font-semibold text-white hover:bg-brand-navy-deep disabled:cursor-not-allowed disabled:opacity-50"
+        className="mt-6 btn-primary px-8 py-3 text-sm font-semibold text-white hover:bg-brand-red-hover disabled:cursor-not-allowed disabled:opacity-50"
       >
         Submit for admin approval
       </button>

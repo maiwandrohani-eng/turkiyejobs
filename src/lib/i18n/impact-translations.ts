@@ -1,11 +1,11 @@
-export type ImpactLocale = "en" | "ar";
+export type ImpactLocale = "en" | "tr";
 
 export const IMPACT_TRANSLATIONS = {
   en: {
-    eyebrow: "MasrJobs.org",
+    eyebrow: "TürkiyeJobs.org",
     title: "Transparency & principles",
     description:
-      "We want MasrJobs.org to be a calm, trustworthy place to find serious roles — for candidates and for mission-driven employers.",
+      "We want TürkiyeJobs.org to be a calm, trustworthy place to find serious roles — for candidates and for mission-driven employers.",
     commitmentsHeading: "Our commitments",
     commitment1: "Every listing is reviewed by a human before publication.",
     commitment2:
@@ -15,7 +15,7 @@ export const IMPACT_TRANSLATIONS = {
     commitment4: "We do not sell applicant data to third parties.",
     verificationHeading: "How verification works",
     verificationBody:
-      "MasrJobs uses a two-stage review process. First, every organization account is verified by the admin team before the organization can post anything. Second, every individual listing is reviewed for quality and fit before it appears publicly. This means nothing on MasrJobs is unreviewed — not the employer, not the role.",
+      "TürkiyeJobs uses a two-stage review process. First, every organization account is verified by the admin team before the organization can post anything. Second, every individual listing is reviewed for quality and fit before it appears publicly. This means nothing on TürkiyeJobs is unreviewed — not the employer, not the role.",
     optimizeHeading: "What we optimize for",
     optimize1Label: "Clarity",
     optimize1:
@@ -32,36 +32,36 @@ export const IMPACT_TRANSLATIONS = {
     growingContactLabel: "Contact",
     growingAfter: ".",
   },
-  ar: {
-    eyebrow: "MasrJobs.org",
-    title: "الشفافية والمبادئ",
+  // TODO: extend Turkish translations to remaining pages
+  tr: {
+    eyebrow: "TürkiyeJobs.org",
+    title: "Şeffaflık ve ilkeler",
     description:
-      "نريد أن تكون MasrJobs.org مكاناً هادئاً وجديراً بالثقة للعثور على أدوار جادة — للمرشحين وأصحاب العمل ذوي الرسالة.",
-    commitmentsHeading: "التزاماتنا",
-    commitment1: "يراجع إنسان كل إعلان قبل نشره.",
+      "TürkiyeJobs.org'un ciddi roller için sakin ve güvenilir bir yer olmasını istiyoruz — hem adaylar hem de misyon odaklı işverenler için.",
+    commitmentsHeading: "Taahhütlerimiz",
+    commitment1: "Her ilan yayınlanmadan önce bir ekip üyesi tarafından incelenir.",
     commitment2:
-      "لا نقبل إعلانات من مؤسسات لديها انتهاكات حماية مفتوحة أو اتهامات بالاحتيال.",
+      "Açık koruma ihlalleri veya dolandırıcılık iddiaları olan kuruluşlardan ilan kabul etmiyoruz.",
     commitment3:
-      "تُزال الإعلانات ذات المواعيد النهائية الكاذبة أو الأدوار المُغلقة في غضون 24 ساعة من الإبلاغ عنها.",
-    commitment4: "لا نبيع بيانات المتقدمين لأطراف ثالثة.",
-    verificationHeading: "كيف تعمل عملية التحقق",
+      "Yanıltıcı son tarihli veya kapanmış roller, bildirildikten sonra 24 saat içinde kaldırılır.",
+    commitment4: "Aday verilerini üçüncü taraflara satmıyoruz.",
+    verificationHeading: "Doğrulama nasıl çalışır",
     verificationBody:
-      "تعتمد MasrJobs عملية مراجعة من مرحلتين. أولاً، يتحقق فريق الإدارة من كل حساب مؤسسة قبل أن تتمكن من نشر أي شيء. ثانياً، يُراجَع كل إعلان على حدة للتحقق من جودته وملاءمته قبل أن يظهر للعموم. هذا يعني أنه لا شيء على MasrJobs غير مُراجَع — لا صاحب العمل، ولا الوظيفة.",
-    optimizeHeading: "ما نسعى إلى تحقيقه",
-    optimize1Label: "الوضوح",
+      "TürkiyeJobs iki aşamalı bir inceleme süreci kullanır. Önce her kuruluş hesabı doğrulanır; sonra her ilan yayınlanmadan önce incelenir.",
+    optimizeHeading: "Neyi optimize ediyoruz",
+    optimize1Label: "Netlik",
     optimize1:
-      " — يجب أن يفهم المرشحون طبيعة الدور وموقعه وطريقة التقديم دون الحاجة إلى البحث في المرفقات.",
-    optimize2Label: "العدالة في العملية",
+      " — adaylar rolü, konumu ve başvuru yolunu ekler arasında kaybolmadan anlamalı.",
+    optimize2Label: "Adil süreç",
     optimize2:
-      " — يجب أن تعكس الإعلانات المنشورة ما تعتزم المؤسسة التوظيف له، مع مواعيد نهائية تحترم وقت المتقدمين.",
-    optimize3Label: "التحقق من أصحاب العمل",
-    optimize3:
-      " — تخضع حسابات المؤسسات للمراجعة حتى لا يكون الدليل مفتوحاً للجميع دون رقابة.",
-    growingHeading: "النمو مع القطاع",
+      " — yayınlanan ilanlar kuruluşun gerçekten ne için işe aldığını yansıtmalı.",
+    optimize3Label: "Doğrulanmış işverenler",
+    optimize3: " — kuruluş hesapları incelemeden geçer.",
+    growingHeading: "Sektörle birlikte büyüme",
     growingBefore:
-      "ستتوسع المقاييس وقصص الشركاء مع نضج المنصة. في الوقت الراهن، أفضل مؤشر هو جودة الإعلانات والمنظمات التي تختار النشر هنا. إذا كانت لديك أفكار حول المساءلة أو التقارير التي تودّ نشرها، تواصل معنا عبر",
-    growingContactLabel: "صفحة التواصل",
-    growingAfter: ".",
+      "Platform olgunlaştıkça metrikler ve ortak hikâyeler genişleyecek. Şimdilik en iyi sinyal ilan kalitesidir. Görüşleriniz için",
+    growingContactLabel: "İletişim",
+    growingAfter: " üzerinden ulaşın.",
   },
 } as const;
 

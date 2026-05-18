@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Bell } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 
 const links = {
   user: [{ href: "/dashboard/user", label: "Overview" }],
@@ -23,7 +23,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const { session, logout, hydrated, notifications, unreadNotificationCount, markNotificationRead, markAllNotificationsRead } =
-    useMasrJobs();
+    useTurkiyeJobs();
   const [notifOpen, setNotifOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 

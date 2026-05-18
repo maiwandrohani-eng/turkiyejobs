@@ -5,10 +5,10 @@ import { Bookmark, MapPin } from "lucide-react";
 import type { Opportunity } from "@/lib/types";
 import { formatOpportunityDeadline } from "@/lib/opportunity-display";
 import { cn } from "@/lib/cn";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 
 export function OpportunityListRow({ opportunity }: { opportunity: Opportunity }) {
-  const { toggleSave, isSaved, hydrated } = useMasrJobs();
+  const { toggleSave, isSaved, hydrated } = useTurkiyeJobs();
   const saved = hydrated && isSaved(opportunity.id);
   const detailPath = opportunity.slug ?? opportunity.id;
 
@@ -63,7 +63,7 @@ export function OpportunityListRow({ opportunity }: { opportunity: Opportunity }
         </button>
         <Link
           href={`/opportunities/${detailPath}`}
-          className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg bg-brand-navy px-4 py-2 text-xs font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
+          className="inline-flex min-h-[2.75rem] items-center justify-center btn-primary px-4 py-2 text-xs font-semibold text-white  sm:min-h-0"
         >
           View details
         </Link>

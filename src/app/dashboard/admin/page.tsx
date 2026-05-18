@@ -7,7 +7,7 @@ import { AdminNeonRegistryPanel } from "@/components/AdminNeonRegistryPanel";
 import { AdminSiteContactPanel } from "@/components/AdminSiteContactPanel";
 import { PageIntro, PageShell } from "@/components/PageShell";
 import { ListingStatusBadge } from "@/components/StatusBadge";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 import type { OpportunityCategory } from "@/lib/types";
 
@@ -47,7 +47,7 @@ export default function AdminDashboardPage() {
     adminCloseOpportunity,
     toggleOpportunityFeatured,
     refreshPublicCatalog,
-  } = useMasrJobs();
+  } = useTurkiyeJobs();
 
   const [auditRows, setAuditRows] = useState<AuditRow[]>([]);
   const [auditLoading, setAuditLoading] = useState(false);
@@ -189,7 +189,7 @@ export default function AdminDashboardPage() {
           description={
             previewAuth
               ? "Restricted to administrators. With preview auth enabled, sign in using an email address that contains “admin”."
-              : "Restricted to platform administrators. Sign in with an administrator account issued for MasrJobs.org."
+              : "Restricted to platform administrators. Sign in with an administrator account issued for TürkiyeJobs.org."
           }
         />
         {!previewAuth ? (
@@ -206,8 +206,8 @@ export default function AdminDashboardPage() {
               <li>
                 After running <code className="rounded bg-white px-1 py-0.5 text-xs">npx prisma db seed</code>
                 , you can sign in as{" "}
-                <code className="rounded bg-white px-1 py-0.5 text-xs">admin@masrjobs.local</code> with
-                password <code className="rounded bg-white px-1 py-0.5 text-xs">MasrjobsSeedPass123</code>{" "}
+                <code className="rounded bg-white px-1 py-0.5 text-xs">admin@turkiyejobs.local</code> with
+                password <code className="rounded bg-white px-1 py-0.5 text-xs">TurkiyeJobsSeedPass123</code>{" "}
                 (change it after first login).
               </li>
               <li>
@@ -223,7 +223,7 @@ export default function AdminDashboardPage() {
         <div className="mt-6">
           <Link
             href="/login"
-            className="inline-flex rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white"
+            className="inline-flex btn-primary px-5 py-2.5 text-sm font-semibold text-white"
           >
             Admin sign in
           </Link>
@@ -267,7 +267,7 @@ export default function AdminDashboardPage() {
         description={
           previewAuth
             ? "Statistics, moderation queues, and listing controls. With preview auth, some actions are stored only in this browser."
-            : "Statistics, moderation queues, and listing controls. Data is loaded from your MasrJobs.org database."
+            : "Statistics, moderation queues, and listing controls. Data is loaded from your TürkiyeJobs.org database."
         }
       />
 
@@ -691,7 +691,7 @@ export default function AdminDashboardPage() {
         <section className="mt-8 rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
           <h2 className="text-base font-bold text-brand-navy">Account security</h2>
           <p className="mt-1 text-sm text-foreground/70">
-            Change the password for your MasrJobs admin sign-in (Neon user account).
+            Change the password for your TürkiyeJobs admin sign-in (Neon user account).
           </p>
           <ChangePasswordForm />
         </section>

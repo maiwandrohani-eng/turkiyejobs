@@ -58,7 +58,7 @@ export function OpportunitiesExplorer({
   const [paid, setPaid] = useState<string>("All");
   const [deadlineBefore, setDeadlineBefore] = useState("");
   const { mode: viewMode, setMode: setViewMode } = usePersistedViewMode(
-    "masrjobs:v1:viewOpportunitiesBrowse",
+    "turkiyejobs:v1:viewOpportunitiesBrowse",
   );
 
   useEffect(() => {

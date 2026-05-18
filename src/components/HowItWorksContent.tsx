@@ -30,7 +30,7 @@ export function HowItWorksContent() {
           </ul>
           <p className="mt-4">
             <Link
-              href="/resources/internal-application-checklist-masrjobs"
+              href="/resources/internal-application-checklist-turkiyejobs"
               className="font-semibold text-brand-gold underline"
             >
               {t.checklistLink}

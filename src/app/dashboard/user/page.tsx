@@ -8,7 +8,7 @@ import { ApplicationStatusBadge } from "@/components/StatusBadge";
 import { OpportunityListRow } from "@/components/OpportunityListRow";
 import { OpportunityCard } from "@/components/OpportunityCard";
 import { ViewModeToggle } from "@/components/ViewModeToggle";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { usePersistedViewMode } from "@/hooks/usePersistedViewMode";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 import { isPublishedCatalogOpportunity, suppressedCatalogIdsForBrowse } from "@/lib/opportunity-visibility";
@@ -37,7 +37,7 @@ export default function UserDashboardPage() {
     applicantProfile,
     setApplicantProfile,
     externalApplyIntents,
-  } = useMasrJobs();
+  } = useTurkiyeJobs();
 
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
@@ -82,10 +82,10 @@ export default function UserDashboardPage() {
   );
 
   const { mode: savedViewMode, setMode: setSavedViewMode } = usePersistedViewMode(
-    "masrjobs:v1:viewUserSavedOpportunities",
+    "turkiyejobs:v1:viewUserSavedOpportunities",
   );
   const { mode: trackedViewMode, setMode: setTrackedViewMode } = usePersistedViewMode(
-    "masrjobs:v1:viewUserTrackedExternal",
+    "turkiyejobs:v1:viewUserTrackedExternal",
   );
 
   if (!hydrated) {
@@ -106,7 +106,7 @@ export default function UserDashboardPage() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/register"
-            className="rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white"
+            className="btn-primary px-5 py-2.5 text-sm font-semibold text-white"
           >
             Create applicant account
           </Link>
@@ -156,14 +156,14 @@ export default function UserDashboardPage() {
         description={
           isDemoAuthEnabled()
             ? "Your profile summary, saved opportunities, and application tracker. With preview auth, you can still use the form below; sign in with a database account to change your password."
-            : "Your profile summary, saved opportunities, and application activity for your MasrJobs.org account."
+            : "Your profile summary, saved opportunities, and application activity for your TürkiyeJobs.org account."
         }
       />
 
       <p className="mb-6 flex flex-wrap items-center gap-3 text-sm">
         <a
           href="#edit-applicant-profile"
-          className="inline-flex rounded-xl bg-brand-navy px-4 py-2 font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+          className="inline-flex btn-primary px-4 py-2 font-semibold text-white "
         >
           Edit profile
         </a>
@@ -185,7 +185,7 @@ export default function UserDashboardPage() {
         </dl>
         <form onSubmit={saveProfile} className="mt-6 border-t border-brand-border pt-6">
           <p className="text-sm text-foreground/70">
-            These details are used for internal applications on MasrJobs.org. They are
+            These details are used for internal applications on TürkiyeJobs.org. They are
             stored with your session on this device and should be kept up to date. CV and
             LinkedIn links are required when an opportunity asks for them on the apply form.
           </p>
@@ -254,7 +254,7 @@ export default function UserDashboardPage() {
         <section className="mt-8 rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
           <h2 className="text-base font-bold text-brand-navy">Account security</h2>
           <p className="mt-1 text-sm text-foreground/70">
-            Change the password you use to sign in to MasrJobs.org (stored in the database).
+            Change the password you use to sign in to TürkiyeJobs.org (stored in the database).
           </p>
           <ChangePasswordForm />
         </section>
@@ -345,7 +345,7 @@ export default function UserDashboardPage() {
                 </div>
                 <Link
                   href={`/opportunities/${i.opportunityId}`}
-                  className="inline-flex min-h-[2.75rem] shrink-0 items-center justify-center self-start rounded-lg bg-brand-navy px-4 py-2 text-xs font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:self-center sm:min-h-0"
+                  className="inline-flex min-h-[2.75rem] shrink-0 items-center justify-center self-start btn-primary px-4 py-2 text-xs font-semibold text-white  sm:self-center sm:min-h-0"
                 >
                   View listing
                 </Link>
@@ -370,7 +370,7 @@ export default function UserDashboardPage() {
                 <p className="mt-2 text-xs text-foreground/55">Recorded {i.recordedAt}</p>
                 <Link
                   href={`/opportunities/${i.opportunityId}`}
-                  className="mt-3 inline-flex min-h-[2.75rem] w-full items-center justify-center rounded-lg bg-brand-navy px-4 py-2 text-xs font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
+                  className="mt-3 inline-flex min-h-[2.75rem] w-full items-center justify-center btn-primary px-4 py-2 text-xs font-semibold text-white  sm:min-h-0"
                 >
                   View listing
                 </Link>
@@ -381,11 +381,11 @@ export default function UserDashboardPage() {
       </section>
 
       <section className="mt-8">
-        <h2 className="text-base font-bold text-brand-navy">My applications (MasrJobs.org)</h2>
+        <h2 className="text-base font-bold text-brand-navy">My applications (TürkiyeJobs.org)</h2>
         {myApplications.length === 0 ? (
           <div className="mt-4 rounded-2xl border border-dashed border-brand-border bg-white px-6 py-10 text-center shadow-sm">
             <p className="text-sm text-foreground/70">
-              You have not applied on MasrJobs.org yet. Open a listing and submit when the employer accepts internal applications.
+              You have not applied on TürkiyeJobs.org yet. Open a listing and submit when the employer accepts internal applications.
             </p>
           </div>
         ) : (

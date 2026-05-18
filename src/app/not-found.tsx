@@ -11,7 +11,7 @@ export default function NotFound() {
         />
         <Link
           href="/"
-          className="inline-block rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:opacity-95"
+          className="inline-block btn-primary px-5 py-2.5 text-sm font-semibold text-white"
         >
           Back to home
         </Link>

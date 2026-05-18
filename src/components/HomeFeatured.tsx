@@ -52,7 +52,7 @@ export function HomeCtaRow() {
     <div className="mt-8 flex flex-wrap justify-center gap-3">
       <Link
         href="/opportunities"
-        className="inline-flex h-11 items-center justify-center rounded-xl bg-brand-navy px-6 text-sm font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+        className="inline-flex h-11 items-center justify-center btn-primary px-6 text-sm font-semibold text-white "
       >
         {t("catalogViewAll")}
       </Link>

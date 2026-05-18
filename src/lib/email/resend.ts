@@ -2,10 +2,10 @@
  * Central Resend client — server-only. Never throws for transport failures.
  */
 
-export const DEFAULT_EMAIL_FROM = "MasrJobs <noreply@masrjobs.org>";
+export const DEFAULT_EMAIL_FROM = "TürkiyeJobs <noreply@turkiyejobs.org>";
 
 const FOOTER_TEXT =
-  "MasrJobs.org — Egypt's Development & Social Impact Jobs Platform";
+  "TürkiyeJobs.org — Türkiye's Development & Social Impact Jobs Platform";
 
 export type SendEmailInput = {
   to: string | string[];

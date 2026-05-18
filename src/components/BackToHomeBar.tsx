@@ -13,7 +13,7 @@ export function BackToHomeBar() {
     return null;
   }
 
-  const isRtl = locale === "ar";
+  const isRtl = false;
 
   return (
     <nav className="mb-6" aria-label="Site">

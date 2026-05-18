@@ -39,7 +39,7 @@ export const FALLBACK_COMMUNITY_EVENTS: CommunityEventRow[] = [
   {
     id: "fallback-4",
     eventDate: "2026-09-15",
-    title: "Regional skills week (hybrid, Cairo)",
+    title: "Regional skills week (hybrid, Ankara)",
     detail:
       "Community-led trainings on facilitation, MEAL basics, and remote collaboration.",
     href: "/opportunities?category=Trainings",

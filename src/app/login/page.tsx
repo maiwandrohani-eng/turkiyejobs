@@ -5,12 +5,12 @@ import { PageIntro, PageShell } from "@/components/PageShell";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-[60vh] bg-background">
+    <div className="min-h-[60vh] surface-hero">
       <PageShell className="max-w-lg">
         <PageIntro
           eyebrow="Welcome back"
-          title="Sign in to MasrJobs.org"
-          description="Sign in with your MasrJobs.org account to open your applicant workspace, employer tools, or administrator console."
+          title="Sign in to TürkiyeJobs.org"
+          description="Sign in with your TürkiyeJobs.org account to open your applicant workspace, employer tools, or administrator console."
         />
         <Suspense fallback={<p className="text-sm text-foreground/60">Loading…</p>}>
           <LoginForm />

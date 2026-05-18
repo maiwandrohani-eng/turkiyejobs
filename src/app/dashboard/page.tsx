@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { PageIntro, PageShell } from "@/components/PageShell";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 
 export default function DashboardHubPage() {
-  const { session, hydrated } = useMasrJobs();
+  const { session, hydrated } = useTurkiyeJobs();
   const router = useRouter();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function DashboardHubPage() {
       <PageIntro
         eyebrow="Dashboard"
         title="Choose your workspace"
-        description="MasrJobs.org separates experiences for applicants, employers, and platform administrators. Sign in with the account type you registered, then pick the matching workspace below."
+        description="TürkiyeJobs.org separates experiences for applicants, employers, and platform administrators. Sign in with the account type you registered, then pick the matching workspace below."
       />
       <div className="grid gap-4 sm:grid-cols-3">
         <Link

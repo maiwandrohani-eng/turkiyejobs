@@ -4,7 +4,7 @@ import { getSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 import { SAMPLE_ORGANIZATIONS } from "@/lib/demo/catalog";
 import type { PendingOrgRecord, SessionUser, UserRole } from "@/lib/types";
@@ -35,7 +35,7 @@ function registerApiErrorMessage(error: unknown): string {
 export function RegisterForm() {
   const router = useRouter();
   const { login, registerPendingOrganization, registerUserProfile } =
-    useMasrJobs();
+    useTurkiyeJobs();
   const demo = isDemoAuthEnabled();
   const [role, setRole] = useState<UserRole>("individual");
   const [name, setName] = useState("");
@@ -215,7 +215,7 @@ export function RegisterForm() {
             value={orgName}
             onChange={(e) => setOrgName(e.target.value)}
             className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
-            placeholder="e.g. Care Egypt Foundation"
+            placeholder="e.g. Care Türkiye Foundation"
           />
           <p className="mt-1.5 text-xs text-foreground/60">
             Use the public or legal name of the organization. This appears on every job listing and in the
@@ -257,7 +257,7 @@ export function RegisterForm() {
       <button
         type="submit"
         disabled={busy}
-        className="mt-6 w-full rounded-xl bg-brand-gold py-3 text-sm font-semibold text-brand-navy shadow-sm hover:bg-brand-gold-soft disabled:opacity-60"
+        className="btn-primary mt-6 w-full py-3 text-sm"
       >
         {busy ? "Creating account…" : "Create account"}
       </button>

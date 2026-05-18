@@ -88,7 +88,7 @@ export function NewsletterSignup({
             if (status !== "idle" && status !== "loading") setStatus("idle");
           }}
           disabled={status === "loading"}
-          className="w-full rounded-xl border border-brand-border bg-white px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40 disabled:opacity-60"
+          className="input-brand"
         />
         {message ? (
           <p
@@ -103,7 +103,7 @@ export function NewsletterSignup({
       <button
         type="submit"
         disabled={status === "loading"}
-        className="shrink-0 rounded-xl bg-brand-navy px-6 py-2.5 text-sm font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 disabled:opacity-60"
+        className="btn-primary shrink-0 px-6 py-2.5 text-sm"
       >
         {status === "loading" ? "Saving…" : buttonLabel}
       </button>

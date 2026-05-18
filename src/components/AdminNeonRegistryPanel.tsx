@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 
 type RegistryUser = {
   id: string;
@@ -47,7 +47,7 @@ async function postJson<T>(url: string, body: unknown): Promise<{ res: Response;
 }
 
 export function AdminNeonRegistryPanel({ disabled }: { disabled: boolean }) {
-  const { session, refreshPublicCatalog } = useMasrJobs();
+  const { session, refreshPublicCatalog } = useTurkiyeJobs();
   const currentUserId = session?.userId;
 
   const [loading, setLoading] = useState(!disabled);

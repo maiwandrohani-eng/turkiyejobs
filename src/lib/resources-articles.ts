@@ -69,7 +69,7 @@ export const RESOURCE_ARTICLES: ResourceArticleBody[] = [
       {
         heading: "Formatting and length",
         paragraphs: [
-          "Two pages is still the norm for mid-senior roles in Egypt’s INGO market unless the TOR specifies otherwise. Use clean section headings (Experience, Education, Languages, Technical skills) and avoid dense blocks of text.",
+          "Two pages is still the norm for mid-senior roles in Türkiye’s INGO market unless the TOR specifies otherwise. Use clean section headings (Experience, Education, Languages, Technical skills) and avoid dense blocks of text.",
           "Save the narrative for the cover letter or technical proposal; the CV should scan in under two minutes.",
         ],
       },
@@ -106,8 +106,8 @@ export const RESOURCE_ARTICLES: ResourceArticleBody[] = [
     ],
   },
   {
-    slug: "remote-and-hybrid-roles-in-egypts-development-space",
-    title: "Remote and hybrid roles in Egypt’s development space",
+    slug: "remote-and-hybrid-roles-in-turkiyes-development-space",
+    title: "Remote and hybrid roles in Türkiye’s development space",
     excerpt:
       "How to demonstrate async collaboration, data security, and field connectivity when working hybrid.",
     category: "Work formats",
@@ -116,7 +116,7 @@ export const RESOURCE_ARTICLES: ResourceArticleBody[] = [
       {
         heading: "Show how you work across locations",
         paragraphs: [
-          "Hybrid roles often combine Cairo-based coordination with field visits in Upper Egypt or coastal governorates. Spell out how you plan travel, manage security protocols, and keep documentation current while mobile.",
+          "Hybrid roles often combine Ankara-based coordination with field visits in southeastern Türkiye or coastal provinces. Spell out how you plan travel, manage security protocols, and keep documentation current while mobile.",
           "Name the tools you use for async work (shared drives, task boards, version control for MEAL data) and how you run inclusive meetings across time zones when partners sit abroad.",
         ],
       },
@@ -130,14 +130,14 @@ export const RESOURCE_ARTICLES: ResourceArticleBody[] = [
         heading: "Connectivity and backup plans",
         paragraphs: [
           "Electricity and connectivity vary. Hiring managers appreciate candidates who describe contingency planning: offline packs, local partners for last-mile delivery, and how you validate data when sync is delayed.",
-          "If you have run trainings or community consultations in low-connectivity settings, that is a strong signal you can operate in Egypt’s mixed urban–rural programme reality.",
+          "If you have run trainings or community consultations in low-connectivity settings, that is a strong signal you can operate in Türkiye’s mixed urban–rural programme reality.",
         ],
       },
     ],
   },
   {
-    slug: "internal-application-checklist-masrjobs",
-    title: "Internal application checklist for MasrJobs.org",
+    slug: "internal-application-checklist-turkiyejobs",
+    title: "Internal application checklist for TürkiyeJobs.org",
     excerpt:
       "Before you submit through the platform: documents, tone, and double-checks that save time for you and recruiters.",
     category: "Careers",

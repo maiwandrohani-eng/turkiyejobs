@@ -39,7 +39,7 @@ async function main() {
   const pool = new Pool({ connectionString: url });
   const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 
-  const pass = await hash("MasrjobsSeedPass123", 12);
+  const pass = await hash("TurkiyeJobsSeedPass123", 12);
 
   await prisma.$transaction(async (tx) => {
     await tx.adminActionLog.deleteMany();
@@ -97,11 +97,11 @@ async function main() {
       data: [
         {
           id: IDS.orgErc,
-          name: "Egyptian Red Crescent Society",
-          slug: "egyptian-red-crescent",
+          name: "Türkiyeian Red Crescent Society",
+          slug: "turkish-red-crescent",
           description:
-            "Humanitarian organization delivering relief, health, and community resilience programmes across Egypt.",
-          location: "Cairo",
+            "Humanitarian organization delivering relief, health, and community resilience programmes across Türkiye.",
+          location: "Ankara",
           website: "https://www.example.org/erc",
           verificationStatus: "VERIFIED",
           verifiedAt: new Date(),
@@ -110,12 +110,12 @@ async function main() {
         },
         {
           id: IDS.orgCare,
-          name: "Care Egypt Foundation",
-          slug: "care-egypt",
+          name: "Care Türkiye Foundation",
+          slug: "care-turkiye",
           description:
             "Development NGO focused on livelihoods, gender equality, and inclusive economic growth.",
           location: "Giza",
-          website: "https://www.example.org/care-egypt",
+          website: "https://www.example.org/care-turkiye",
           verificationStatus: "VERIFIED",
           verifiedAt: new Date(),
           featuredBadge: true,
@@ -123,12 +123,12 @@ async function main() {
         },
         {
           id: IDS.orgStc,
-          name: "Save the Children Egypt",
-          slug: "save-the-children-egypt",
+          name: "Save the Children Türkiye",
+          slug: "save-the-children-turkiye",
           description:
             "Child rights and protection, education, and emergency response for vulnerable families.",
-          location: "Cairo",
-          website: "https://www.example.org/stc-egypt",
+          location: "Ankara",
+          website: "https://www.example.org/stc-turkiye",
           verificationStatus: "VERIFIED",
           verifiedAt: new Date(),
           featuredBadge: false,
@@ -136,12 +136,12 @@ async function main() {
         },
         {
           id: IDS.orgUndp,
-          name: "UNDP Egypt",
-          slug: "undp-egypt",
+          name: "UNDP Türkiye",
+          slug: "undp-turkiye",
           description:
             "UN development agency supporting national priorities on climate, governance, and innovation.",
-          location: "Cairo",
-          website: "https://www.example.org/undp-egypt",
+          location: "Ankara",
+          website: "https://www.example.org/undp-turkiye",
           verificationStatus: "VERIFIED",
           verifiedAt: new Date(),
           featuredBadge: true,
@@ -154,7 +154,7 @@ async function main() {
       data: [
         {
           id: IDS.userAdmin,
-          email: "admin@masrjobs.local",
+          email: "admin@turkiyejobs.local",
           passwordHash: pass,
           role: "ADMIN",
           firstName: "Platform",
@@ -162,7 +162,7 @@ async function main() {
         },
         {
           id: IDS.userOrgCare,
-          email: "org@care.masrjobs.local",
+          email: "org@care.turkiyejobs.local",
           passwordHash: pass,
           role: "ORG_USER",
           firstName: "Org",
@@ -171,7 +171,7 @@ async function main() {
         },
         {
           id: IDS.userApplicant,
-          email: "applicant@masrjobs.local",
+          email: "applicant@turkiyejobs.local",
           passwordHash: pass,
           role: "INDIVIDUAL",
           firstName: "Test",
@@ -189,11 +189,11 @@ async function main() {
           slug: "programme-officer-youth-livelihoods",
           title: "Programme Officer — Youth Livelihoods",
           description:
-            "You will support implementation of a multi-year livelihoods programme, ensuring alignment with donor requirements and community needs. Strong Arabic and English, and experience with INGO systems preferred.",
+            "You will support implementation of a multi-year livelihoods programme, ensuring alignment with donor requirements and community needs. Strong Turkish and English, and experience with INGO systems preferred.",
           requirements:
             "Bachelor’s in development studies or related field; 3+ years NGO experience; monitoring and reporting skills.",
           howToApply:
-            "Apply through MasrJobs with CV and cover letter, or use the external link if your organization requires it.",
+            "Apply through TürkiyeJobs with CV and cover letter, or use the external link if your organization requires it.",
           location: "Minya",
           deadline: deadline("2026-06-15"),
           type: "Full-time",
@@ -212,9 +212,9 @@ async function main() {
           description:
             "Develop content strategies, manage social channels, and support crisis communications in coordination with technical teams.",
           requirements:
-            "Degree in communications or journalism; portfolio of NGO or media work; Arabic native, English fluent.",
+            "Degree in communications or journalism; portfolio of NGO or media work; Turkish native, English fluent.",
           howToApply: "Submit CV, portfolio, and cover letter via the apply form on this listing.",
-          location: "Cairo",
+          location: "Ankara",
           deadline: deadline("2026-05-30"),
           type: "Full-time",
           workArrangement: "ONSITE",
@@ -241,7 +241,7 @@ async function main() {
           workArrangement: "HYBRID",
           compensation: "PAID",
           applyMode: "EXTERNAL_LINK",
-          externalApplicationUrl: "https://www.example.org/plan-egypt/consultancies/apply",
+          externalApplicationUrl: "https://www.example.org/plan-turkiye/consultancies/apply",
           status: "PUBLISHED",
           publishedAt: new Date(),
           organizationId: IDS.orgCare,
@@ -252,10 +252,10 @@ async function main() {
           slug: "organizational-development-consultant",
           title: "Organizational Development Consultant",
           description:
-            "Work with leadership and HR to align policies with Egyptian law and international safeguarding standards.",
-          requirements: "Legal or OD background; Arabic and English; prior NGO clients required.",
+            "Work with leadership and HR to align policies with Türkiyeian law and international safeguarding standards.",
+          requirements: "Legal or OD background; Turkish and English; prior NGO clients required.",
           howToApply: "Apply with technical proposal (max 5 pages) and financial offer.",
-          location: "Remote (Egypt-based)",
+          location: "Remote (Türkiye-based)",
           deadline: deadline("2026-05-25"),
           type: "Consultancy",
           workArrangement: "REMOTE",
@@ -268,13 +268,13 @@ async function main() {
         },
         {
           id: IDS.oppPmp,
-          slug: "pmp-training-arabic-undp",
-          title: "Project Management Professional (PMP) — Arabic",
+          slug: "pmp-training-turkish-undp",
+          title: "Project Management Professional (PMP) — Turkish",
           description:
             "Interactive sessions on scope, schedule, risk, and stakeholder management with NGO case studies and exam tips.",
           requirements: "Open to NGO and government staff; laptop required; intermediate English.",
           howToApply: "Register online; limited seats for subsidized NGO participants.",
-          location: "Cairo",
+          location: "Ankara",
           deadline: deadline("2026-06-10"),
           type: "Training",
           workArrangement: "ONSITE",
@@ -320,17 +320,44 @@ async function main() {
         userId: IDS.userApplicant,
         organizationId: IDS.orgCare,
         opportunityId: IDS.oppYouth,
-        title: "Welcome to MasrJobs.org",
+        title: "Welcome to TürkiyeJobs.org",
         message: "Your seeded test account can browse and apply to internal listings.",
         href: `/opportunities/${IDS.oppYouth}`,
       },
     });
+
+    await tx.siteSetting.createMany({
+      data: [
+        { key: "contact.officeTitle", value: "Office" },
+        {
+          key: "contact.body",
+          value:
+            "Ankara, Türkiye\nEmail: hello@turkiyejobs.org\nHours: Mon–Fri, 9:00–18:00 (TRT)",
+        },
+        { key: "contact.mapEmbedUrl", value: "" },
+        {
+          key: "contact.social",
+          value: JSON.stringify([
+            { href: "https://facebook.com/turkiyejobs", abbr: "f", label: "Facebook" },
+            { href: "https://instagram.com/turkiyejobs", abbr: "◎", label: "Instagram" },
+            { href: "https://x.com/turkiyejobs", abbr: "𝕏", label: "X" },
+            {
+              href: "https://linkedin.com/company/turkiyejobs",
+              abbr: "in",
+              label: "LinkedIn",
+            },
+            { href: "https://tiktok.com/@turkiyejobs", abbr: "♪", label: "TikTok" },
+            { href: "https://youtube.com/@turkiyejobs", abbr: "▶", label: "YouTube" },
+          ]),
+        },
+      ],
+    });
   });
 
   console.log("Seed complete. Test logins (email / password):");
-  console.log("  admin@masrjobs.local / MasrjobsSeedPass123");
-  console.log("  org@care.masrjobs.local / MasrjobsSeedPass123");
-  console.log("  applicant@masrjobs.local / MasrjobsSeedPass123");
+  console.log("  admin@turkiyejobs.local / TurkiyeJobsSeedPass123");
+  console.log("  org@care.turkiyejobs.local / TurkiyeJobsSeedPass123");
+  console.log("  applicant@turkiyejobs.local / TurkiyeJobsSeedPass123");
 
   await prisma.$disconnect();
   await pool.end();

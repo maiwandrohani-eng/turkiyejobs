@@ -1,53 +1,54 @@
-export type AboutLocale = "en" | "ar";
+export type AboutLocale = "en" | "tr";
 
 export const ABOUT_TRANSLATIONS = {
   en: {
-    eyebrow: "About MasrJobs.org",
-    title: "Egypt's Development & Social Impact Jobs Platform",
+    eyebrow: "About TürkiyeJobs.org",
+    title: "NGO & Development Sector Jobs in Türkiye",
     description:
-      "MasrJobs.org connects mission-driven talent with NGOs, development agencies, and social enterprises across Egypt — making it easier to find meaningful work and partnerships.",
+      "TürkiyeJobs.org connects mission-driven talent with NGOs, development agencies, and social enterprises across Türkiye — making it easier to find meaningful work and partnerships.",
     missionHeading: "Our mission",
     missionBody:
-      "We believe Egypt's nonprofit and development sector grows stronger when opportunities are transparent, accessible, and trustworthy. MasrJobs.org aggregates roles across humanitarian response, sustainable development, education, climate resilience, gender equality, and more — in one bilingual-ready, mobile-friendly experience.",
+      "We believe Türkiye's nonprofit and development sector grows stronger when opportunities are transparent, accessible, and trustworthy. TürkiyeJobs.org aggregates roles across humanitarian response, sustainable development, education, climate resilience, gender equality, and more — in one bilingual-ready, mobile-friendly experience.",
     serveHeading: "Who we serve",
     serve1: "Professionals seeking NGO jobs, consultancies, and fellowships",
     serve2: "Students and graduates exploring trainings and volunteering",
     serve3: "Organizations recruiting vetted talent and publishing tenders or grants",
     serve4:
-      "Egyptian and international organizations seeking to reach pre-vetted, mission-aligned candidates in Egypt.",
+      "Turkish and international organizations seeking to reach pre-vetted, mission-aligned candidates working in Türkiye's development and humanitarian sector.",
     qualityHeading: "Quality & moderation",
     qualityBody:
-      "MasrJobs uses a two-stage review process. First, every organization account is verified by the admin team before the organization can post anything. Second, every individual listing is reviewed for quality and fit before it appears publicly. This means nothing on MasrJobs is unreviewed — not the employer, not the role.",
+      "TürkiyeJobs uses a two-stage review process. First, every organization account is verified by the admin team before the organization can post anything. Second, every individual listing is reviewed for quality and fit before it appears publicly. This means nothing on TürkiyeJobs is unreviewed — not the employer, not the role.",
     builtHeading: "Who built this",
-    builtPara1Before: "MasrJobs.org was founded by Maiwand Rohani, CEO of ",
+    builtPara1Before: "TürkiyeJobs.org was founded by Maiwand Rohani, CEO of ",
     builtPara1After:
-      " (International Network for Aid, Relief, and Assistance), with the support of volunteers from Egypt's NGO sector who contributed their time and expertise to build the platform.",
+      " (International Network for Aid, Relief, and Assistance), with the support of volunteers from Türkiye's NGO and humanitarian sector who contributed their time and expertise to build the platform.",
     builtPara2:
-      "The platform grew out of a direct need observed through humanitarian and development work in Egypt — the absence of a single, trustworthy, sector-specific space where mission-driven professionals and organizations could find each other. MasrJobs is the answer to that gap.",
+      "The platform was built to fill a specific gap: Türkiye hosts one of the largest humanitarian operations in the world, yet had no dedicated, affordable, and trustworthy platform where NGO professionals and organizations could find each other. TürkiyeJobs is the answer to that gap.",
   },
-  ar: {
-    eyebrow: "حول MasrJobs.org",
-    title: "منصة وظائف التنمية والتأثير الاجتماعي في مصر",
+  tr: {
+    // TODO: extend Turkish translations to remaining pages
+    eyebrow: "TürkiyeJobs.org Hakkında",
+    title: "Türkiye'de STK ve Kalkınma Sektörü İşleri",
     description:
-      "تربط MasrJobs.org المواهب ذات الرسالة بالمنظمات غير الحكومية ووكالات التنمية والمشاريع الاجتماعية في مصر — مما يسهّل إيجاد العمل الهادف وبناء الشراكات.",
-    missionHeading: "مهمتنا",
+      "TürkiyeJobs.org, misyon odaklı yetenekleri Türkiye genelindeki STK'lar, kalkınma ajansları ve sosyal girişimlerle buluşturur.",
+    missionHeading: "Misyonumuz",
     missionBody:
-      "نؤمن بأن قطاع المنظمات غير الربحية وقطاع التنمية في مصر يزداد قوةً حين تكون الفرص شفافة وسهلة الوصول وجديرة بالثقة. تجمع MasrJobs.org الأدوار في مجالات الاستجابة الإنسانية، والتنمية المستدامة، والتعليم، والصمود المناخي، والمساواة بين الجنسين، وغيرها — في تجربة واحدة متعددة اللغات ومناسبة للجوال.",
-    serveHeading: "من نخدم",
-    serve1: "المحترفون الباحثون عن وظائف في المنظمات غير الحكومية والاستشارات والزمالات",
-    serve2: "الطلاب والخريجون الراغبون في استكشاف برامج التدريب والتطوع",
-    serve3: "المنظمات الساعية إلى استقطاب الكفاءات المُدقَّقة ونشر المناقصات والمنح",
+      "Türkiye'nin kâr amacı gütmeyen ve kalkınma sektörünün, fırsatlar şeffaf, erişilebilir ve güvenilir olduğunda güçlendiğine inanıyoruz.",
+    serveHeading: "Kime hizmet ediyoruz",
+    serve1: "STK işleri, danışmanlıklar ve burslar arayan profesyoneller",
+    serve2: "Eğitim ve gönüllülük keşfeden öğrenciler ve mezunlar",
+    serve3: "Eleme yapılmış yetenek istihdam eden ve ihale veya hibe yayınlayan kuruluşlar",
     serve4:
-      "المنظمات المصرية والدولية الراغبة في الوصول إلى مرشحين مُدقَّقين مسبقاً ومنسجمين مع رسالتها في مصر.",
-    qualityHeading: "الجودة والإشراف",
+      "Türkiye'nin kalkınma ve insani yardım sektöründe önceden değerlendirilmiş, misyonla uyumlu adaylara ulaşmak isteyen Türk ve uluslararası kuruluşlar.",
+    qualityHeading: "Kalite ve moderasyon",
     qualityBody:
-      "تعتمد MasrJobs عملية مراجعة من مرحلتين. أولاً، يتحقق فريق الإدارة من كل حساب مؤسسة قبل أن تتمكن من نشر أي شيء. ثانياً، يُراجَع كل إعلان على حدة للتحقق من جودته وملاءمته قبل أن يظهر للعموم. هذا يعني أنه لا شيء على MasrJobs غير مُراجَع — لا صاحب العمل، ولا الوظيفة.",
-    builtHeading: "من بنى هذه المنصة",
-    builtPara1Before: "أسَّس MasrJobs.org ميوند روحاني، الرئيس التنفيذي لـ ",
+      "TürkiyeJobs iki aşamalı bir inceleme süreci kullanır. Önce her kuruluş hesabı doğrulanır; sonra her ilan yayınlanmadan önce incelenir.",
+    builtHeading: "Bunu kim kurdu",
+    builtPara1Before: "TürkiyeJobs.org, ",
     builtPara1After:
-      " (الشبكة الدولية للإغاثة والمساعدة)، بدعم من متطوعين من القطاع غير الحكومي في مصر أسهموا بوقتهم وخبراتهم في بناء المنصة.",
+      " (Uluslararası Yardım, İyileştirme ve Destek Ağı) CEO'su Maiwand Rohani tarafından, platformu inşa etmek için zaman ve uzmanlıklarını katkıda bulunan Türkiye'nin STK ve insani yardım sektöründen gönüllülerin desteğiyle kuruldu.",
     builtPara2:
-      "نبعت المنصة من حاجة مباشرة رُصِدت من خلال العمل الإنساني والتنموي في مصر — غياب فضاء واحد موثوق ومتخصص يتيح للمحترفين والمنظمات ذوي الرسالة إيجاد بعضهم. MasrJobs هو الإجابة على هذا الفراغ.",
+      "Platform, dünyanın en büyük insani yardım operasyonlarından birine ev sahipliği yapan Türkiye'de, STK profesyonelleri ile kuruluşların birbirini bulabileceği güvenilir bir alanın eksikliğini kapatmak için inşa edildi.",
   },
 } as const;
 

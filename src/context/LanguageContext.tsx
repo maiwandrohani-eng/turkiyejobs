@@ -14,7 +14,7 @@ import {
   type HomeTranslationKey,
 } from "@/lib/i18n/home-translations";
 
-const STORAGE_KEY = "masrjobs:locale";
+const STORAGE_KEY = "turkiyejobs:locale";
 
 type LanguageContextValue = {
   locale: HomeLocale;
@@ -29,7 +29,7 @@ function readStoredLocale(): HomeLocale {
   if (typeof window === "undefined") return "en";
   try {
     const v = localStorage.getItem(STORAGE_KEY);
-    return v === "ar" ? "ar" : "en";
+    return v === "tr" ? "tr" : "en";
   } catch {
     return "en";
   }
@@ -43,8 +43,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = locale === "ar" ? "ar" : "en";
-    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = locale === "tr" ? "tr" : "en";
+    document.documentElement.dir = "ltr";
     try {
       localStorage.setItem(STORAGE_KEY, locale);
     } catch {
@@ -57,7 +57,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const toggleLocale = useCallback(() => {
-    setLocaleState((prev) => (prev === "en" ? "ar" : "en"));
+    setLocaleState((prev) => (prev === "en" ? "tr" : "en"));
   }, []);
 
   const t = useCallback(

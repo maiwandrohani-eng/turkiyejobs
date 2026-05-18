@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { OpportunitiesExplorer } from "@/components/OpportunitiesExplorer";
 import { PageIntro, PageShell } from "@/components/PageShell";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function OpportunitiesPageClient() {
@@ -16,7 +16,7 @@ export function OpportunitiesPageClient() {
     ? decodeURIComponent(searchParams.get("org")!.trim())
     : "";
   const categoryFilter = searchParams.get("category");
-  const { opportunities, hydrated } = useMasrJobs();
+  const { opportunities, hydrated } = useTurkiyeJobs();
 
   return (
     <div className="min-h-[60vh] bg-background">

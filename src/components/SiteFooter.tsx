@@ -14,12 +14,14 @@ export function SiteFooter({ social }: SiteFooterProps) {
   const links = social?.length ? social : DEFAULT_SOCIAL_LINKS;
 
   return (
-    <footer className="border-t border-brand-navy/20 bg-brand-navy text-white">
+    <footer className="border-t border-brand-teal-deep/30 bg-brand-teal text-white">
       <div className="mx-auto w-full max-w-6xl px-4 py-10">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md">
-            <div className="text-base font-semibold text-brand-gold-soft">
-              MasrJobs.org
+            <div className="text-base font-semibold">
+              <span className="text-brand-gold-soft">Türkiye</span>
+              <span className="text-white">Jobs</span>
+              <span className="text-brand-gray">.org</span>
             </div>
             <p className="mt-2 text-sm text-white/80">{t("footerTagline")}</p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -97,7 +99,7 @@ export function SiteFooter({ social }: SiteFooterProps) {
         <div className="mt-8 flex flex-col gap-2 border-t border-white/15 pt-6 text-xs text-white/60 md:flex-row md:items-center md:justify-between">
           <div>{t("footerCopyright")}</div>
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-2 rounded-full bg-brand-gold" />
+            <span className="inline-block h-2 w-2 rounded-full bg-brand-red" />
             <span className="text-white/70">{t("footerBuiltFor")}</span>
           </div>
         </div>

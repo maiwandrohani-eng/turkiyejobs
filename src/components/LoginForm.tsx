@@ -4,7 +4,7 @@ import { getSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 import type { SessionUser, UserRole } from "@/lib/types";
 
@@ -19,12 +19,12 @@ export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const resetOk = searchParams.get("reset") === "1";
-  const { login, exitPreviewSession } = useMasrJobs();
+  const { login, exitPreviewSession } = useTurkiyeJobs();
   const previewAuth = isDemoAuthEnabled();
   const [signInMode, setSignInMode] = useState<"preview" | "database">(
     previewAuth ? "preview" : "database",
   );
-  const [email, setEmail] = useState(previewAuth ? "preview.applicant@masrjobs.local" : "");
+  const [email, setEmail] = useState(previewAuth ? "preview.applicant@turkiyejobs.local" : "");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -45,7 +45,7 @@ export function LoginForm() {
         email,
         displayName: local.replace(/[._-]/g, " "),
         organizationName:
-          role === "organization" ? "Care Egypt Foundation" : undefined,
+          role === "organization" ? "Care Türkiye Foundation" : undefined,
         organizationId: role === "organization" ? "org-2" : undefined,
       };
       login(session);
@@ -189,7 +189,7 @@ export function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
             autoComplete="current-password"
-            placeholder={previewAuth ? "Your MasrJobs.org password" : ""}
+            placeholder={previewAuth ? "Your TürkiyeJobs.org password" : ""}
           />
         </>
       ) : null}
@@ -209,7 +209,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={busy}
-        className="mt-6 w-full rounded-xl bg-brand-navy py-3 text-sm font-semibold text-white hover:opacity-95 disabled:opacity-60"
+        className="mt-6 w-full btn-primary py-3 text-sm font-semibold text-white "
       >
         {busy ? "Signing in…" : "Sign in"}
       </button>

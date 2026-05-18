@@ -1,19 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  /* Logo-aligned MasrJobs palette (navy “JOBS” + gold “MASR”) */
-  --brand-navy: #1b365d;
-  --brand-navy-deep: #152a49;
-  --brand-gold: #c5a059;
-  --brand-gold-soft: #e8d9b4;
-  --brand-gold-muted: #f5efe3;
+  /* TürkiyeJobs logo: turkiye #B51E36 · jobs #134E5E · .org #D1D5DB */
+  --brand-red: #b51e36;
+  --brand-red-hover: #9a1a2e;
+  --brand-teal: #134e5e;
+  --brand-teal-deep: #0d3844;
+  --brand-gray: #d1d5db;
 
-  --background: #f8f7f4;
-  --foreground: #1b365d;
+  --brand-navy: var(--brand-teal);
+  --brand-navy-deep: var(--brand-teal-deep);
+  --brand-gold: var(--brand-red);
+  --brand-gold-soft: #f0c4cb;
+  --brand-gold-muted: #fdf2f4;
 
-  --brand-muted: #f0ebe2;
-  --brand-border: #e0d8ca;
+  --background: #f4f8fa;
+  --foreground: var(--brand-teal);
+
+  --brand-muted: #e8f0f3;
+  --brand-border: #cdd9df;
   --card: #ffffff;
+
+  --surface-hero: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-red) 7%, #ffffff) 0%,
+    #ffffff 42%,
+    color-mix(in srgb, var(--brand-teal) 9%, #f4f8fa) 100%
+  );
+  --surface-teal: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--brand-teal) 14%, #ffffff),
+    color-mix(in srgb, var(--brand-teal) 6%, var(--brand-muted))
+  );
+  --surface-red: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--brand-red) 10%, #ffffff),
+    var(--brand-gold-muted)
+  );
 }
 
 @theme inline {
@@ -21,6 +44,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-hover: var(--brand-red-hover);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-deep: var(--brand-teal-deep);
+  --color-brand-gray: var(--brand-gray);
 
   --color-brand-navy: var(--brand-navy);
   --color-brand-navy-deep: var(--brand-navy-deep);
@@ -32,6 +61,44 @@
   --color-card: var(--card);
 }
 
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-brand-red font-semibold text-white shadow-sm transition-colors hover:bg-brand-red-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red/45 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl bg-brand-teal font-semibold text-white shadow-sm transition-colors hover:bg-brand-teal-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/45 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-xl border border-brand-teal/30 bg-white font-semibold text-brand-teal shadow-sm transition-colors hover:border-brand-teal/50 hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/30;
+  }
+
+  .input-brand {
+    @apply w-full rounded-xl border border-brand-border bg-white px-3 py-2.5 text-sm outline-none focus:border-brand-teal/40 focus:ring-2 focus:ring-brand-red/25 disabled:opacity-60;
+  }
+
+  .surface-hero {
+    background: var(--surface-hero);
+  }
+
+  .surface-teal {
+    background: var(--surface-teal);
+  }
+
+  .surface-red {
+    background: var(--surface-red);
+  }
+
+  .eyebrow-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-teal/20 bg-white px-3 py-1 text-xs font-semibold text-brand-teal shadow-sm;
+  }
+
+  .link-accent {
+    @apply font-semibold text-brand-red underline decoration-brand-red/40 underline-offset-2 hover:text-brand-red-hover;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -39,6 +106,6 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--brand-gold) 38%, transparent);
-  color: var(--brand-navy-deep);
+  background: color-mix(in srgb, var(--brand-red) 28%, transparent);
+  color: var(--brand-teal-deep);
 }

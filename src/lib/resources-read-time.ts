@@ -3,7 +3,7 @@ import {
   type ResourceArticleBody,
 } from "@/lib/resources-articles";
 
-export const RESOURCE_AUTHOR_DEFAULT = "MasrJobs Editorial";
+export const RESOURCE_AUTHOR_DEFAULT = "TürkiyeJobs Editorial";
 
 export function resourceArticleAuthor(article: {
   author?: string | null;

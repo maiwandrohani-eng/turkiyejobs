@@ -19,7 +19,7 @@ export function getExternalApplicationHref(o: Opportunity): string | undefined {
 export function applicationMethodLabel(m: OpportunityApplicationMethod): string {
   switch (m) {
     case "internal":
-      return "Internal (MasrJobs.org)";
+      return "Internal (TürkiyeJobs.org)";
     case "email":
       return "Apply by email";
     case "external":

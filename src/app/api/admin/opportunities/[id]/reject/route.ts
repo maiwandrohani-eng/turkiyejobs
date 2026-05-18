@@ -83,7 +83,7 @@ export async function POST(req: Request, ctx: RouteContext) {
           organizationId: row.organizationId,
           opportunityId: row.id,
           title: "Listing not approved",
-          message: `“${row.title}” was not approved for public listing on MasrJobs.org.`,
+          message: `“${row.title}” was not approved for public listing on TürkiyeJobs.org.`,
           href: "/dashboard/organization",
         })),
       });

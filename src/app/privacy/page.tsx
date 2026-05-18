@@ -7,7 +7,7 @@ export default function PrivacyPage() {
         <PageIntro
           eyebrow="Legal"
           title="Privacy Policy"
-          description="How MasrJobs.org handles personal data. Replace with jurisdiction-specific legal review before launch."
+          description="How TürkiyeJobs.org handles personal data. Replace with jurisdiction-specific legal review before launch."
         />
         <div className="space-y-6 text-sm leading-relaxed text-foreground/80">
           <section className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
             <h2 className="text-base font-bold text-brand-navy">5. Your rights</h2>
             <p className="mt-3">
               Depending on your location, you may request access, correction, export, or
-              deletion of personal data. Contact privacy@masrjobs.org for requests.
+              deletion of personal data. Contact privacy@turkiyejobs.org for requests.
             </p>
           </section>
         </div>

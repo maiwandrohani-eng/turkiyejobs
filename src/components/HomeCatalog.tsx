@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { HomeCtaRow, HomeFeatured } from "@/components/HomeFeatured";
 import { ViewModeToggle } from "@/components/ViewModeToggle";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { usePersistedViewMode } from "@/hooks/usePersistedViewMode";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function HomeCatalog() {
-  const { opportunities, hydrated } = useMasrJobs();
+  const { opportunities, hydrated } = useTurkiyeJobs();
   const { t } = useLanguage();
   const { mode: homeViewMode, setMode: setHomeViewMode } = usePersistedViewMode(
-    "masrjobs:v1:viewHomeOpportunities",
+    "turkiyejobs:v1:viewHomeOpportunities",
   );
 
   if (!hydrated) {

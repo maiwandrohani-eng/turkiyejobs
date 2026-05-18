@@ -24,7 +24,7 @@ function scrollToOrgAnchor(anchorId: string): boolean {
 /** Deep links to `/organizations#org-…` (bookmark / email) scroll the directory list. */
 
 export function OrganizationsDirectory({ organizations }: { organizations: Organization[] }) {
-  const { mode, setMode } = usePersistedViewMode("masrjobs:v1:viewOrganizationsDirectory");
+  const { mode, setMode } = usePersistedViewMode("turkiyejobs:v1:viewOrganizationsDirectory");
   const { t } = useLanguage();
 
   const scrollFromLocationHash = useCallback(() => {
@@ -108,7 +108,7 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
               <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Link
                   href={`/organizations/${encodeURIComponent(org.slug)}`}
-                  className="inline-flex min-h-[2.75rem] cursor-pointer items-center justify-center rounded-lg bg-brand-navy px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
+                  className="inline-flex min-h-[2.75rem] cursor-pointer items-center justify-center btn-primary px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm  sm:min-h-0"
                 >
                   {t("orgDirectoryViewProfile")}
                 </Link>
@@ -175,7 +175,7 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
               <div className="mt-3 flex shrink-0 flex-col gap-2 sm:mt-0 sm:items-end">
                 <Link
                   href={`/organizations/${encodeURIComponent(org.slug)}`}
-                  className="inline-flex min-h-[2.75rem] w-full cursor-pointer items-center justify-center rounded-lg bg-brand-navy px-3 py-2 text-center text-xs font-semibold text-white shadow-sm hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:w-auto sm:min-h-0"
+                  className="inline-flex min-h-[2.75rem] w-full cursor-pointer items-center justify-center btn-primary px-3 py-2 text-center text-xs font-semibold text-white shadow-sm  sm:w-auto sm:min-h-0"
                 >
                   {t("orgDirectoryViewProfile")}
                 </Link>

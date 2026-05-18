@@ -69,7 +69,7 @@ export async function POST(req: Request) {
   if (!staff.ok) {
     console.error("[contact] staff notify failed", staff.error);
     return NextResponse.json(
-      { ok: false, error: "We could not deliver your message. Please try again or email hello@masrjobs.org." },
+      { ok: false, error: "We could not deliver your message. Please try again or email hello@turkiyejobs.org." },
       { status: 502 },
     );
   }
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
       ok: true,
       confirmationEmailSent: false,
       message:
-        "Your message was received by our team, but we could not send a confirmation email. Please check spam or contact hello@masrjobs.org if you need a reply.",
+        "Your message was received by our team, but we could not send a confirmation email. Please check spam or contact hello@turkiyejobs.org if you need a reply.",
     });
   }
 

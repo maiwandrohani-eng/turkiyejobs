@@ -4,7 +4,7 @@ import { useCallback, useSyncExternalStore } from "react";
 
 export type BrowseViewMode = "card" | "list";
 
-const VIEW_EVENT = "masrjobs:view-mode-preference";
+const VIEW_EVENT = "turkiyejobs:view-mode-preference";
 
 function parseMode(raw: string | null): BrowseViewMode {
   return raw === "list" ? "list" : "card";

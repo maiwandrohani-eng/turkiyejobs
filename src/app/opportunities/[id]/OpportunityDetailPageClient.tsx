@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { OpportunityDetailActions } from "@/components/OpportunityDetailActions";
 import { OpportunityDetailFields } from "@/components/OpportunityDetailFields";
 import { PageShell } from "@/components/PageShell";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { canUserViewOpportunityDetail, suppressedCatalogIdsForBrowse } from "@/lib/opportunity-visibility";
 import {
   applicationMethodLabel,
@@ -35,7 +35,7 @@ export default function OpportunityDetailPageClient({
   const params = useParams();
   const raw = typeof params?.id === "string" ? params.id : pathParam;
   const { getOpportunityById, hydrated, session, suppressedCatalogIds } =
-    useMasrJobs();
+    useTurkiyeJobs();
 
   const waitingHydration =
     (initialOpportunity === undefined && !hydrated) ||
@@ -180,7 +180,7 @@ export default function OpportunityDetailPageClient({
                   </dt>
                   <dd className="mt-0.5 text-foreground/85">
                     {applyMethod === "internal"
-                      ? "Submit through MasrJobs.org (stored when you apply)."
+                      ? "Submit through TürkiyeJobs.org (stored when you apply)."
                       : applyMethod === "email"
                         ? `Apply by email to ${opportunity.applicationEmail ?? "the address shown in Apply"}.`
                         : "Follow the employer’s external application link in the Apply panel."}

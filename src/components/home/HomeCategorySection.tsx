@@ -125,7 +125,7 @@ function EarlyAccessCapture() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="shrink-0 rounded-xl bg-brand-navy px-6 py-2.5 text-sm font-semibold text-white hover:opacity-95 disabled:opacity-60"
+          className="shrink-0 btn-primary px-6 py-2.5 text-sm font-semibold text-white "
         >
           {status === "loading" ? t("earlySaving") : t("newsletterButton")}
         </button>

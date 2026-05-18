@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 
 type PublishedProfile = {
@@ -48,7 +48,7 @@ function formatSaveError(body: unknown): string {
 }
 
 export function EmployerOrganizationProfilePanel() {
-  const { refreshPublicCatalog } = useMasrJobs();
+  const { refreshPublicCatalog } = useTurkiyeJobs();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -231,7 +231,7 @@ export function EmployerOrganizationProfilePanel() {
           <p className="font-semibold text-brand-navy">About text — what to include</p>
           <ul className="mt-2 list-inside list-disc space-y-1.5">
             <li>Mission and main programme areas (e.g. health, education, livelihoods).</li>
-            <li>Where you work in Egypt or regionally, and typical roles you hire for.</li>
+            <li>Where you work in Türkiye or regionally, and typical roles you hire for.</li>
             <li>Registration or partnership context if helpful (without sharing sensitive IDs).</li>
             <li>Safeguarding, equal opportunity, or language requirements if relevant.</li>
           </ul>
@@ -279,7 +279,7 @@ export function EmployerOrganizationProfilePanel() {
                 placeholder="careers@yourorg.org (shown to candidates when relevant)"
               />
               <p className="mt-1 text-xs text-foreground/55">
-                This is not your MasrJobs sign-in email; it is the address you want published for
+                This is not your TürkiyeJobs sign-in email; it is the address you want published for
                 inquiries.
               </p>
             </div>
@@ -317,7 +317,7 @@ export function EmployerOrganizationProfilePanel() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="mt-2 w-full rounded-xl border border-brand-border bg-white px-3 py-2 text-sm text-brand-navy outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/45"
-                placeholder="e.g. Cairo, Egypt · hybrid with field visits"
+                placeholder="e.g. Ankara, Türkiye · hybrid with field visits"
               />
             </div>
             <div>
@@ -386,7 +386,7 @@ export function EmployerOrganizationProfilePanel() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:opacity-95 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+              className="inline-flex btn-primary px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
             >
               {saving ? "Submitting…" : "Submit for administrator approval"}
             </button>

@@ -16,9 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getResourceArticle(slug);
   if (!article) {
-    return { title: "Resource | MasrJobs.org" };
+    return { title: "Resource | TürkiyeJobs.org" };
   }
-  const title = `${article.title} | MasrJobs.org`;
+  const title = `${article.title} | TürkiyeJobs.org`;
   const description = article.excerpt;
   const url = absoluteUrl(`/resources/${article.slug}`);
   return {
@@ -92,7 +92,7 @@ export default async function ResourceArticlePage({ params }: Props) {
           </Link>
           <Link
             href="/opportunities"
-            className="rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:opacity-95"
+            className="btn-primary px-5 py-2.5 text-sm font-semibold text-white"
           >
             Browse opportunities
           </Link>

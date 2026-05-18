@@ -7,13 +7,13 @@ export default function TermsPage() {
         <PageIntro
           eyebrow="Legal"
           title="Terms of Service"
-          description="These terms govern your use of MasrJobs.org. Replace with counsel-reviewed text before production launch."
+          description="These terms govern your use of TürkiyeJobs.org. Replace with counsel-reviewed text before production launch."
         />
         <div className="space-y-6 text-sm leading-relaxed text-foreground/80">
           <section className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
             <h2 className="text-base font-bold text-brand-navy">1. Acceptance</h2>
             <p className="mt-3">
-              By accessing MasrJobs.org you agree to these terms and our Privacy Policy.
+              By accessing TürkiyeJobs.org you agree to these terms and our Privacy Policy.
               If you disagree, please discontinue use of the platform.
             </p>
           </section>
@@ -28,7 +28,7 @@ export default function TermsPage() {
           <section className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
             <h2 className="text-base font-bold text-brand-navy">3. Listings & applications</h2>
             <p className="mt-3">
-              Opportunities are provided by third-party organizations. MasrJobs.org does
+              Opportunities are provided by third-party organizations. TürkiyeJobs.org does
               not guarantee hiring outcomes. Applications may be submitted through our
               tools or external employer systems as indicated in each listing.
             </p>
@@ -43,7 +43,7 @@ export default function TermsPage() {
           <section className="rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
             <h2 className="text-base font-bold text-brand-navy">5. Limitation of liability</h2>
             <p className="mt-3">
-              To the fullest extent permitted by law, MasrJobs.org and its operators are
+              To the fullest extent permitted by law, TürkiyeJobs.org and its operators are
               not liable for indirect or consequential damages arising from use of the site.
             </p>
           </section>

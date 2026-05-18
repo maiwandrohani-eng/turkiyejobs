@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TurkiyeJobs.org — Platform Specification</title>
+  <style>
+    @page { margin: 18mm 16mm; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+      color: #1b365d;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    h1 { font-size: 20pt; border-bottom: 2px solid #c5a059; padding-bottom: 8px; margin-top: 0; }
+    h2 { font-size: 13pt; margin-top: 1.4em; color: #152a49; page-break-after: avoid; }
+    h3 { font-size: 11pt; margin-top: 1em; page-break-after: avoid; }
+    table { border-collapse: collapse; width: 100%; margin: 0.6em 0; font-size: 9.5pt; }
+    th, td { border: 1px solid #e0d8ca; padding: 6px 8px; text-align: left; vertical-align: top; }
+    th { background: #f5efe3; }
+    code, pre { font-family: ui-monospace, monospace; font-size: 9pt; background: #f0ebe2; }
+    pre { padding: 10px; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; }
+    ul { margin: 0.4em 0; padding-left: 1.3em; }
+    li { margin: 0.25em 0; }
+    .meta { color: #555; font-size: 9.5pt; margin-bottom: 1.5em; }
+    .page-break { page-break-before: always; }
+    a { color: #1b365d; }
+  </style>
+</head>
+<body>
+  <h1>TurkiyeJobs.org — Complete Product &amp; Technical Specification</h1>
+  <p class="meta">For Cursor AI / developers cloning MasrJobs for Turkey. Domain: <strong>https://turkiyejobs.org</strong>. Replace Egypt and Arabic with Turkey and Turkish; keep architecture identical unless noted.</p>
+
+  <h2>1. Product overview</h2>
+  <h3>1.1 Purpose</h3>
+  <p>Sector-specific job board for NGOs, INGOs, development agencies, and social enterprises:</p>
+  <ul>
+    <li><strong>Individuals</strong> — browse, save, apply</li>
+    <li><strong>Organizations</strong> — register, verify, post listings</li>
+    <li><strong>Admins</strong> — verify orgs, approve listings, moderate users</li>
+  </ul>
+  <h3>1.2 Core value</h3>
+  <ul>
+    <li>Two-stage trust: organization account + each listing human-reviewed before public</li>
+    <li>Listing types: Jobs, Consultancies, Trainings, Volunteer Roles, Tenders, Grants</li>
+    <li>Apply modes: internal on-platform, email, external URL</li>
+    <li>Verified employer directory</li>
+  </ul>
+  <h3>1.3 Market (TurkiyeJobs)</h3>
+  <table>
+    <tr><th>Dimension</th><th>Value</th></tr>
+    <tr><td>Sector</td><td>Turkey NGO / development / civil society</td></tr>
+    <tr><td>Languages</td><td>English + Turkish (TR)</td></tr>
+    <tr><td>Domain</td><td>https://turkiyejobs.org</td></tr>
+    <tr><td>Locale direction</td><td>LTR for both EN and TR (Turkish is not RTL)</td></tr>
+    <tr><td>Examples</td><td>Istanbul, Ankara, Turkish organizations</td></tr>
+  </table>
+
+  <h2>2. Tech stack</h2>
+  <table>
+    <tr><th>Layer</th><th>Technology</th></tr>
+    <tr><td>Framework</td><td>Next.js 16 (App Router)</td></tr>
+    <tr><td>UI</td><td>React 19, Tailwind CSS v4</td></tr>
+    <tr><td>Database</td><td>PostgreSQL (Neon)</td></tr>
+    <tr><td>ORM</td><td>Prisma 7</td></tr>
+    <tr><td>Auth</td><td>NextAuth v4, Credentials, JWT (30 days)</td></tr>
+    <tr><td>Email</td><td>Resend</td></tr>
+    <tr><td>Hosting</td><td>Vercel (GitHub main → deploy)</td></tr>
+  </table>
+  <pre>npm run dev | npm run build
+npx prisma db push   # from app root
+npx prisma db seed</pre>
+  <h3>Environment variables</h3>
+  <pre>DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=https://turkiyejobs.org
+NEXT_PUBLIC_SITE_URL=https://turkiyejobs.org
+NEXT_PUBLIC_ENABLE_DEMO_AUTH=false
+RESEND_API_KEY=
+EMAIL_FROM=TurkiyeJobs &lt;noreply@turkiyejobs.org&gt;
+CONTACT_INBOX_EMAIL=</pre>
+
+  <h2>3. Design system</h2>
+  <p>Navy #1b365d, Gold #c5a059, Background #f8f7f4. Rounded cards, PageShell/PageIntro, sticky header with gold accent.</p>
+
+  <h2>4. Roles &amp; authentication</h2>
+  <table>
+    <tr><th>Role</th><th>Dashboard</th></tr>
+    <tr><td>INDIVIDUAL</td><td>/dashboard/user</td></tr>
+    <tr><td>ORG_USER</td><td>/dashboard/organization</td></tr>
+    <tr><td>ADMIN</td><td>/dashboard/admin</td></tr>
+  </table>
+  <p>Register → login → JWT. /dashboard/* protected in src/proxy.ts. Demo auth only for local preview.</p>
+
+  <div class="page-break"></div>
+  <h2>5. Database (Prisma)</h2>
+  <p><strong>Models:</strong> User, Organization, OrganizationProfileChange, Category (nameEn + nameTr), Opportunity, OpportunityAttachment, Application, SavedOpportunity, FeaturedOpportunity, ExternalApplyIntent, Notification, AdminActionLog, PasswordResetToken, NewsletterSubscription, EarlyAccessEmail, CommunityEvent (confirmed boolean), SiteSetting.</p>
+  <p><strong>Opportunity status:</strong> PENDING_APPROVAL → PUBLISHED | REJECTED | CLOSED</p>
+  <p><strong>Org verification:</strong> PENDING → VERIFIED | REJECTED</p>
+
+  <h2>6. Business workflows</h2>
+  <h3>Organization (stage 1)</h3>
+  <p>Register → admin approve/reject → VERIFIED can post.</p>
+  <h3>Listing (stage 2)</h3>
+  <p>Submit → admin approve/reject → public catalog. Featured toggle. Close/delete.</p>
+  <h3>Applications</h3>
+  <ul>
+    <li>Internal: POST /api/applications/internal → Application + emails</li>
+    <li>Email / external: instructions + ExternalApplyIntent</li>
+    <li>Employer PATCH status → applicant email</li>
+  </ul>
+  <h3>Catalog</h3>
+  <p>GET /api/catalog — published only, no-store. Production uses Neon, not localStorage.</p>
+  <h3>Homepage early launch</h3>
+  <p>If published count &lt; 10: EarlyAccessEmail capture. Else: six category pill links.</p>
+
+  <h2>7. Public routes</h2>
+  <table>
+    <tr><th>Route</th><th>Purpose</th></tr>
+    <tr><td>/</td><td>Homepage</td></tr>
+    <tr><td>/opportunities</td><td>Filterable listings</td></tr>
+    <tr><td>/opportunities/[id]</td><td>Detail + apply</td></tr>
+    <tr><td>/organizations</td><td>Directory</td></tr>
+    <tr><td>/organizations/[slug]</td><td>Org profile</td></tr>
+    <tr><td>/resources</td><td>Articles + newsletter</td></tr>
+    <tr><td>/about, /how-it-works, /impact</td><td>Content / transparency</td></tr>
+    <tr><td>/events</td><td>Events + UNCONFIRMED badges</td></tr>
+    <tr><td>/contact</td><td>Contact form → Resend</td></tr>
+  </table>
+
+  <h2>8. Dashboards</h2>
+  <p><strong>User:</strong> applications, saved jobs, profile.</p>
+  <p><strong>Organization:</strong> post form, listings, applications, profile changes (pending admin).</p>
+  <p><strong>Admin:</strong> pending orgs/opportunities, user/org registry, profile changes, audit logs, site contact settings.</p>
+
+  <h2>9. API summary</h2>
+  <p>Public: catalog, newsletter/subscribe, early-access, contact. Auth: register, forgot/reset, nextauth. Me + organization + admin routes as in MasrJobs reference codebase.</p>
+
+  <h2>10. Internationalization</h2>
+  <ul>
+    <li>File: src/lib/i18n/home-translations.ts</li>
+    <li>Locales: en | tr (replace ar with tr)</li>
+    <li>LanguageContext + EN | TR toggle in header</li>
+    <li>Turkish is LTR — dir="ltr" for both locales</li>
+    <li>Category.nameTr in database</li>
+  </ul>
+
+  <div class="page-break"></div>
+  <h2>11. Homepage specification</h2>
+  <ul>
+    <li>Hero: two subheadlines + trust line; CTAs Browse | Post a listing →</li>
+    <li>Organizations on TurkiyeJobs strip (verified only)</li>
+    <li>Category pills if ≥10 listings; else early-access email</li>
+    <li>Explore: six cards; “Our commitments” → /impact</li>
+    <li>Newsletter block + Employer CTA (light background)</li>
+    <li>Featured + latest catalog sections</li>
+  </ul>
+
+  <h2>12. Content pages</h2>
+  <ul>
+    <li><strong>About:</strong> mission, who we serve, quality, who built this (Turkey founder copy)</li>
+    <li><strong>How it works:</strong> numbered employer two-stage process; 48h review note</li>
+    <li><strong>Impact:</strong> Our commitments (4 bullets), How verification works</li>
+    <li><strong>Events:</strong> confirmed field, UNCONFIRMED badge, warning banner</li>
+    <li><strong>Resources:</strong> newsletter top; author “TurkiyeJobs Editorial”; read time</li>
+    <li><strong>Contact:</strong> staff inbox + user confirmation email</li>
+  </ul>
+
+  <h2>13. Email (Resend)</h2>
+  <p>Registration, password reset, applications, org/opp approval, status updates, contact form. From: noreply@turkiyejobs.org</p>
+
+  <h2>14. Repository layout</h2>
+  <pre>turkiyejobs/
+├── prisma/schema.prisma
+├── prisma.config.ts
+├── src/app/ | components/ | context/ | lib/
+└── src/proxy.ts</pre>
+  <p>Run Prisma from app root where .env lives.</p>
+
+  <h2>15. Turkey clone checklist</h2>
+  <ul>
+    <li>Brand TurkiyeJobs.org + turkiyejobs.org env URLs</li>
+    <li>Replace Egypt/Cairo strings with Turkey/Istanbul</li>
+    <li>Full en + tr translations</li>
+    <li>EN | TR toggle; LTR only</li>
+    <li>Neon DB, prisma db push, seed, Resend, Vercel</li>
+    <li>NEXT_PUBLIC_ENABLE_DEMO_AUTH=false in production</li>
+  </ul>
+
+  <h2>16. Reference</h2>
+  <p>Based on MasrJobs.org architecture (commit 2a33ee9). This document uses domain <strong>https://turkiyejobs.org</strong> throughout. Default contact: hello@turkiyejobs.org</p>
+</body>
+</html>

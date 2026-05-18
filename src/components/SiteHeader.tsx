@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { LogoMark } from "@/components/LogoMark";
 import { cn } from "@/lib/cn";
 import { useLanguage } from "@/context/LanguageContext";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 
 const NAV_KEYS = [
   { href: "/opportunities", key: "navOpportunities" },
@@ -30,22 +30,22 @@ function LanguageToggle({ className }: { className?: string }) {
         onClick={() => setLocale("en")}
         className={`rounded-md px-2.5 py-1.5 transition ${
           locale === "en"
-            ? "bg-brand-navy text-white"
-            : "text-brand-navy/70 hover:bg-brand-muted"
+            ? "bg-brand-red text-white"
+            : "text-brand-teal/70 hover:bg-brand-gold-muted"
         }`}
       >
         EN
       </button>
       <button
         type="button"
-        onClick={() => setLocale("ar")}
+        onClick={() => setLocale("tr")}
         className={`rounded-md px-2.5 py-1.5 transition ${
-          locale === "ar"
-            ? "bg-brand-navy text-white"
-            : "text-brand-navy/70 hover:bg-brand-muted"
+          locale === "tr"
+            ? "bg-brand-red text-white"
+            : "text-brand-teal/70 hover:bg-brand-gold-muted"
         }`}
       >
-        AR
+        TR
       </button>
     </div>
   );
@@ -53,7 +53,7 @@ function LanguageToggle({ className }: { className?: string }) {
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const { session, hydrated } = useMasrJobs();
+  const { session, hydrated } = useTurkiyeJobs();
   const { t } = useLanguage();
 
   const dashboardHref =
@@ -66,11 +66,11 @@ export function SiteHeader() {
           : "/dashboard";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-brand-gold/25 bg-white/95 shadow-[0_1px_0_0_rgba(27,54,93,0.06)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-brand-red/20 bg-white/95 shadow-[0_1px_0_0_rgba(19,78,94,0.08)] backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3.5 md:py-4">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <LogoMark />
-          <span className="sr-only">MasrJobs.org home</span>
+          <span className="sr-only">TürkiyeJobs.org home</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -78,7 +78,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-brand-navy/85 transition-colors hover:bg-brand-gold-muted hover:text-brand-navy"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-brand-teal/90 transition-colors hover:bg-brand-gold-muted hover:text-brand-teal"
             >
               {t(item.key)}
             </Link>
@@ -90,7 +90,7 @@ export function SiteHeader() {
           {hydrated && session ? (
             <Link
               href={dashboardHref}
-              className="rounded-lg border border-brand-navy/15 bg-white px-3 py-2 text-sm font-semibold text-brand-navy shadow-sm hover:border-brand-gold/50 hover:bg-brand-gold-muted"
+              className="btn-outline px-3 py-2 text-sm shadow-sm"
             >
               {t("navDashboard")}
             </Link>
@@ -99,13 +99,13 @@ export function SiteHeader() {
             <>
               <Link
                 href="/login"
-                className="rounded-lg px-3 py-2 text-sm font-medium text-brand-navy/80 hover:bg-brand-gold-muted hover:text-brand-navy"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-brand-teal/80 hover:bg-brand-gold-muted hover:text-brand-teal"
               >
                 {t("navLogin")}
               </Link>
               <Link
                 href="/register"
-                className="rounded-lg bg-brand-navy px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-navy-deep"
+                className="btn-primary px-4 py-2 text-sm"
               >
                 {t("navRegister")}
               </Link>
@@ -165,7 +165,7 @@ export function SiteHeader() {
               <Link
                 href="/register"
                 onClick={() => setOpen(false)}
-                className="rounded-lg bg-brand-navy py-2.5 text-center text-sm font-semibold text-white"
+                className="btn-primary py-2.5 text-center text-sm font-semibold text-white"
               >
                 {t("navRegister")}
               </Link>

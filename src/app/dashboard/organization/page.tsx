@@ -10,7 +10,7 @@ import {
   ListingStatusBadge,
 } from "@/components/StatusBadge";
 import { ViewModeToggle } from "@/components/ViewModeToggle";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { usePersistedViewMode } from "@/hooks/usePersistedViewMode";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
 import type { ApplicationStatus } from "@/lib/types";
@@ -25,10 +25,10 @@ export default function OrganizationDashboardPage() {
     closeOwnPublishedListing,
     organizationCanPost,
     externalApplyIntents,
-  } = useMasrJobs();
+  } = useTurkiyeJobs();
 
   const { mode: postedViewMode, setMode: setPostedViewMode } = usePersistedViewMode(
-    "masrjobs:v1:viewOrgPostedListings",
+    "turkiyejobs:v1:viewOrgPostedListings",
   );
 
   if (!hydrated) {
@@ -48,7 +48,7 @@ export default function OrganizationDashboardPage() {
         />
         <Link
           href="/register"
-          className="inline-flex rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white"
+          className="inline-flex btn-primary px-5 py-2.5 text-sm font-semibold text-white"
         >
           Register organization
         </Link>
@@ -82,12 +82,12 @@ export default function OrganizationDashboardPage() {
       {!organizationCanPost ? (
         <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
           <strong>Account pending:</strong> Your organization registration must be
-          approved by MasrJobs.org administrators before you can publish new listings.
+          approved by TürkiyeJobs.org administrators before you can publish new listings.
           {isDemoAuthEnabled() ? (
             <>
               {" "}
               Optional local preview: approve a pending organization from the admin
-              console, or sign in with a seeded employer account (e.g. Care Egypt Foundation)
+              console, or sign in with a seeded employer account (e.g. Care Türkiye Foundation)
               if your database includes sample data.
             </>
           ) : (
@@ -237,7 +237,7 @@ export default function OrganizationDashboardPage() {
                 <div className="mt-4 flex flex-col gap-2 border-t border-brand-border pt-4 sm:flex-row sm:flex-wrap">
                   <Link
                     href={`/opportunities/${row.opportunityId}`}
-                    className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg bg-brand-navy px-3 py-2 text-center text-xs font-semibold text-white hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
+                    className="inline-flex min-h-[2.75rem] items-center justify-center btn-primary px-3 py-2 text-center text-xs font-semibold text-white  sm:min-h-0"
                   >
                     View
                   </Link>
@@ -266,12 +266,12 @@ export default function OrganizationDashboardPage() {
 
       <section className="mt-8">
         <h2 className="text-base font-bold text-brand-navy">
-          Internal applications (MasrJobs.org)
+          Internal applications (TürkiyeJobs.org)
         </h2>
         {orgApps.length === 0 ? (
           <div className="mt-4 rounded-2xl border border-dashed border-brand-border bg-white px-6 py-10 text-center shadow-sm">
             <p className="text-sm text-foreground/70">
-              Applications appear here when candidates apply through MasrJobs.org to your
+              Applications appear here when candidates apply through TürkiyeJobs.org to your
               published listings. Ask applicants to use an individual account and apply to
               your live roles from the opportunities directory.
             </p>
@@ -386,7 +386,7 @@ export default function OrganizationDashboardPage() {
         <p className="mt-2 text-sm text-foreground/70">
           Candidates who clicked “I applied by email” or “I applied externally” on listings
           that use email or external apply. This is self-reported and not a full application
-          in MasrJobs.org.
+          in TürkiyeJobs.org.
         </p>
         {orgExternalIntents.length === 0 ? (
           <p className="mt-4 rounded-2xl border border-dashed border-brand-border bg-white p-6 text-sm text-foreground/70">

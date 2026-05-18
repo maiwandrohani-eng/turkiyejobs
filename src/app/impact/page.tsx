@@ -4,7 +4,7 @@ import { ImpactContent } from "@/components/ImpactContent";
 export const metadata = {
   title: "Transparency & impact",
   description:
-    "Principles behind listings quality, fairness, and how MasrJobs.org serves Egypt's social impact ecosystem.",
+    "Principles behind listings quality, fairness, and how TürkiyeJobs.org serves Türkiye's social impact ecosystem.",
 };
 
 export default function ImpactPage() {

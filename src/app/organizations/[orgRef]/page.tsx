@@ -19,21 +19,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { orgRef } = await params;
   const prisma = getPrisma();
   if (!prisma) {
-    return { title: "Organization | MasrJobs.org" };
+    return { title: "Organization | TürkiyeJobs.org" };
   }
   const row = await loadPublicOrganizationByRef(
     prisma,
     decodeURIComponent(orgRef),
   );
   if (!row) {
-    return { title: "Organization | MasrJobs.org" };
+    return { title: "Organization | TürkiyeJobs.org" };
   }
   const desc =
     row.description && row.description.length > 155
       ? `${row.description.slice(0, 152).trimEnd()}…`
       : (row.description ?? undefined);
   return {
-    title: `${row.name} | Organizations | MasrJobs.org`,
+    title: `${row.name} | Organizations | TürkiyeJobs.org`,
     description: desc,
   };
 }
@@ -123,7 +123,7 @@ export default async function OrganizationProfilePage({ params }: Props) {
 
           <section className="mt-10 border-t border-brand-border pt-8">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-brand-gold">
-              Live opportunities on MasrJobs.org
+              Live opportunities on TürkiyeJobs.org
             </h2>
             {listings.length === 0 ? (
               <p className="mt-3 text-sm text-foreground/65">
@@ -169,7 +169,7 @@ export default async function OrganizationProfilePage({ params }: Props) {
           <div className="mt-8 flex flex-col gap-3 border-t border-brand-border pt-8 sm:flex-row sm:flex-wrap">
             <Link
               href={`/opportunities?orgId=${encodeURIComponent(org.id)}`}
-              className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg bg-brand-navy px-5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+              className="inline-flex min-h-[2.75rem] items-center justify-center btn-primary px-5 py-2.5 text-center text-sm font-semibold text-white shadow-sm "
             >
               View opportunities
             </Link>

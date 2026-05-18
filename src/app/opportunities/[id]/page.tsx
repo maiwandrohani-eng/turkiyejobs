@@ -14,25 +14,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prisma = getPrisma();
   if (!prisma) {
     return {
-      title: "Opportunity | MasrJobs.org",
+      title: "Opportunity | TürkiyeJobs.org",
       description:
-        "Jobs, consultancies, trainings, and impact roles across Egypt on MasrJobs.org.",
+        "Jobs, consultancies, trainings, and impact roles across Türkiye on TürkiyeJobs.org.",
     };
   }
   const row = await loadOpportunityByRef(prisma, id);
   if (!row) {
     return {
-      title: "Opportunity | MasrJobs.org",
+      title: "Opportunity | TürkiyeJobs.org",
       description:
-        "Jobs, consultancies, trainings, and impact roles across Egypt on MasrJobs.org.",
+        "Jobs, consultancies, trainings, and impact roles across Türkiye on TürkiyeJobs.org.",
     };
   }
   const o = mapOpportunityRecord(row);
   const pathSeg = o.slug ?? o.id;
-  const title = `${o.title} | MasrJobs.org`;
+  const title = `${o.title} | TürkiyeJobs.org`;
   const description =
     o.shortDescription ??
-    "Jobs, consultancies, trainings, and impact roles across Egypt on MasrJobs.org.";
+    "Jobs, consultancies, trainings, and impact roles across Türkiye on TürkiyeJobs.org.";
   const url = absoluteUrl(`/opportunities/${pathSeg}`);
   return {
     title,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: "MasrJobs.org",
+      siteName: "TürkiyeJobs.org",
       type: "website",
       locale: "en_US",
     },

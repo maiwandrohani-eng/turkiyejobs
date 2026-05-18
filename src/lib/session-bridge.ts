@@ -13,7 +13,7 @@ function prismaRoleToUi(role: PrismaUserRole): UserRole {
   }
 }
 
-/** Maps NextAuth session (Prisma roles) into the UI `SessionUser` shape used by MasrJobsProvider. */
+/** Maps NextAuth session (Prisma roles) into the UI `SessionUser` shape used by TurkiyeJobsProvider. */
 export function sessionUserFromNextAuth(session: Session | null): SessionUser | null {
   const u = session?.user;
   if (!u?.email) return null;

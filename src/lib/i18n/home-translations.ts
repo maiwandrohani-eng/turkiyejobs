@@ -1,12 +1,12 @@
-export type HomeLocale = "en" | "ar";
+export type HomeLocale = "en" | "tr";
 
 export const HOME_TRANSLATIONS = {
   en: {
     // ── Hero ─────────────────────────────────────────────────────────────────
-    heroBadge: "Egypt's Development & Social Impact Jobs Platform",
-    heroHeading: "Trusted jobs, consultancies, and grants for Egypt's NGO ecosystem",
+    heroBadge: "Türkiye's NGO & Development Sector Jobs Platform",
+    heroHeading: "Trusted jobs, consultancies, and grants for Türkiye's NGO and humanitarian sector",
     heroLine1:
-      "Find verified NGO jobs, consultancies, and grants in Egypt's development sector.",
+      "Find verified NGO jobs, consultancies, and grants in Türkiye's development and humanitarian sector.",
     heroLine2:
       "Post your opening and reach professionals who are already here for this work.",
     heroTrust: "Every employer verified. Every listing reviewed.",
@@ -19,13 +19,13 @@ export const HOME_TRANSLATIONS = {
 
     // ── Newsletter ────────────────────────────────────────────────────────────
     newsletterHeading: "Get new opportunities in your inbox every week.",
-    newsletterSubtext: "No spam — only what's posted on MasrJobs.",
+    newsletterSubtext: "No spam — only what's posted on TürkiyeJobs.",
     newsletterButton: "Subscribe",
 
     // ── Employer CTA ──────────────────────────────────────────────────────────
     employerHeading: "Are you hiring?",
     employerBody:
-      "MasrJobs.org is built for Egypt's NGO ecosystem. Post your listing and reach professionals who are already here.",
+      "TürkiyeJobs.org was built for Türkiye's NGO and humanitarian ecosystem. Post your listing and reach professionals who are already here.",
     employerButton: "Post a listing →",
     employerSupport:
       "Every organization account and every listing is individually reviewed before going live.",
@@ -51,12 +51,12 @@ export const HOME_TRANSLATIONS = {
     loading: "Loading…",
 
     // ── Organizations strip (homepage) ────────────────────────────────────────
-    orgsOnMasrjobs: "Organizations on MasrJobs",
+    orgsOnTurkiyejobs: "Organizations on TürkiyeJobs",
 
     // ── HomeCatalog ────────────────────────────────────────────────────────────
     catalogFeaturedHeading: "Featured opportunities",
     catalogFeaturedSubtext:
-      "Hand-picked and newly approved listings across Egypt's social impact sector.",
+      "Hand-picked and newly approved listings across Türkiye's social impact sector.",
     catalogLatestHeading: "Latest opportunities",
     catalogLatestSubtext: "Recently updated deadlines and new postings.",
     catalogSeeFullList: "See full list",
@@ -71,10 +71,10 @@ export const HOME_TRANSLATIONS = {
     // ── HomeExplore ────────────────────────────────────────────────────────────
     exploreHeading: "Explore the platform",
     exploreSubtext:
-      "Guides and hubs beyond the job board — built to help applicants and employers get more from MasrJobs.org.",
+      "Guides and hubs beyond the job board — built to help applicants and employers get more from TürkiyeJobs.org.",
     explorePostingGuidelines: "Posting guidelines (employers)",
     explorePartnersLink: "Partners",
-    exploreCard1Title: "How MasrJobs works",
+    exploreCard1Title: "How TürkiyeJobs works",
     exploreCard1Text:
       "Who can post, how review works, and what verified employers mean.",
     exploreCard2Title: "Browse by theme",
@@ -117,7 +117,7 @@ export const HOME_TRANSLATIONS = {
     filterOrganization: "Organization",
     filterAllOrganizations: "All organizations",
     filterLocation: "Location contains",
-    filterLocationPlaceholder: "e.g. Cairo",
+    filterLocationPlaceholder: "e.g. Ankara",
     filterType: "Type",
     filterAllTypes: "All types",
     filterWorkArrangement: "Work arrangement",
@@ -140,7 +140,7 @@ export const HOME_TRANSLATIONS = {
     organizationsEyebrow: "Directory",
     organizationsTitle: "Organization directory",
     organizationsDescription:
-      "Explore NGOs, UN agencies, and social impact employers posting on MasrJobs.org. Verified and featured badges help you spot trusted partners.",
+      "Explore NGOs, UN agencies, and social impact employers posting on TürkiyeJobs.org. Verified and featured badges help you spot trusted partners.",
     orgDirectoryCount: "organizations",
     orgDirectoryLayoutLabel: "Organization directory layout",
     orgDirectoryFeatured: "Featured",
@@ -153,7 +153,7 @@ export const HOME_TRANSLATIONS = {
     orgDirectorySocialImpact: "Social impact",
 
     // ── Footer ────────────────────────────────────────────────────────────────
-    footerTagline: "Egypt's Development & Social Impact Jobs Platform.",
+    footerTagline: "Verified NGO jobs and opportunities for Türkiye's development and humanitarian sector.",
     footerPlatformCol: "Platform",
     footerOpportunities: "Opportunities",
     footerOrganizations: "Organizations",
@@ -171,8 +171,8 @@ export const HOME_TRANSLATIONS = {
     footerLegalCol: "Legal",
     footerTerms: "Terms",
     footerPrivacy: "Privacy",
-    footerCopyright: "© 2026 MasrJobs.org. All rights reserved.",
-    footerBuiltFor: "Built for Egypt's social impact ecosystem.",
+    footerCopyright: "© 2026 TürkiyeJobs.org. All rights reserved.",
+    footerBuiltFor: "Built for Türkiye's NGO and humanitarian ecosystem.",
 
     // ── Sectors page ──────────────────────────────────────────────────────────
     sectorsEyebrow: "Discover",
@@ -200,7 +200,7 @@ export const HOME_TRANSLATIONS = {
     spotlightsEyebrow: "Employers",
     spotlightsTitle: "Employer spotlights",
     spotlightsDescription:
-      "Short reads on hiring norms in Egypt's social impact sector — editorial guidance, not quotes from individual employers.",
+      "Short reads on hiring norms in Türkiye's social impact sector — editorial guidance, not quotes from individual employers.",
     spotlightsFooterBefore:
       "If your organization would like a structured spotlight interview for this page in the future, mention it when you",
     spotlightsFooterLinkLabel: "contact us",
@@ -210,19 +210,19 @@ export const HOME_TRANSLATIONS = {
     spotlightsCard1Body:
       "Teams that respond fastest often run shortlisting against the TOR line-by-line. They look for evidence of delivery in similar contexts — not generic corporate language.",
     spotlightsCard2Org: "National NGOs",
-    spotlightsCard2Title: "Arabic–English balance",
+    spotlightsCard2Title: "Turkish–English balance",
     spotlightsCard2Body:
-      "Many roles require fluent Arabic for communities and strong English for reporting. Candidates who state CEFR or workplace level honestly save everyone time in interview.",
+      "Many roles require fluent Turkish for communities and strong English for reporting. Candidates who state CEFR or workplace level honestly save everyone time in interview.",
     spotlightsCard3Org: "Consultancies & evaluations",
     spotlightsCard3Title: "Methodology and ethics",
     spotlightsCard3Body:
       "Evaluators want to see how you handle data protection, consent, and inclusion in sampling. A two-paragraph methodology sketch in your expression of interest can carry more weight than a long biography.",
 
     // ── Partners page ─────────────────────────────────────────────────────────
-    partnersEyebrow: "MasrJobs.org",
+    partnersEyebrow: "TürkiyeJobs.org",
     partnersTitle: "Partners & collaboration",
     partnersDescription:
-      "MasrJobs.org grows through trusted employers, networks, and funders who care about transparent hiring in Egypt's NGO and development space.",
+      "TürkiyeJobs.org grows through trusted employers, networks, and funders who care about transparent hiring in Türkiye's NGO and development space.",
     partnersPara1:
       "We are building space for mission-aligned partners: NGOs posting roles, universities linking graduates, donors who care about workforce development, and media amplifying impact careers.",
     partnersPara2Before:
@@ -244,11 +244,11 @@ export const HOME_TRANSLATIONS = {
     contactFormSend: "Send message",
     contactFormSending: "Sending…",
     contactFormSuccess:
-      "Thank you — MasrJobs.org received your message and will reply as soon as we can. Check your inbox for a confirmation email.",
+      "Thank you — TürkiyeJobs.org received your message and will reply as soon as we can. Check your inbox for a confirmation email.",
     contactFormError:
-      "Something went wrong. Please try again or email hello@masrjobs.org.",
+      "Something went wrong. Please try again or email hello@turkiyejobs.org.",
     contactFormNetworkError:
-      "Network error. Please try again or email hello@masrjobs.org.",
+      "Network error. Please try again or email hello@turkiyejobs.org.",
     contactFormCheckError: "Please check the form and try again.",
     contactSidebarSocial: "Social",
 
@@ -286,9 +286,9 @@ export const HOME_TRANSLATIONS = {
     resourcesEyebrow: "Resources",
     resourcesTitle: "Career guidance & NGO sector tips",
     resourcesDescription:
-      "Practical articles for candidates and employers in Egypt's social impact ecosystem.",
+      "Practical articles for candidates and employers in Türkiye's social impact ecosystem.",
     resourcesNewsletterHeading:
-      "Get new opportunities in your inbox every week. No spam — only what's posted on MasrJobs.",
+      "Get new opportunities in your inbox every week. No spam — only what's posted on TürkiyeJobs.",
     resourcesNewsletterButton: "Subscribe",
     resourcesNewsletterPlaceholder: "Your email address",
     resourcesReadyBefore: "Ready to search live roles?",
@@ -296,302 +296,302 @@ export const HOME_TRANSLATIONS = {
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  //  ARABIC
+  //  TURKISH
+  // TODO: extend Turkish translations to remaining pages
   // ═══════════════════════════════════════════════════════════════════════════
-  ar: {
+  tr: {
     // ── Hero ─────────────────────────────────────────────────────────────────
-    heroBadge: "منصة وظائف التنمية والتأثير الاجتماعي في مصر",
-    heroHeading: "وظائف وإستشارات ومنح موثوقة لمنظومة المنظمات غير الحكومية في مصر",
+    heroBadge: "Türkiye's NGO & Development Sector Jobs Platform",
+    heroHeading: "Trusted jobs, consultancies, and grants for Türkiye's NGO and humanitarian sector",
     heroLine1:
-      "ابحث عن وظائف المنظمات غير الحكومية والاستشارات والمنح في قطاع التنمية في مصر.",
+      "Türkiye'nin sivil toplum ve insani yardım sektöründe doğrulanmış iş ilanlarını, danışmanlıkları ve hibeleri bulun.",
     heroLine2:
-      "انشر فرصتك وتواصل مع المتخصصين الموجودين هنا لهذا العمل.",
-    heroTrust: "كل صاحب عمل موثَّق. كل إعلان مُراجَع.",
-    heroCardTitle: "بحث وتصفية",
+      "İlanınızı yayınlayın ve bu iş için burada olan profesyonellere ulaşın.",
+    heroTrust: "Her işveren doğrulandı. Her ilan incelendi.",
+    heroCardTitle: "Search & filter",
     heroCardBody:
-      "التصنيف، الموقع، صاحب العمل، الموعد النهائي، عن بُعد أو هجين، مدفوع أم لا — مصمَّم للمجندين والمتقدمين المشغولين.",
-    heroCardCta: "ابدأ البحث",
-    ctaPrimary: "تصفح الفرص",
-    ctaSecondary: "انشر إعلاناً",
+      "Category, location, employer, deadline, remote/hybrid, paid or unpaid — built for busy recruiters and applicants.",
+    heroCardCta: "Start searching",
+    ctaPrimary: "Fırsatları İncele",
+    ctaSecondary: "İlan Ver →",
 
     // ── Newsletter ────────────────────────────────────────────────────────────
-    newsletterHeading: "احصل على الفرص الجديدة في بريدك الإلكتروني كل أسبوع.",
-    newsletterSubtext: "بدون إزعاج — فقط ما يُنشر على MasrJobs.",
-    newsletterButton: "اشترك",
+    newsletterHeading: "Her hafta yeni fırsatları e-postanıza alın.",
+    newsletterSubtext: "Spam yok — yalnızca TürkiyeJobs'ta yayınlananlar.",
+    newsletterButton: "Abone Ol",
 
     // ── Employer CTA ──────────────────────────────────────────────────────────
-    employerHeading: "هل تبحث عن موظفين؟",
+    employerHeading: "İşe mi alıyorsunuz?",
     employerBody:
-      "MasrJobs.org مبني لمنظومة المنظمات غير الحكومية في مصر. انشر فرصتك وتواصل مع المتخصصين.",
-    employerButton: "انشر إعلاناً",
+      "TürkiyeJobs.org, Türkiye'nin STK ekosistemi için kuruldu. İlanınızı yayınlayın ve profesyonellere ulaşın.",
+    employerButton: "İlan Ver →",
     employerSupport:
-      "يخضع كل حساب مؤسسة وكل إعلان للمراجعة الفردية قبل النشر.",
+      "Every organization account and every listing is individually reviewed before going live.",
 
     // ── Navigation ────────────────────────────────────────────────────────────
-    navOpportunities: "الفرص",
-    navOrganizations: "المنظمات",
-    navResources: "المصادر",
-    navHowItWorks: "كيف يعمل",
-    navAbout: "حول المنصة",
-    navContact: "تواصل معنا",
-    navDashboard: "لوحة التحكم",
-    navLogin: "تسجيل الدخول",
-    navRegister: "إنشاء حساب",
-    navOpenMenu: "فتح القائمة",
-    navCloseMenu: "إغلاق القائمة",
+    navOpportunities: "Fırsatlar",
+    navOrganizations: "Kuruluşlar",
+    navResources: "Kaynaklar",
+    navHowItWorks: "Nasıl çalışır",
+    navAbout: "Hakkında",
+    navContact: "İletişim",
+    navDashboard: "Panel",
+    navLogin: "Giriş",
+    navRegister: "Hesap oluştur",
+    navOpenMenu: "Open menu",
+    navCloseMenu: "Close menu",
 
     // ── Utilities ─────────────────────────────────────────────────────────────
-    backToHome: "العودة إلى الرئيسية",
-    readMore: "اقرأ المزيد",
-    exploreListings: "استكشف الإعلانات",
-    viewListings: "عرض الإعلانات",
-    loading: "جاري التحميل…",
+    backToHome: "Ana sayfaya dön",
+    readMore: "Read more →",
+    exploreListings: "Explore listings →",
+    viewListings: "View listings →",
+    loading: "Loading…",
 
     // ── Organizations strip (homepage) ────────────────────────────────────────
-    orgsOnMasrjobs: "المنظمات على MasrJobs",
+    orgsOnTurkiyejobs: "TürkiyeJobs'taki kuruluşlar",
 
     // ── HomeCatalog ────────────────────────────────────────────────────────────
-    catalogFeaturedHeading: "الفرص المميزة",
+    catalogFeaturedHeading: "Featured opportunities",
     catalogFeaturedSubtext:
-      "إعلانات مختارة ومعتمدة حديثاً من قطاع التأثير الاجتماعي في مصر.",
-    catalogLatestHeading: "أحدث الفرص",
-    catalogLatestSubtext: "مواعيد نهائية محدَّثة حديثاً وإعلانات جديدة.",
-    catalogSeeFullList: "عرض القائمة الكاملة",
-    catalogLoading: "جاري تحميل الفرص…",
+      "Hand-picked and newly approved listings across Türkiye's social impact sector.",
+    catalogLatestHeading: "Latest opportunities",
+    catalogLatestSubtext: "Recently updated deadlines and new postings.",
+    catalogSeeFullList: "See full list",
+    catalogLoading: "Loading opportunities…",
     catalogFeaturedEmpty:
-      "لا توجد فرص مميزة الآن. تصفح جميع الأدوار لاكتشاف ما هو متاح.",
-    catalogLatestEmpty: "لا توجد فرص لعرضها في هذا القسم بعد.",
-    catalogViewAll: "عرض جميع الفرص",
-    catalogCreateAccount: "إنشاء حساب مجاني",
-    catalogLayoutLabel: "تخطيط الفرص المميزة والأحدث",
+      "No featured opportunities right now. Browse all roles to discover what is open.",
+    catalogLatestEmpty: "No opportunities to show in this section yet.",
+    catalogViewAll: "View all opportunities",
+    catalogCreateAccount: "Create free account",
+    catalogLayoutLabel: "Featured and latest opportunity layout",
 
     // ── HomeExplore ────────────────────────────────────────────────────────────
-    exploreHeading: "استكشف المنصة",
+    exploreHeading: "Explore the platform",
     exploreSubtext:
-      "أدلة ومراكز تتجاوز لوحة الوظائف — مصممة لمساعدة المتقدمين وأصحاب العمل على الاستفادة أكثر من MasrJobs.org.",
-    explorePostingGuidelines: "إرشادات النشر (لأصحاب العمل)",
-    explorePartnersLink: "الشركاء",
-    exploreCard1Title: "كيف تعمل MasrJobs",
+      "Guides and hubs beyond the job board — built to help applicants and employers get more from TürkiyeJobs.org.",
+    explorePostingGuidelines: "Posting guidelines (employers)",
+    explorePartnersLink: "Partners",
+    exploreCard1Title: "How TürkiyeJobs works",
     exploreCard1Text:
-      "من يستطيع النشر، وكيف تعمل المراجعة، وما يعنيه توثيق أصحاب العمل.",
-    exploreCard2Title: "تصفح حسب الموضوع",
+      "Who can post, how review works, and what verified employers mean.",
+    exploreCard2Title: "Browse by theme",
     exploreCard2Text:
-      "انتقل إلى الوظائف والاستشارات والتدريب والمزيد حسب التصنيف أو مجال التركيز.",
-    exploreCard3Title: "قائمة التحقق للتقديم",
-    exploreCard3Text: "أعدّ طلباً داخلياً قوياً قبل الإرسال.",
-    exploreCard4Title: "الفعاليات والمواعيد النهائية",
+      "Jump to jobs, consultancies, trainings, and more by category or focus area.",
+    exploreCard3Title: "Application checklist",
+    exploreCard3Text: "Prepare a strong internal application before you hit submit.",
+    exploreCard4Title: "Events & deadlines",
     exploreCard4Text:
-      "ورش عمل وندوات إلكترونية وتواريخ رئيسية تستحق إضافتها إلى تقويمك.",
-    exploreCard5Title: "أضواء على أصحاب العمل",
+      "Workshops, webinars, and milestone dates worth adding to your calendar.",
+    exploreCard5Title: "Employer spotlights",
     exploreCard5Text:
-      "قراءات مختصرة عن كيفية توظيف الفرق وما يبحثون عنه في المرشحين.",
-    exploreCard6Title: "التزاماتنا",
+      "Short reads on how teams hire and what they look for in candidates.",
+    exploreCard6Title: "Our commitments",
     exploreCard6Text:
-      "كيف نتحقق من أصحاب العمل ونراجع الإعلانات ونحمي المتقدمين.",
+      "How we verify employers, review listings, and protect applicants.",
 
     // ── Early-access capture (HomeCategorySection) ────────────────────────────
-    earlyLaunchText: "إطلاق مبكر — يُضاف إعلانات جديدة باستمرار.",
-    earlyEmailRequired: "يرجى إدخال بريدك الإلكتروني.",
-    earlyError: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    earlyLaunchText: "Early launch — new listings being added.",
+    earlyEmailRequired: "Please enter your email.",
+    earlyError: "Something went wrong. Please try again.",
     earlyAlreadyOnList:
-      "أنت بالفعل على القائمة — سنخطرك حين تُنشر المزيد من الإعلانات.",
-    earlyThankYou: "شكراً — سنخطرك حين تُنشر المزيد من الإعلانات.",
-    earlyNetworkError: "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
-    earlySaving: "جاري الحفظ…",
+      "You're already on the list — we'll notify you when more listings go live.",
+    earlyThankYou: "Thanks — we'll notify you when more listings go live.",
+    earlyNetworkError: "Network error. Please try again.",
+    earlySaving: "Saving…",
 
     // ── Opportunities page ────────────────────────────────────────────────────
-    opportunitiesEyebrow: "الفرص",
-    opportunitiesTitle: "تصفح الأدوار والاستشارات والتدريب والمزيد",
+    opportunitiesEyebrow: "Opportunities",
+    opportunitiesTitle: "Browse roles, consultancies, trainings, and more",
     opportunitiesDescription:
-      "فلتِر حسب التصنيف والموقع والمنظمة وطريقة العمل والموعد النهائي. تظهر الإعلانات المنشورة من المنظمات هنا بعد موافقة الإدارة.",
-    opportunitiesLoading: "جاري تحميل الفرص…",
+      "Filter by category, location, organization, work arrangement, and deadline. Listings posted by organizations appear here after admin approval.",
+    opportunitiesLoading: "Loading opportunities…",
 
     // ── Opportunities explorer filters ────────────────────────────────────────
-    filterKeyword: "الكلمة المفتاحية",
-    filterKeywordPlaceholder: "ابحث في العناوين والمنظمات...",
-    filterCategory: "التصنيف",
-    filterAllCategories: "جميع التصنيفات",
-    filterOrganization: "المنظمة",
-    filterAllOrganizations: "جميع المنظمات",
-    filterLocation: "الموقع يحتوي على",
-    filterLocationPlaceholder: "مثال: القاهرة",
-    filterType: "النوع",
-    filterAllTypes: "جميع الأنواع",
-    filterWorkArrangement: "طريقة العمل",
-    filterCompensation: "التعويض المالي",
-    filterDeadline: "الموعد النهائي في أو قبل",
-    filterAny: "أي",
-    filterRemote: "عن بُعد",
-    filterHybrid: "هجين",
-    filterOnSite: "في الموقع",
-    filterPaid: "مدفوع",
-    filterUnpaid: "غير مدفوع",
-    filterClearAll: "مسح الفلاتر",
-    filterShowing: "يُعرض",
-    filterOpportunitiesCount: "فرصة",
+    filterKeyword: "Keyword",
+    filterKeywordPlaceholder: "Search titles, orgs…",
+    filterCategory: "Category",
+    filterAllCategories: "All categories",
+    filterOrganization: "Organization",
+    filterAllOrganizations: "All organizations",
+    filterLocation: "Location contains",
+    filterLocationPlaceholder: "e.g. Ankara",
+    filterType: "Type",
+    filterAllTypes: "All types",
+    filterWorkArrangement: "Work arrangement",
+    filterCompensation: "Compensation",
+    filterDeadline: "Deadline on or before",
+    filterAny: "Any",
+    filterRemote: "Remote",
+    filterHybrid: "Hybrid",
+    filterOnSite: "On-site",
+    filterPaid: "Paid",
+    filterUnpaid: "Unpaid",
+    filterClearAll: "Clear filters",
+    filterShowing: "Showing",
+    filterOpportunitiesCount: "opportunities",
     filterNoMatch:
-      "لا توجد فرص تطابق هذه الفلاتر. جرِّب مسح الفلاتر أو توسيع نطاق البحث.",
-    filterLayoutLabel: "تخطيط تصفح الفرص",
+      "No opportunities match these filters. Try clearing filters or broadening your search.",
+    filterLayoutLabel: "Opportunity browse layout",
 
     // ── Organizations directory ────────────────────────────────────────────────
-    organizationsEyebrow: "الدليل",
-    organizationsTitle: "دليل المنظمات",
+    organizationsEyebrow: "Directory",
+    organizationsTitle: "Organization directory",
     organizationsDescription:
-      "استكشف المنظمات غير الحكومية ووكالات الأمم المتحدة وأصحاب العمل في مجال التأثير الاجتماعي المنشورين على MasrJobs.org. تساعدك شارات التوثيق والتمييز على التعرف على الشركاء الموثوقين.",
-    orgDirectoryCount: "منظمة",
-    orgDirectoryLayoutLabel: "تخطيط دليل المنظمات",
-    orgDirectoryFeatured: "مميَّزة",
-    orgDirectoryVerified: "موثَّقة",
-    orgDirectoryPendingVerification: "التوثيق معلَّق",
-    orgDirectoryPendingVerificationShort: "في انتظار التوثيق",
-    orgDirectoryViewProfile: "عرض الملف",
-    orgDirectoryViewOpportunities: "عرض الفرص",
-    orgDirectoryWebsite: "الموقع الإلكتروني",
-    orgDirectorySocialImpact: "التأثير الاجتماعي",
+      "Explore NGOs, UN agencies, and social impact employers posting on TürkiyeJobs.org. Verified and featured badges help you spot trusted partners.",
+    orgDirectoryCount: "organizations",
+    orgDirectoryLayoutLabel: "Organization directory layout",
+    orgDirectoryFeatured: "Featured",
+    orgDirectoryVerified: "Verified",
+    orgDirectoryPendingVerification: "Verification pending",
+    orgDirectoryPendingVerificationShort: "Pending verification",
+    orgDirectoryViewProfile: "View profile",
+    orgDirectoryViewOpportunities: "View opportunities",
+    orgDirectoryWebsite: "Website",
+    orgDirectorySocialImpact: "Social impact",
 
     // ── Footer ────────────────────────────────────────────────────────────────
-    footerTagline: "منصة وظائف التنمية والتأثير الاجتماعي في مصر.",
-    footerPlatformCol: "المنصة",
-    footerOpportunities: "الفرص",
-    footerOrganizations: "المنظمات",
-    footerResources: "المصادر",
-    footerHowItWorks: "كيف يعمل",
-    footerBrowseTheme: "تصفح حسب الموضوع",
-    footerPostingGuidelines: "إرشادات النشر",
-    footerEvents: "الفعاليات",
-    footerCompanyCol: "الشركة",
-    footerAbout: "حول المنصة",
-    footerContact: "تواصل معنا",
-    footerPartners: "الشركاء",
-    footerTransparency: "الشفافية",
-    footerSpotlights: "أضواء على أصحاب العمل",
-    footerLegalCol: "قانوني",
-    footerTerms: "الشروط",
-    footerPrivacy: "الخصوصية",
-    footerCopyright: "© 2026 MasrJobs.org. جميع الحقوق محفوظة.",
-    footerBuiltFor: "مبني لمنظومة التأثير الاجتماعي في مصر.",
+    footerTagline: "Verified NGO jobs and opportunities for Türkiye's development and humanitarian sector.",
+    footerPlatformCol: "Platform",
+    footerOpportunities: "Opportunities",
+    footerOrganizations: "Organizations",
+    footerResources: "Resources",
+    footerHowItWorks: "How it works",
+    footerBrowseTheme: "Browse by theme",
+    footerPostingGuidelines: "Posting guidelines",
+    footerEvents: "Events",
+    footerCompanyCol: "Company",
+    footerAbout: "About",
+    footerContact: "Contact",
+    footerPartners: "Partners",
+    footerTransparency: "Transparency",
+    footerSpotlights: "Employer spotlights",
+    footerLegalCol: "Legal",
+    footerTerms: "Terms",
+    footerPrivacy: "Privacy",
+    footerCopyright: "© 2026 TürkiyeJobs.org. All rights reserved.",
+    footerBuiltFor: "Built for Türkiye's NGO and humanitarian ecosystem.",
 
     // ── Sectors page ──────────────────────────────────────────────────────────
-    sectorsEyebrow: "اكتشف",
-    sectorsTitle: "تصفح حسب الموضوع",
+    sectorsEyebrow: "Discover",
+    sectorsTitle: "Browse by theme",
     sectorsDescription:
-      "كل بطاقة تفتح قائمة الفرص العامة مع فلتر التصنيف المقابل. يمكنك دائماً تضييق النتائج بالكلمة المفتاحية والموقع والمنظمة.",
-    sectorsPreferGrid: "تفضّل الشبكة الكاملة؟",
-    sectorsOpenAll: "فتح جميع الفرص",
-    sectorsOr: "أو اقرأ",
-    sectorsHowItWorksLink: "كيف تعمل المنصة",
-    sectorsJobsTitle: "الوظائف والأدوار محددة المدة",
-    sectorsJobsBlurb: "الموظفون الوطنيون وموظفو البرامج والزمالات والتدريب.",
-    sectorsConsultanciesTitle: "الاستشارات والمساعدة التقنية",
-    sectorsConsultanciesBlurb:
-      "التقييمات والبحوث والدعم الخبير قصير الأجل.",
-    sectorsTrainingsTitle: "التدريبات والدورات",
-    sectorsTrainingsBlurb: "ورش العمل والشهادات والتعلم الجماعي.",
-    sectorsVolunteerTitle: "أدوار التطوع",
-    sectorsVolunteerBlurb: "التعيينات غير المدفوعة والتطوع المنظَّم.",
-    sectorsTendersTitle: "المناقصات والمشتريات",
-    sectorsTendersBlurb: "طلبات الأسعار وطلبات العروض وعقود الخدمات.",
-    sectorsGrantsTitle: "المنح والنداءات",
-    sectorsGrantsBlurb: "نوافذ التمويل وفرص الشراكة.",
+      "Each card opens the public opportunities list with the matching category filter. You can still refine by keyword, location, and organization.",
+    sectorsPreferGrid: "Prefer the full grid?",
+    sectorsOpenAll: "Open all opportunities",
+    sectorsOr: "or read",
+    sectorsHowItWorksLink: "how the platform works",
+    sectorsJobsTitle: "Jobs & fixed-term roles",
+    sectorsJobsBlurb: "National and programme staff, fellows, and internships.",
+    sectorsConsultanciesTitle: "Consultancies & TA",
+    sectorsConsultanciesBlurb: "Evaluations, research, and short-term expert support.",
+    sectorsTrainingsTitle: "Trainings & courses",
+    sectorsTrainingsBlurb: "Workshops, certifications, and cohort-based learning.",
+    sectorsVolunteerTitle: "Volunteer roles",
+    sectorsVolunteerBlurb: "Unpaid placements and structured volunteering.",
+    sectorsTendersTitle: "Tenders & procurement",
+    sectorsTendersBlurb: "RFQs, RFPs, and service contracts.",
+    sectorsGrantsTitle: "Grants & calls",
+    sectorsGrantsBlurb: "Funding windows and partnership opportunities.",
 
     // ── Spotlights page ────────────────────────────────────────────────────────
-    spotlightsEyebrow: "أصحاب العمل",
-    spotlightsTitle: "أضواء على أصحاب العمل",
+    spotlightsEyebrow: "Employers",
+    spotlightsTitle: "Employer spotlights",
     spotlightsDescription:
-      "قراءات مختصرة حول معايير التوظيف في قطاع التأثير الاجتماعي في مصر — توجيهات تحريرية، لا اقتباسات من أصحاب العمل الأفراد.",
+      "Short reads on hiring norms in Türkiye's social impact sector — editorial guidance, not quotes from individual employers.",
     spotlightsFooterBefore:
-      "إذا كانت مؤسستك ترغب في إجراء مقابلة أضواء منظَّمة لهذه الصفحة في المستقبل، أشِر إلى ذلك حين",
-    spotlightsFooterLinkLabel: "تتواصل معنا",
+      "If your organization would like a structured spotlight interview for this page in the future, mention it when you",
+    spotlightsFooterLinkLabel: "contact us",
     spotlightsFooterAfter: ".",
-    spotlightsCard1Org: "البرامج الإنسانية والصحية",
-    spotlightsCard1Title: "الوضوح يتفوق على الكمية",
+    spotlightsCard1Org: "Humanitarian & health programmes",
+    spotlightsCard1Title: "Clarity beats volume",
     spotlightsCard1Body:
-      "تعمل الفرق الأسرع استجابةً غالباً على التصفية القصيرة وفق خط المهام بالتفصيل. وتبحث عن أدلة على الإنجاز في سياقات مماثلة — لا لغة مؤسسية عامة.",
-    spotlightsCard2Org: "المنظمات غير الحكومية الوطنية",
-    spotlightsCard2Title: "التوازن بين العربية والإنجليزية",
+      "Teams that respond fastest often run shortlisting against the TOR line-by-line. They look for evidence of delivery in similar contexts — not generic corporate language.",
+    spotlightsCard2Org: "National NGOs",
+    spotlightsCard2Title: "Turkish–English balance",
     spotlightsCard2Body:
-      "تتطلب كثير من الأدوار عربية طليقة للتواصل مع المجتمعات وإنجليزية قوية لكتابة التقارير. المرشحون الذين يذكرون مستواهم بصدق يوفرون على الجميع وقت المقابلات.",
-    spotlightsCard3Org: "الاستشارات والتقييمات",
-    spotlightsCard3Title: "المنهجية والأخلاقيات",
+      "Many roles require fluent Turkish for communities and strong English for reporting. Candidates who state CEFR or workplace level honestly save everyone time in interview.",
+    spotlightsCard3Org: "Consultancies & evaluations",
+    spotlightsCard3Title: "Methodology and ethics",
     spotlightsCard3Body:
-      "يريد المقيِّمون رؤية كيفية تعاملك مع حماية البيانات والموافقة والشمولية في العينات. قد تحمل فقرتان موجزتان عن المنهجية ثقلاً أكبر من سيرة ذاتية مطوَّلة.",
+      "Evaluators want to see how you handle data protection, consent, and inclusion in sampling. A two-paragraph methodology sketch in your expression of interest can carry more weight than a long biography.",
 
     // ── Partners page ─────────────────────────────────────────────────────────
-    partnersEyebrow: "MasrJobs.org",
-    partnersTitle: "الشركاء والتعاون",
+    partnersEyebrow: "TürkiyeJobs.org",
+    partnersTitle: "Partners & collaboration",
     partnersDescription:
-      "تنمو MasrJobs.org من خلال أصحاب العمل والشبكات والمانحين الموثوقين الذين يهتمون بالتوظيف الشفاف في قطاع المنظمات غير الحكومية والتنمية في مصر.",
+      "TürkiyeJobs.org grows through trusted employers, networks, and funders who care about transparent hiring in Türkiye's NGO and development space.",
     partnersPara1:
-      "نبني فضاءً للشركاء ذوي الرسالة: المنظمات غير الحكومية التي تنشر الأدوار، والجامعات التي تربط الخريجين، والمانحون الذين يهتمون بتنمية القوى العاملة، والإعلام الذي يُضخم مسيرات التأثير.",
+      "We are building space for mission-aligned partners: NGOs posting roles, universities linking graduates, donors who care about workforce development, and media amplifying impact careers.",
     partnersPara2Before:
-      "إذا كنت تمثّل مؤسسة تريد استكشاف المحتوى المشترك أو الفعاليات أو الضمانات الأخلاقية للإعلانات، ابدأ محادثة من خلال",
-    partnersPara2LinkLabel: "صفحة التواصل",
+      "If you represent an institution that wants to explore co-branded content, events, or data ethics guardrails for listings, start a conversation through",
+    partnersPara2LinkLabel: "Contact",
     partnersPara2After: ".",
     partnersPlaceholder:
-      "يمكن لشعارات الشركاء والإعلانات المشتركة أن تكون هنا مع تطور العلاقات.",
+      "Partner logos and joint announcements can live here as relationships formalize.",
 
     // ── Contact page ──────────────────────────────────────────────────────────
-    contactEyebrow: "تواصل معنا",
-    contactTitle: "يسعدنا الاستماع إليك",
+    contactEyebrow: "Contact",
+    contactTitle: "We would love to hear from you",
     contactDescription:
-      "الشراكات، والإعلام، وتأهيل أصحاب العمل، أو الدعم الفني — أرسل لنا ملاحظة وسنوجهها إلى الفريق المناسب.",
-    contactFormName: "الاسم",
-    contactFormEmail: "البريد الإلكتروني",
-    contactFormSubject: "الموضوع",
-    contactFormMessage: "الرسالة",
-    contactFormSend: "إرسال الرسالة",
-    contactFormSending: "جاري الإرسال…",
+      "Partnerships, media, employer onboarding, or technical support — send us a note and we will route it to the right team.",
+    contactFormName: "Name",
+    contactFormEmail: "Email",
+    contactFormSubject: "Subject",
+    contactFormMessage: "Message",
+    contactFormSend: "Send message",
+    contactFormSending: "Sending…",
     contactFormSuccess:
-      "شكراً — تلقّت MasrJobs.org رسالتك وستردّ في أقرب وقت ممكن. تحقق من بريدك الوارد للحصول على رسالة تأكيد.",
+      "Thank you — TürkiyeJobs.org received your message and will reply as soon as we can. Check your inbox for a confirmation email.",
     contactFormError:
-      "حدث خطأ ما. يرجى المحاولة مرة أخرى أو إرسال بريد إلكتروني إلى hello@masrjobs.org.",
+      "Something went wrong. Please try again or email hello@turkiyejobs.org.",
     contactFormNetworkError:
-      "خطأ في الشبكة. يرجى المحاولة مرة أخرى أو إرسال بريد إلكتروني إلى hello@masrjobs.org.",
-    contactFormCheckError: "يرجى التحقق من النموذج والمحاولة مرة أخرى.",
-    contactSidebarSocial: "التواصل الاجتماعي",
+      "Network error. Please try again or email hello@turkiyejobs.org.",
+    contactFormCheckError: "Please check the form and try again.",
+    contactSidebarSocial: "Social",
 
     // ── Posting guidelines page ───────────────────────────────────────────────
-    postingEyebrow: "أصحاب العمل",
-    postingTitle: "إرشادات النشر",
+    postingEyebrow: "Employers",
+    postingTitle: "Posting guidelines",
     postingDescription:
-      "الإعلانات الواضحة والمكتملة تجذب متقدمين أفضل وتقضي وقتاً أقل في المراجعة. استخدم هذه القائمة قبل الإرسال.",
-    postingBasicsHeading: "الأساسيات",
+      "Clear, complete listings get better applicants and spend less time in review. Use this checklist before you submit.",
+    postingBasicsHeading: "Basics",
     postingBasics1:
-      "استخدم عنواناً محدداً (الدور + البرنامج أو المستوى الجغرافي)، لا مجرد اختصار مشروع.",
-    postingBasics2Before: "حدِّد",
-    postingBasics2Bold: "موعداً نهائياً",
+      "Use a specific title (role + programme or location level), not only a project acronym.",
+    postingBasics2Before: "Set a realistic",
+    postingBasics2Bold: "deadline",
     postingBasics2After:
-      "واقعياً وحافظ على اتساق تعليمات التقديم بين الملخص القصير والوصف الكامل.",
+      "and keep application instructions consistent across the short summary and full description.",
     postingBasics3:
-      "اذكر الموقع وطريقة العمل (عن بُعد / هجين / في الموقع) ومتطلبات اللغة من البداية.",
-    postingCompHeading: "التعويض والخدمات اللوجستية",
-    postingComp1:
-      "وضِّح ما إذا كان الدور مدفوعاً أم تطوعياً أم بمنحة عند الاقتضاء.",
+      "State location, modality (remote / hybrid / on-site), and language requirements up front.",
+    postingCompHeading: "Compensation & logistics",
+    postingComp1: "Clarify paid vs volunteer, stipend, or unpaid where relevant.",
     postingComp2:
-      "للاستشارات والمناقصات: اذكر المخرجات وهيكل الجهد أو مجموعات العمل ومنهجية التقييم.",
+      "For consultancies and tenders: mention deliverables, LOE or lot structure, and evaluation approach.",
     postingComp3:
-      "للتدريبات: التواريخ وطريقة العمل والرسوم أو الإعانات والمتطلبات المسبقة.",
-    postingApplyHeading: "كيفية التقديم",
+      "For trainings: dates, modality, fees or subsidies, and prerequisites.",
+    postingApplyHeading: "How to apply",
     postingApply1:
-      "اختَر قناة التقديم التي تتوافق مع الطريقة التي ستُعالج بها المرشحين فعلياً.",
+      "Choose the application channel that matches how you will actually process candidates.",
     postingApply2:
-      "إذا استخدمت البريد الإلكتروني، استخدم صندوق بريد مُراقَب وحدِّد ما يُكتب في سطر الموضوع.",
+      "If you use email, use a monitored inbox and say what to put in the subject line.",
     postingApply3:
-      "إذا استخدمت بوابة خارجية، تحقق من أن الرابط يعمل للمستخدمين غير المسجلين.",
-    postingReadyBefore: "هل أنت مستعد للنشر؟",
-    postingReadyLinkLabel: "فتح مساحة عمل المنظمة",
+      "If you use an external portal, verify the link works for logged-out users.",
+    postingReadyBefore: "Ready to post?",
+    postingReadyLinkLabel: "Open the organization workspace →",
 
     // ── Resources page ────────────────────────────────────────────────────────
-    resourcesEyebrow: "المصادر",
-    resourcesTitle: "توجيهات مهنية ونصائح قطاع المنظمات",
+    resourcesEyebrow: "Resources",
+    resourcesTitle: "Career guidance & NGO sector tips",
     resourcesDescription:
-      "مقالات عملية للمتقدمين وأصحاب العمل في منظومة التأثير الاجتماعي في مصر.",
+      "Practical articles for candidates and employers in Türkiye's social impact ecosystem.",
     resourcesNewsletterHeading:
-      "احصل على الفرص الجديدة في بريدك الإلكتروني كل أسبوع. بدون إزعاج — فقط ما يُنشر على MasrJobs.",
-    resourcesNewsletterButton: "اشترك",
-    resourcesNewsletterPlaceholder: "بريدك الإلكتروني",
-    resourcesReadyBefore: "هل أنت مستعد للبحث عن أدوار حية؟",
-    resourcesBrowseLink: "تصفح الفرص",
+      "Get new opportunities in your inbox every week. No spam — only what's posted on TürkiyeJobs.",
+    resourcesNewsletterButton: "Subscribe",
+    resourcesNewsletterPlaceholder: "Your email address",
+    resourcesReadyBefore: "Ready to search live roles?",
+    resourcesBrowseLink: "Browse opportunities",
+  
   },
 } as const;
 

@@ -6,7 +6,7 @@ import { getPrisma } from "@/lib/prisma";
 export const metadata = {
   title: "Events & key dates",
   description:
-    "Workshops, webinars, and milestone dates for Egypt's development and social impact community.",
+    "Workshops, webinars, and milestone dates for Türkiye's development and social impact community.",
 };
 
 export const dynamic = "force-dynamic";

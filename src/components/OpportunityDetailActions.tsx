@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Bookmark, Mail, ExternalLink } from "lucide-react";
 import type { Opportunity } from "@/lib/types";
-import { useMasrJobs } from "@/context/MasrJobsProvider";
+import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { cn } from "@/lib/cn";
 import { isApplicationOpenForOpportunity, suppressedCatalogIdsForBrowse } from "@/lib/opportunity-visibility";
 import {
@@ -39,7 +39,7 @@ export function OpportunityDetailActions({ opportunity }: { opportunity: Opportu
     session,
     suppressedCatalogIds,
     applicantProfile,
-  } = useMasrJobs();
+  } = useTurkiyeJobs();
   const [cover, setCover] = useState("");
   const [portfolioUrl, setPortfolioUrl] = useState(
     applicantProfile?.portfolioUrl ?? "",
@@ -126,7 +126,7 @@ export function OpportunityDetailActions({ opportunity }: { opportunity: Opportu
 
         {!listingsOpen ? (
           <p className="mt-2 text-sm text-foreground/75">
-            Applications open once this listing is published by MasrJobs.org
+            Applications open once this listing is published by TürkiyeJobs.org
             administrators.
           </p>
         ) : !session || session.role !== "individual" ? (
@@ -143,7 +143,7 @@ export function OpportunityDetailActions({ opportunity }: { opportunity: Opportu
         ) : method === "internal" ? (
           <>
             <p className="mt-2 text-sm text-foreground/75">
-              Submit your application on MasrJobs.org. Your profile (CV, LinkedIn, etc.)
+              Submit your application on TürkiyeJobs.org. Your profile (CV, LinkedIn, etc.)
               is attached automatically when saved.
             </p>
             <label className="mt-4 block text-xs font-semibold text-brand-navy">
@@ -170,7 +170,7 @@ export function OpportunityDetailActions({ opportunity }: { opportunity: Opportu
               onClick={() => void onInternalApply()}
               className="mt-4 w-full rounded-xl bg-brand-gold py-3 text-sm font-semibold text-brand-navy shadow-sm hover:bg-brand-gold-soft sm:w-auto sm:px-8"
             >
-              Submit application on MasrJobs.org
+              Submit application on TürkiyeJobs.org
             </button>
           </>
         ) : method === "email" && appEmail ? (
@@ -181,7 +181,7 @@ export function OpportunityDetailActions({ opportunity }: { opportunity: Opportu
             </p>
             <a
               href={mailtoApplyHref(opportunity, appEmail)}
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-navy px-6 py-3 text-sm font-semibold text-white hover:bg-brand-navy-deep"
+              className="mt-4 inline-flex items-center justify-center gap-2 btn-primary px-6 py-3 text-sm font-semibold text-white hover:bg-brand-red-hover"
             >
               <Mail className="h-4 w-4" />
               Apply via email
@@ -202,7 +202,7 @@ export function OpportunityDetailActions({ opportunity }: { opportunity: Opportu
             </p>
             <a
               href={extHref}
-              className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-navy px-6 py-3 text-sm font-semibold text-white hover:bg-brand-navy-deep"
+              className="mt-4 inline-flex items-center justify-center gap-2 btn-primary px-6 py-3 text-sm font-semibold text-white hover:bg-brand-red-hover"
             >
               <ExternalLink className="h-4 w-4" />
               Open external application

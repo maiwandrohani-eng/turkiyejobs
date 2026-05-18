@@ -1,30 +1,30 @@
-export type HowItWorksLocale = "en" | "ar";
+export type HowItWorksLocale = "en" | "tr";
 
 export const HOW_IT_WORKS_TRANSLATIONS = {
   en: {
     eyebrow: "Guides",
-    title: "How MasrJobs.org works",
+    title: "How TürkiyeJobs.org works",
     description:
       "A short map of the platform so you know what to expect — whether you are applying, hiring, or browsing the directory.",
     applicantsHeading: "For applicants",
     applicant1Before: "Browse published opportunities, save listings, and track applications from your",
     applicant1LinkLabel: "applicant dashboard",
     applicant1After: ".",
-    applicant2: "All listings are reviewed by the MasrJobs team before going live.",
+    applicant2: "All listings are reviewed by the TürkiyeJobs team before going live.",
     applicant3Before: "Some roles use",
     applicant3Bold: "internal apply",
     applicant3After:
-      "on MasrJobs.org; others use email or an external link — the listing always states which path to use.",
+      "on TürkiyeJobs.org; others use email or an external link — the listing always states which path to use.",
     checklistLink: "Internal application checklist →",
     employersHeading: "For employers",
     employer1:
       "Register your organization — create an account and submit your organization profile for admin review.",
     employer2:
-      "Account approved — once verified by the MasrJobs team, you gain access to your employer dashboard and can submit listings.",
+      "Account approved — once verified by the TürkiyeJobs team, you gain access to your employer dashboard and can submit listings.",
     employer3:
       "Each listing reviewed — every listing you submit is individually reviewed for quality and fit before it appears publicly on the platform.",
     employerTwoStage:
-      "This two-stage process means every organization and every listing on MasrJobs has been individually reviewed before any applicant sees it.",
+      "This two-stage process means every organization and every listing on TürkiyeJobs has been individually reviewed before any applicant sees it.",
     employer48h:
       "Most listings are reviewed within 48 hours of submission. You will receive a confirmation email when your listing is live.",
     postingGuidelinesLink: "Posting guidelines for faster approval →",
@@ -39,43 +39,43 @@ export const HOW_IT_WORKS_TRANSLATIONS = {
     exploreSpotlights: "Employer spotlights",
     exploreImpact: "Transparency & principles",
   },
-  ar: {
-    eyebrow: "أدلة المنصة",
-    title: "كيف تعمل MasrJobs.org",
+  // TODO: extend Turkish translations to remaining pages
+  tr: {
+    eyebrow: "Rehberler",
+    title: "TürkiyeJobs.org nasıl çalışır",
     description:
-      "خريطة موجزة للمنصة حتى تعرف ما تتوقعه — سواء كنت تتقدم لوظيفة، أو توظِّف، أو تتصفح الدليل.",
-    applicantsHeading: "للمتقدمين",
-    applicant1Before: "تصفَّح الفرص المنشورة، واحفظ الإعلانات، وتابع طلباتك من",
-    applicant1LinkLabel: "لوحة تحكم المتقدم",
-    applicant1After: ".",
-    applicant2: "تُراجَع جميع الإعلانات من قِبل فريق MasrJobs قبل نشرها.",
-    applicant3Before: "تستخدم بعض الأدوار",
-    applicant3Bold: "التقديم الداخلي",
+      "Başvuran, işveren veya dizin gezgini olsanız da platformdan ne bekleyeceğinizi kısaca özetler.",
+    applicantsHeading: "Adaylar için",
+    applicant1Before: "Yayınlanan fırsatlara göz atın, ilanları kaydedin ve",
+    applicant1LinkLabel: "aday panelinizden",
+    applicant1After: " başvurularınızı takip edin.",
+    applicant2: "Tüm ilanlar yayına girmeden önce TürkiyeJobs ekibi tarafından incelenir.",
+    applicant3Before: "Bazı roller",
+    applicant3Bold: "dahili başvuru",
     applicant3After:
-      "عبر MasrJobs.org، وتستخدم أخرى البريد الإلكتروني أو رابطاً خارجياً — يوضح الإعلان دائماً الطريقة المتَّبعة.",
-    checklistLink: "قائمة التحقق للتقديم الداخلي",
-    employersHeading: "لأصحاب العمل",
+      " kullanır; diğerleri e-posta veya harici bağlantı kullanır — ilan hangi yolu kullandığınızı belirtir.",
+    checklistLink: "Dahili başvuru kontrol listesi →",
+    employersHeading: "İşverenler için",
     employer1:
-      "سجِّل مؤسستك — أنشئ حساباً وأرسل ملف مؤسستك لمراجعة فريق الإدارة.",
+      "Kuruluşunuzu kaydedin — hesap oluşturun ve kuruluş profilinizi yönetici incelemesine gönderin.",
     employer2:
-      "الحساب معتمَد — بمجرد التحقق من هويتك بواسطة فريق MasrJobs، تحصل على إمكانية الوصول إلى لوحة تحكم صاحب العمل وتستطيع إرسال إعلاناتك.",
+      "Hesap onaylandı — TürkiyeJobs ekibi doğruladıktan sonra işveren panelinize erişir ve ilan gönderebilirsiniz.",
     employer3:
-      "كل إعلان يُراجَع — يخضع كل إعلان تقدمه للمراجعة الفردية للتحقق من جودته وملاءمته قبل أن يظهر على المنصة.",
+      "Her ilan incelenir — gönderdiğiniz her ilan platformda yayınlanmadan önce ayrı ayrı incelenir.",
     employerTwoStage:
-      "تعني هذه العملية المكوَّنة من مرحلتين أن كل مؤسسة وكل إعلان على MasrJobs قد خضع للمراجعة الفردية قبل أن يراه أي متقدم.",
+      "Bu iki aşamalı süreç, her kuruluşun ve her ilanın bir aday görmeden önce incelendiği anlamına gelir.",
     employer48h:
-      "تُراجَع معظم الإعلانات في غضون 48 ساعة من تقديمها. ستتلقى بريداً إلكترونياً تأكيدياً حين يصبح إعلانك منشوراً.",
-    postingGuidelinesLink: "إرشادات النشر للحصول على موافقة أسرع",
-    trustHeading: "الثقة والدليل",
+      "Çoğu ilan gönderimden sonraki 48 saat içinde incelenir. İlanınız yayında olduğunda onay e-postası alırsınız.",
+    postingGuidelinesLink: "Daha hızlı onay için ilan rehberi →",
+    trustHeading: "Güven ve dizin",
     trustBefore: "",
-    trustLinkLabel: "دليل المنظمات",
-    trustAfter:
-      "يبرز أصحاب العمل الموثَّقين. تساعدك الشارات والمرشحات على الفرز السريع قبل فتح أي إعلان كامل.",
-    exploreHeading: "استكشف المزيد",
-    exploreSectors: "تصفح حسب الموضوع / التصنيف",
-    exploreEvents: "الفعاليات والتواريخ الرئيسية",
-    exploreSpotlights: "أضواء على أصحاب العمل",
-    exploreImpact: "الشفافية والمبادئ",
+    trustLinkLabel: "Kuruluş dizini",
+    trustAfter: " doğrulanmış işverenleri öne çıkarır.",
+    exploreHeading: "Daha fazlasını keşfedin",
+    exploreSectors: "Tema / kategoriye göre göz atın",
+    exploreEvents: "Etkinlikler ve önemli tarihler",
+    exploreSpotlights: "İşveren spotları",
+    exploreImpact: "Şeffaflık ve ilkeler",
   },
 } as const;
 

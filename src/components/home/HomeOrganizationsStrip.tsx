@@ -14,10 +14,10 @@ export function HomeOrganizationsStrip({ organizations }: Props) {
   if (organizations.length === 0) return null;
 
   return (
-    <section className="border-t border-brand-border/60 bg-white/50 py-8">
+    <section className="border-t border-brand-teal/10 bg-brand-muted/40 py-8">
       <div className="mx-auto max-w-6xl px-4">
-        <h2 className="text-center text-sm font-bold uppercase tracking-wide text-brand-navy/80">
-          {t("orgsOnMasrjobs")}
+        <h2 className="text-center text-sm font-bold uppercase tracking-wide text-brand-teal/80">
+          {t("orgsOnTurkiyejobs")}
         </h2>
         <ul className="mt-6 flex flex-wrap items-center justify-center gap-6 md:gap-10">
           {organizations.map((org) => (

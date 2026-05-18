@@ -17,9 +17,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MasrJobs.org — Egypt’s Development & Social Impact Jobs Platform",
+  metadataBase: new URL("https://turkiyejobs.org"),
+  title: {
+    default: "TürkiyeJobs — NGO & Development Sector Jobs in Türkiye",
+    template: "%s | TürkiyeJobs",
+  },
   description:
-    "MasrJobs.org connects Egypt’s NGO, development, humanitarian, and social impact ecosystem with jobs, consultancies, trainings, volunteering, tenders, and grants.",
+    "Verified NGO jobs, consultancies, grants, and opportunities for Türkiye's development and humanitarian sector.",
+  openGraph: {
+    type: "website",
+    siteName: "TürkiyeJobs",
+    title: "TürkiyeJobs — NGO & Development Sector Jobs in Türkiye",
+    description:
+      "Verified NGO jobs, consultancies, grants, and opportunities for Türkiye's development and humanitarian sector.",
+    url: "https://turkiyejobs.org",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TürkiyeJobs — NGO & Development Sector Jobs in Türkiye",
+    description:
+      "Verified NGO jobs, consultancies, grants, and opportunities for Türkiye's development and humanitarian sector.",
+  },
 };
 
 export default async function RootLayout({

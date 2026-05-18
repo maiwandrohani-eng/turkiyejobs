@@ -249,7 +249,7 @@ export function AdminSiteContactPanel({ disabled }: Props) {
           <button
             type="submit"
             disabled={saving}
-            className="rounded-xl bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:opacity-95 disabled:opacity-60"
+            className="btn-primary px-5 py-2.5 text-sm font-semibold text-white "
           >
             {saving ? "Saving…" : "Save public contact"}
           </button>

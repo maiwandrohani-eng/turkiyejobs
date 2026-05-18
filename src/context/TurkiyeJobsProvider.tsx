@@ -32,7 +32,7 @@ import type {
   ExternalApplyIntentRecord,
   InternalApplyPayload,
   ListingStatus,
-  MasrJobsNotification,
+  TürkiyeJobsNotification,
   Opportunity,
   Organization,
   OrgListingRecord,
@@ -44,19 +44,19 @@ import type {
 } from "@/lib/types";
 
 const STORAGE = {
-  session: "masrjobs:v1:session",
-  saved: "masrjobs:v1:saved",
-  applications: "masrjobs:v1:applications",
-  orgListings: "masrjobs:v1:orgListings",
-  pendingOrgs: "masrjobs:v1:pendingOrgs",
-  pendingOpps: "masrjobs:v1:pendingOpps",
-  extraOpps: "masrjobs:v1:extraOpportunities",
-  notifications: "masrjobs:v1:notifications",
-  approvedOrgEmails: "masrjobs:v1:approvedOrgEmails",
-  registeredUsers: "masrjobs:v1:registeredUsers",
-  applicantProfiles: "masrjobs:v1:applicantProfiles",
-  suppressedCatalogIds: "masrjobs:v1:suppressedCatalogIds",
-  externalApplyIntents: "masrjobs:v1:externalApplyIntents",
+  session: "turkiyejobs:v1:session",
+  saved: "turkiyejobs:v1:saved",
+  applications: "turkiyejobs:v1:applications",
+  orgListings: "turkiyejobs:v1:orgListings",
+  pendingOrgs: "turkiyejobs:v1:pendingOrgs",
+  pendingOpps: "turkiyejobs:v1:pendingOpps",
+  extraOpps: "turkiyejobs:v1:extraOpportunities",
+  notifications: "turkiyejobs:v1:notifications",
+  approvedOrgEmails: "turkiyejobs:v1:approvedOrgEmails",
+  registeredUsers: "turkiyejobs:v1:registeredUsers",
+  applicantProfiles: "turkiyejobs:v1:applicantProfiles",
+  suppressedCatalogIds: "turkiyejobs:v1:suppressedCatalogIds",
+  externalApplyIntents: "turkiyejobs:v1:externalApplyIntents",
 } as const;
 
 function normEmail(e: string) {
@@ -100,7 +100,7 @@ function buildInitialOrgListings(): OrgListingRecord[] {
 }
 
 function notificationVisibleForSession(
-  n: MasrJobsNotification,
+  n: TürkiyeJobsNotification,
   session: SessionUser | null,
 ): boolean {
   if (n.audience.kind === "admin") return session?.role === "admin";
@@ -115,7 +115,7 @@ function notificationVisibleForSession(
   );
 }
 
-type MasrJobsContextValue = {
+type TürkiyeJobsContextValue = {
   session: SessionUser | null;
   login: (user: SessionUser) => void;
   /** Clears browser preview sign-in only; use before signing in with a database account while preview auth is enabled. */
@@ -165,7 +165,7 @@ type MasrJobsContextValue = {
   ) => void;
   closeOwnPublishedListing: (opportunityId: string) => void;
 
-  notifications: MasrJobsNotification[];
+  notifications: TürkiyeJobsNotification[];
   unreadNotificationCount: number;
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
@@ -185,9 +185,9 @@ type MasrJobsContextValue = {
   refreshOrgPostedListings: () => void;
 };
 
-const MasrJobsContext = createContext<MasrJobsContextValue | null>(null);
+const TürkiyeJobsContext = createContext<TürkiyeJobsContextValue | null>(null);
 
-export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
+export function TurkiyeJobsProvider({ children }: { children: React.ReactNode }) {
   const nextAuth = useSession();
   const [localStorageReady, setLocalStorageReady] = useState(false);
   const [demoSession, setDemoSession] = useState<SessionUser | null>(null);
@@ -206,7 +206,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
   const [extraOpportunities, setExtraOpportunities] = useState<Opportunity[]>(
     [],
   );
-  const [notifications, setNotifications] = useState<MasrJobsNotification[]>(
+  const [notifications, setNotifications] = useState<TürkiyeJobsNotification[]>(
     [],
   );
   const [approvedOrgEmails, setApprovedOrgEmails] = useState<string[]>([]);
@@ -337,8 +337,8 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
     refreshNeonCatalog();
   }, [demoMode, refreshNeonCatalog]);
 
-  const pushNotification = useCallback((n: Omit<MasrJobsNotification, "id">) => {
-    const full: MasrJobsNotification = {
+  const pushNotification = useCallback((n: Omit<TürkiyeJobsNotification, "id">) => {
+    const full: TürkiyeJobsNotification = {
       ...n,
       id: `n-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     };
@@ -433,7 +433,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
     setSuppressedCatalogIds(
       demo ? loadJson<string[]>(STORAGE.suppressedCatalogIds, []) : [],
     );
-    setNotifications(loadJson<MasrJobsNotification[]>(STORAGE.notifications, []));
+    setNotifications(loadJson<TürkiyeJobsNotification[]>(STORAGE.notifications, []));
     setApprovedOrgEmails(
       loadJson<string[]>(STORAGE.approvedOrgEmails, []).map(normEmail),
     );
@@ -783,7 +783,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
       if (getOpportunityApplicationMethod(opp) !== "internal") {
         return {
           ok: false,
-          message: "This listing does not accept applications through MasrJobs.org.",
+          message: "This listing does not accept applications through TürkiyeJobs.org.",
         };
       }
       if (suppressedCatalogIdsForBrowse(suppressedCatalogIds).includes(opp.id)) {
@@ -876,7 +876,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
               read: false,
               audience: { kind: "org", email: normEmail(orgEmailNeon) },
               title: "New application",
-              message: `Someone applied to “${opp.title}” via MasrJobs.org.`,
+              message: `Someone applied to “${opp.title}” via TürkiyeJobs.org.`,
             });
           }
           return {
@@ -954,7 +954,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
           read: false,
           audience: { kind: "org", email: normEmail(orgEmail) },
           title: "New application",
-          message: `Someone applied to “${opp.title}” via MasrJobs.org.`,
+          message: `Someone applied to “${opp.title}” via TürkiyeJobs.org.`,
         });
       }
       return {
@@ -1178,7 +1178,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
           audience: { kind: "org", email: normEmail(row.email) },
           title: "Account approved",
           message:
-            "Your organization can now post opportunities on MasrJobs.org for this preview session.",
+            "Your organization can now post opportunities on TürkiyeJobs.org for this preview session.",
         });
         queueMicrotask(() => {
           postTransactionalEmail("/api/admin/transactional-email", {
@@ -1721,7 +1721,7 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
     [session, demoMode, catalogOpportunities, refreshNeonCatalog, refreshOrgPostedListings],
   );
 
-  const value = useMemo<MasrJobsContextValue>(
+  const value = useMemo<TürkiyeJobsContextValue>(
     () => ({
       session,
       login,
@@ -1813,14 +1813,14 @@ export function MasrJobsProvider({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <MasrJobsContext.Provider value={value}>{children}</MasrJobsContext.Provider>
+    <TürkiyeJobsContext.Provider value={value}>{children}</TürkiyeJobsContext.Provider>
   );
 }
 
-export function useMasrJobs() {
-  const ctx = useContext(MasrJobsContext);
+export function useTurkiyeJobs() {
+  const ctx = useContext(TürkiyeJobsContext);
   if (!ctx) {
-    throw new Error("useMasrJobs must be used within MasrJobsProvider");
+    throw new Error("useTurkiyeJobs must be used within TurkiyeJobsProvider");
   }
   return ctx;
 }

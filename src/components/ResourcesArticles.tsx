@@ -27,7 +27,7 @@ function ReadMoreLink({ slug, articleTitle }: { slug: string; articleTitle: stri
 }
 
 export function ResourcesArticles({ articles }: { articles: ResourceArticle[] }) {
-  const { mode, setMode } = usePersistedViewMode("masrjobs:v1:viewResourcesArticles");
+  const { mode, setMode } = usePersistedViewMode("turkiyejobs:v1:viewResourcesArticles");
 
   return (
     <div>

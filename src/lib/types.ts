@@ -211,16 +211,16 @@ export interface PendingOppApproval {
   submittedAt: string;
 }
 
-export type MasrJobsNotificationAudience =
+export type TürkiyeJobsNotificationAudience =
   | { kind: "admin" }
   | { kind: "org"; email: string }
   | { kind: "user"; email: string };
 
-export interface MasrJobsNotification {
+export interface TürkiyeJobsNotification {
   id: string;
   createdAt: string;
   read: boolean;
-  audience: MasrJobsNotificationAudience;
+  audience: TürkiyeJobsNotificationAudience;
   title: string;
   message: string;
 }

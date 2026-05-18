@@ -31,11 +31,11 @@ export function PageIntro({
   return (
     <header className="mb-8 max-w-3xl">
       {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-wider text-brand-gold">
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand-red">
           {eyebrow}
         </p>
       ) : null}
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-brand-navy md:text-4xl">
+      <h1 className="mt-2 text-3xl font-bold tracking-tight text-brand-teal md:text-4xl">
         {title}
       </h1>
       {description ? (
