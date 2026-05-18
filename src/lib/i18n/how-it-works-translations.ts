@@ -41,7 +41,6 @@ export const HOW_IT_WORKS_TRANSLATIONS = {
     exploreSpotlights: "Employer spotlights",
     exploreImpact: "Transparency & principles",
   },
-  // TODO: extend Turkish translations to remaining pages
   tr: {
     eyebrow: "Rehberler",
     title: "TürkiyeJobs.org nasıl çalışır",
@@ -72,7 +71,7 @@ export const HOW_IT_WORKS_TRANSLATIONS = {
     trustHeading: "Güven ve dizin",
     trustBefore: "",
     trustLinkLabel: "Kuruluş dizini",
-    trustAfter: " doğrulanmış işverenleri öne çıkarır.",
+    trustAfter: " doğrulanmış işverenleri öne çıkarır. Rozetler ve filtreler, tam bir ilanı açmadan önce hızlıca taramanıza yardımcı olur.",
     exploreHeading: "Daha fazlasını keşfedin",
     exploreSectors: "Tema / kategoriye göre göz atın",
     exploreEvents: "Etkinlikler ve önemli tarihler",

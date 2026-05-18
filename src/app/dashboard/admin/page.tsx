@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChangePasswordForm } from "@/components/ChangePasswordForm";
 import { AdminNeonRegistryPanel } from "@/components/AdminNeonRegistryPanel";
 import { AdminSiteContactPanel } from "@/components/AdminSiteContactPanel";
@@ -9,7 +9,7 @@ import { PageIntro, PageShell } from "@/components/PageShell";
 import { ListingStatusBadge } from "@/components/StatusBadge";
 import { useTurkiyeJobs } from "@/context/TurkiyeJobsProvider";
 import { isDemoAuthEnabled } from "@/lib/demo-auth";
-import type { OpportunityCategory } from "@/lib/types";
+import type { Opportunity, Organization, ApplicationRecord, OpportunityCategory } from "@/lib/types";
 
 const CATEGORY_PRESETS: OpportunityCategory[] = [
   "Jobs",
@@ -19,6 +19,68 @@ const CATEGORY_PRESETS: OpportunityCategory[] = [
   "Tenders",
   "Grants",
 ];
+
+function toCsvRow(cells: (string | number | boolean | null | undefined)[]): string {
+  return cells
+    .map((c) => {
+      const s = c == null ? "" : String(c);
+      return s.includes(",") || s.includes('"') || s.includes("\n")
+        ? `"${s.replace(/"/g, '""')}"`
+        : s;
+    })
+    .join(",");
+}
+
+function downloadCsv(filename: string, rows: string[]): void {
+  const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportListingsCsv(opportunities: Opportunity[]): void {
+  const header = toCsvRow([
+    "ID", "Title", "Organization", "Category", "Location", "Type",
+    "Work Arrangement", "Compensation", "Deadline", "Visibility", "Featured",
+  ]);
+  const rows = opportunities.map((o) =>
+    toCsvRow([
+      o.id, o.title, o.organizationName, o.category, o.location, o.type,
+      o.workArrangement, o.compensation, o.deadline,
+      o.visibility ?? "published", o.featured ? "Yes" : "No",
+    ]),
+  );
+  downloadCsv(`turkiyejobs-listings-${new Date().toISOString().slice(0, 10)}.csv`, [header, ...rows]);
+}
+
+function exportOrganizationsCsv(organizations: Organization[]): void {
+  const header = toCsvRow(["ID", "Name", "Slug", "Location", "Sector", "Verified", "Featured", "Website"]);
+  const rows = organizations.map((o) =>
+    toCsvRow([
+      o.id, o.name, o.slug, o.location, o.sector ?? "",
+      o.verified ? "Yes" : "No", o.featured ? "Yes" : "No", o.website ?? "",
+    ]),
+  );
+  downloadCsv(`turkiyejobs-organizations-${new Date().toISOString().slice(0, 10)}.csv`, [header, ...rows]);
+}
+
+function exportApplicationsCsv(applications: ApplicationRecord[]): void {
+  const header = toCsvRow([
+    "ID", "Opportunity ID", "Opportunity Title", "Organization", "Applicant Email",
+    "Applicant Name", "Status", "Submitted At",
+  ]);
+  const rows = applications.map((a) =>
+    toCsvRow([
+      a.id, a.opportunityId, a.opportunityTitle, a.organizationName,
+      a.applicantEmail ?? "", a.applicantDisplayName ?? a.applicantFullName ?? "",
+      a.status, a.submittedAt,
+    ]),
+  );
+  downloadCsv(`turkiyejobs-applications-${new Date().toISOString().slice(0, 10)}.csv`, [header, ...rows]);
+}
 
 type AuditRow = {
   id: string;
@@ -52,6 +114,11 @@ export default function AdminDashboardPage() {
   const [auditRows, setAuditRows] = useState<AuditRow[]>([]);
   const [auditLoading, setAuditLoading] = useState(false);
   const [auditMessage, setAuditMessage] = useState<string | null>(null);
+
+  const [categories, setCategories] = useState<string[]>([...CATEGORY_PRESETS]);
+  const [categoryEditing, setCategoryEditing] = useState(false);
+  const [newCategory, setNewCategory] = useState("");
+  const newCategoryInputRef = useRef<HTMLInputElement>(null);
 
   type OrgProfileChangeRow = {
     id: string;
@@ -609,21 +676,73 @@ export default function AdminDashboardPage() {
       </div>
 
       <section className="mt-8 rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
-        <h2 className="text-base font-bold text-brand-navy">Manage categories</h2>
+        <div className="flex items-center justify-between gap-4">
+          <h2 className="text-base font-bold text-brand-navy">Manage categories</h2>
+          <button
+            type="button"
+            className="rounded-lg border border-brand-border px-3 py-1 text-xs font-semibold text-brand-navy hover:bg-brand-muted"
+            onClick={() => {
+              setCategoryEditing((v) => !v);
+              setNewCategory("");
+            }}
+          >
+            {categoryEditing ? "Done" : "Edit"}
+          </button>
+        </div>
         <p className="mt-2 text-sm text-foreground/70">
-          These labels match the categories used on the public site. Persisting edits from
-          here can be wired to your database when you add admin category APIs.
+          These labels match the categories used on the public site. Changes here are
+          session-only until a category API is wired to persist them to the database.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          {CATEGORY_PRESETS.map((c) => (
+          {categories.map((c) => (
             <span
               key={c}
-              className="rounded-full border border-brand-border bg-brand-muted/50 px-3 py-1 text-xs font-semibold text-brand-navy"
+              className="flex items-center gap-1 rounded-full border border-brand-border bg-brand-muted/50 px-3 py-1 text-xs font-semibold text-brand-navy"
             >
               {c}
+              {categoryEditing && (
+                <button
+                  type="button"
+                  aria-label={`Remove ${c}`}
+                  className="ml-1 rounded-full text-foreground/50 hover:text-red-500"
+                  onClick={() => setCategories((prev) => prev.filter((x) => x !== c))}
+                >
+                  ×
+                </button>
+              )}
             </span>
           ))}
         </div>
+        {categoryEditing && (
+          <form
+            className="mt-4 flex gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const label = newCategory.trim();
+              if (label && !categories.includes(label)) {
+                setCategories((prev) => [...prev, label]);
+              }
+              setNewCategory("");
+              newCategoryInputRef.current?.focus();
+            }}
+          >
+            <input
+              ref={newCategoryInputRef}
+              type="text"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+              placeholder="New category label"
+              className="flex-1 rounded-lg border border-brand-border px-3 py-1.5 text-sm text-brand-navy outline-none focus:ring-2 focus:ring-brand-gold"
+            />
+            <button
+              type="submit"
+              disabled={!newCategory.trim()}
+              className="rounded-lg bg-brand-navy px-4 py-1.5 text-xs font-semibold text-white hover:opacity-90 disabled:opacity-40"
+            >
+              Add
+            </button>
+          </form>
+        )}
       </section>
 
       <AdminSiteContactPanel disabled={previewAuth} />
@@ -671,20 +790,32 @@ export default function AdminDashboardPage() {
       <section className="mt-8 rounded-2xl border border-brand-border bg-brand-muted/40 p-6">
         <h2 className="text-base font-bold text-brand-navy">Reports export</h2>
         <p className="mt-2 text-sm text-foreground/70">
-          Export CSV summaries of listings, applications, and employer activity for
-          leadership dashboards.
+          Download CSV snapshots of current platform data for leadership dashboards or
+          offline analysis.
         </p>
-        <button
-          type="button"
-          className="mt-4 rounded-xl border border-brand-border bg-white px-5 py-2.5 text-sm font-semibold text-brand-navy hover:bg-brand-muted"
-          onClick={() =>
-            alert(
-              "CSV export is not available from the dashboard yet. Use your database or analytics tools for bulk reports.",
-            )
-          }
-        >
-          Download sample report
-        </button>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button
+            type="button"
+            className="rounded-xl border border-brand-border bg-white px-5 py-2.5 text-sm font-semibold text-brand-navy hover:bg-brand-muted"
+            onClick={() => exportListingsCsv(opportunities)}
+          >
+            Export listings ({opportunities.length})
+          </button>
+          <button
+            type="button"
+            className="rounded-xl border border-brand-border bg-white px-5 py-2.5 text-sm font-semibold text-brand-navy hover:bg-brand-muted"
+            onClick={() => exportOrganizationsCsv(organizations)}
+          >
+            Export organizations ({organizations.length})
+          </button>
+          <button
+            type="button"
+            className="rounded-xl border border-brand-border bg-white px-5 py-2.5 text-sm font-semibold text-brand-navy hover:bg-brand-muted"
+            onClick={() => exportApplicationsCsv(applications)}
+          >
+            Export applications ({applications.length})
+          </button>
+        </div>
       </section>
 
       {!previewAuth ? (

@@ -34,7 +34,6 @@ export const IMPACT_TRANSLATIONS = {
     growingContactLabel: "Contact",
     growingAfter: ".",
   },
-  // TODO: extend Turkish translations to remaining pages
   tr: {
     eyebrow: "TürkiyeJobs.org",
     title: "Şeffaflık ve ilkeler",
@@ -49,19 +48,19 @@ export const IMPACT_TRANSLATIONS = {
     commitment4: "Aday verilerini üçüncü taraflara satmıyoruz.",
     verificationHeading: "Doğrulama nasıl çalışır",
     verificationBody:
-      "TürkiyeJobs iki aşamalı bir inceleme süreci kullanır. Önce her kuruluş hesabı doğrulanır; sonra her ilan yayınlanmadan önce incelenir.",
+      "TürkiyeJobs iki aşamalı bir inceleme süreci kullanır. Önce her kuruluş hesabı yönetici ekibi tarafından doğrulanır; kuruluş herhangi bir şey yayınlayabilmeden önce bu onay gereklidir. İkinci aşamada ise her ilan yayınlanmadan önce kalite ve uygunluk açısından incelenir. Bu sayede TürkiyeJobs'ta hiçbir şey incelenmeden kalmaz — ne işveren ne de ilan.",
     optimizeHeading: "Neyi optimize ediyoruz",
     optimize1Label: "Netlik",
     optimize1:
       " — adaylar rolü, konumu ve başvuru yolunu ekler arasında kaybolmadan anlamalı.",
     optimize2Label: "Adil süreç",
     optimize2:
-      " — yayınlanan ilanlar kuruluşun gerçekten ne için işe aldığını yansıtmalı.",
+      " — yayınlanan ilanlar kuruluşun gerçekten ne için işe aldığını yansıtmalı ve son tarihler adayların zamanına saygı göstermeli.",
     optimize3Label: "Doğrulanmış işverenler",
     optimize3: " — kuruluş hesapları incelemeden geçer.",
     growingHeading: "Sektörle birlikte büyüme",
     growingBefore:
-      "Platform olgunlaştıkça metrikler ve ortak hikâyeler genişleyecek. Şimdilik en iyi sinyal ilan kalitesidir. Görüşleriniz için",
+      "Platform olgunlaştıkça metrikler ve ortak hikâyeler genişleyecek. Şimdilik en iyi sinyal, ilan kalitesi ve buraya ilan vermeyi tercih eden kuruluşlardır. Hesap verebilirlik veya raporlama konusunda yayınlanmasını istediğiniz fikirleriniz varsa,",
     growingContactLabel: "İletişim",
     growingAfter: " üzerinden ulaşın.",
   },

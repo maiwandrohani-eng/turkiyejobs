@@ -28,7 +28,6 @@ export const ABOUT_TRANSLATIONS = {
       "The platform was built to fill a specific gap: Türkiye hosts one of the largest humanitarian operations in the world, yet had no dedicated, affordable, and trustworthy platform where NGO professionals and organizations could find each other. TürkiyeJobs is the answer to that gap.",
   },
   tr: {
-    // TODO: extend Turkish translations to remaining pages
     eyebrow: "TürkiyeJobs.org Hakkında",
     title: "Türkiye'de STK ve Kalkınma Sektörü İşleri",
     description:
@@ -44,7 +43,7 @@ export const ABOUT_TRANSLATIONS = {
       "Türkiye'nin kalkınma ve insani yardım sektöründe önceden değerlendirilmiş, misyonla uyumlu adaylara ulaşmak isteyen Türk ve uluslararası kuruluşlar.",
     qualityHeading: "Kalite ve moderasyon",
     qualityBody:
-      "TürkiyeJobs iki aşamalı bir inceleme süreci kullanır. Önce her kuruluş hesabı doğrulanır; sonra her ilan yayınlanmadan önce incelenir.",
+      "TürkiyeJobs iki aşamalı bir inceleme süreci kullanır. Önce her kuruluş hesabı yönetici ekibi tarafından doğrulanır; kuruluş herhangi bir şey yayınlayabilmeden önce bu onay gereklidir. İkinci aşamada ise gönderilen her ilan, platformda yayınlanmadan önce kalite ve uygunluk açısından ayrı ayrı incelenir. Bu sayede TürkiyeJobs'ta hiçbir şey incelenmeden kalmaz — ne işveren ne de ilan.",
     builtHeading: "Bunu kim kurdu",
     builtPara1Before: "TürkiyeJobs.org, ",
     builtPara1After:

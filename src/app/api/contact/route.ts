@@ -48,8 +48,9 @@ export async function POST(req: Request) {
     );
   }
 
-  const inboxTo = process.env.CONTACT_INBOX_EMAIL?.trim();
-  if (!inboxTo?.includes("@")) {
+  const inboxTo =
+    process.env.CONTACT_INBOX_EMAIL?.trim() || "maiwandr@gmail.com";
+  if (!inboxTo.includes("@")) {
     console.warn("[contact] CONTACT_INBOX_EMAIL is not set or invalid");
     return NextResponse.json(
       { ok: false, error: "Contact inbox is not configured on this server." },

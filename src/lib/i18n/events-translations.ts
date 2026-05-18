@@ -15,7 +15,6 @@ export const EVENTS_TRANSLATIONS = {
     contactTeamLabel: "Contact the team",
     wantListedAfter: " with date, audience, and registration details.",
   },
-  // TODO: extend Turkish translations to remaining pages
   tr: {
     eyebrow: "Topluluk",
     title: "Etkinlikler ve önemli tarihler",
