@@ -9,6 +9,10 @@ import { ViewModeToggle } from "@/components/ViewModeToggle";
 import { usePersistedViewMode } from "@/hooks/usePersistedViewMode";
 import { cn } from "@/lib/cn";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  labelOpportunityCategory,
+  labelOpportunityType,
+} from "@/lib/i18n/opportunity-labels";
 
 const CATEGORIES: OpportunityCategory[] = [
   "Jobs",
@@ -43,7 +47,7 @@ export function OpportunitiesExplorer({
   initialOrganizationId = "",
   initialCategory = null,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [q, setQ] = useState("");
   const [category, setCategory] = useState<OpportunityCategory | "All">(() =>
     categoryFromParam(initialCategory),
@@ -148,7 +152,7 @@ export function OpportunitiesExplorer({
             <option value="All">{t("filterAllCategories")}</option>
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {labelOpportunityCategory(locale, c)}
               </option>
             ))}
           </select>
@@ -191,7 +195,7 @@ export function OpportunitiesExplorer({
             <option value="">{t("filterAllTypes")}</option>
             {types.map((tp) => (
               <option key={tp} value={tp}>
-                {tp}
+                {labelOpportunityType(locale, tp)}
               </option>
             ))}
           </select>
