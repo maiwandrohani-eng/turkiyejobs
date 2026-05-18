@@ -6,9 +6,13 @@
     "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "vercel-build": "prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "db:push": "prisma generate && prisma db push",
+    "db:seed": "prisma db seed",
+    "db:setup": "prisma generate && prisma db push && prisma db seed",
     "db:bootstrap-user": "tsx scripts/bootstrap-user.ts",
     "db:bootstrap-admin": "tsx scripts/bootstrap-user.ts"
   },
