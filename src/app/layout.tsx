@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
+import type { Session } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import "./globals.css";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -8,7 +9,11 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Providers } from "@/components/Providers";
 import { authOptions } from "@/lib/auth-options";
 import { LOCALE_COOKIE_KEY, normalizeLocale } from "@/lib/i18n/locale";
-import { getContactPublicData } from "@/lib/site-contact";
+import {
+  DEFAULT_CONTACT_CARD,
+  DEFAULT_SOCIAL_LINKS,
+} from "@/lib/site-contact-defaults";
+import { getContactPublicData, type ContactPublicData } from "@/lib/site-contact";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,11 +54,28 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [contact, session, cookieStore] = await Promise.all([
-    getContactPublicData(),
-    getServerSession(authOptions),
-    cookies(),
-  ]);
+  const cookieStore = await cookies();
+
+  const contactFallback: ContactPublicData = {
+    officeTitle: DEFAULT_CONTACT_CARD.officeTitle,
+    body: DEFAULT_CONTACT_CARD.body,
+    mapEmbedUrl: DEFAULT_CONTACT_CARD.mapEmbedUrl,
+    social: DEFAULT_SOCIAL_LINKS,
+  };
+
+  let contact = contactFallback;
+  try {
+    contact = await getContactPublicData();
+  } catch (e) {
+    console.error("[layout] getContactPublicData failed:", e);
+  }
+
+  let session: Session | null = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    console.error("[layout] getServerSession failed:", e);
+  }
 
   const htmlLocale = normalizeLocale(cookieStore.get(LOCALE_COOKIE_KEY)?.value);
 

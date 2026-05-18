@@ -60,16 +60,13 @@ export async function getContactPublicData(): Promise<ContactPublicData> {
       where: { key: { in: keys } },
     });
   } catch (e) {
-    const code = prismaErrorCode(e);
-    if (code === "P2021" || code === "P2022") {
-      return {
-        officeTitle: DEFAULT_CONTACT_CARD.officeTitle,
-        body: DEFAULT_CONTACT_CARD.body,
-        mapEmbedUrl: DEFAULT_CONTACT_CARD.mapEmbedUrl,
-        social: DEFAULT_SOCIAL_LINKS,
-      };
-    }
-    throw e;
+    console.error("[site-contact] SiteSetting query failed:", prismaErrorCode(e) ?? e);
+    return {
+      officeTitle: DEFAULT_CONTACT_CARD.officeTitle,
+      body: DEFAULT_CONTACT_CARD.body,
+      mapEmbedUrl: DEFAULT_CONTACT_CARD.mapEmbedUrl,
+      social: DEFAULT_SOCIAL_LINKS,
+    };
   }
   const map = new Map(rows.map((r) => [r.key, r.value]));
 
