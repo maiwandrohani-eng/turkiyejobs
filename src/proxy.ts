@@ -4,31 +4,12 @@ import { getToken } from "next-auth/jwt";
 import type { UserRole } from "@/generated/prisma/enums";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 
-const APEX_HOST = "turkiyejobs.org";
-
-function requestHostname(req: NextRequest): string {
-  const raw =
-    req.headers.get("x-forwarded-host") ??
-    req.headers.get("host") ??
-    req.nextUrl.hostname;
-  return raw.split(",")[0]?.trim().split(":")[0]?.toLowerCase() ?? "";
-}
-
-/** Single canonical host — avoids www ↔ apex loops with Vercel domain redirects. */
-function redirectWwwToApex(req: NextRequest): NextResponse | null {
-  const hostname = requestHostname(req);
-  if (hostname !== "www.turkiyejobs.org") return null;
-
-  const url = req.nextUrl.clone();
-  url.protocol = "https:";
-  url.hostname = APEX_HOST;
-  return NextResponse.redirect(url, 308);
-}
+/**
+ * Do not redirect www ↔ apex here. Configure canonical host only in Vercel Domains
+ * (your project uses www as Production; apex → www 308 is set in Vercel).
+ */
 
 export async function proxy(req: NextRequest) {
-  const wwwRedirect = redirectWwwToApex(req);
-  if (wwwRedirect) return wwwRedirect;
-
   const demo = process.env.NEXT_PUBLIC_ENABLE_DEMO_AUTH === "true";
   const { pathname } = req.nextUrl;
 
@@ -84,10 +65,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Run on all routes (for www → apex). Static assets excluded.
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico)$).*)",
-  ],
+  matcher: ["/dashboard/:path*", "/api/auth/callback/credentials"],
 };
