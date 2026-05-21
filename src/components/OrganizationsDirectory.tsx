@@ -331,89 +331,103 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
           {t("orgDirectoryNoMatch")}
         </div>
       ) : mode === "card" ? (
-        <div className="grid gap-5 sm:grid-cols-2">
-          {filteredOrganizations.map((org) => (
-            <article
-              key={org.id}
-              id={orgAnchorId(org.id)}
-              className="flex h-full scroll-mt-24 flex-col rounded-2xl border border-brand-border bg-white p-6 shadow-sm"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand-gold">
-                    {org.sector ?? t("orgDirectorySocialImpact")}
-                  </p>
-                  <h2 className="mt-1 text-lg font-bold text-brand-navy">{org.name}</h2>
-                  <p className="mt-1 flex items-center gap-1.5 text-sm text-foreground/70">
-                    <MapPin className="h-4 w-4 shrink-0 text-brand-gold" aria-hidden />
-                    {org.location}
-                  </p>
-                </div>
-                <div className="flex shrink-0 flex-col items-end gap-1">
-                  {org.featured ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold/20 px-2.5 py-0.5 text-xs font-semibold text-brand-navy">
-                      <Award className="h-3.5 w-3.5" aria-hidden /> {t("orgDirectoryFeatured")}
-                    </span>
-                  ) : null}
-                  {org.verificationStatus === "VERIFIED" ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold-muted px-2.5 py-0.5 text-xs font-semibold text-brand-navy ring-1 ring-brand-gold/35">
-                      <BadgeCheck className="h-3.5 w-3.5" aria-hidden /> {statusLabel(org)}
-                    </span>
-                  ) : org.verificationStatus === "CURATED_PUBLIC_PROFILE" ||
-                    org.verificationStatus === "UNCLAIMED_PROFILE" ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-semibold text-sky-900 ring-1 ring-sky-200">
-                      {statusLabel(org)}
-                    </span>
-                  ) : (
-                    <span className="text-xs font-medium text-foreground/50">
-                      {statusLabel(org)}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <p
-                className="mt-4 flex-1 text-sm leading-relaxed text-foreground/75 line-clamp-10"
-                title={org.description.length > 400 ? org.description : undefined}
+        <div className="space-y-4">
+          {filteredOrganizations.map((org) => {
+            const showCuratedNotice =
+              org.verificationStatus === "CURATED_PUBLIC_PROFILE" ||
+              org.verificationStatus === "UNCLAIMED_PROFILE";
+
+            return (
+              <article
+                key={org.id}
+                id={orgAnchorId(org.id)}
+                className="scroll-mt-24 rounded-2xl border border-brand-border bg-white p-4 shadow-sm sm:p-5"
               >
-                {org.description}
-              </p>
-              {org.claimed === false ? (
-                <p className="mt-2 text-xs font-medium text-foreground/65">{t("orgDirectoryClaimProfile")}</p>
-              ) : null}
-              <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                <Link
-                  href={`/organizations/${encodeURIComponent(org.slug)}`}
-                  className="inline-flex min-h-[2.75rem] cursor-pointer items-center justify-center btn-primary px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm  sm:min-h-0"
-                >
-                  {t("orgDirectoryViewProfile")}
-                </Link>
-                <Link
-                  href={`/opportunities?orgId=${encodeURIComponent(org.id)}`}
-                  className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg border border-brand-border px-4 py-2.5 text-center text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
-                >
-                  {t("orgDirectoryViewOpportunities")}
-                </Link>
-                {org.website ? (
-                  <a
-                    href={org.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg border border-brand-border px-4 py-2.5 text-center text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
-                  >
-                    {t("orgDirectoryWebsite")}
-                  </a>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-brand-gold">
+                        {org.sector ?? t("orgDirectorySocialImpact")}
+                      </p>
+                      {org.verificationStatus === "VERIFIED" ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold-muted px-2.5 py-0.5 text-[11px] font-semibold uppercase text-brand-navy ring-1 ring-brand-gold/35">
+                          <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
+                          {statusLabel(org)}
+                        </span>
+                      ) : showCuratedNotice ? (
+                        <span className="inline-flex items-center gap-1 rounded-full border border-[#d8d1c7] bg-[#f4efe8] px-2.5 py-0.5 text-[11px] font-semibold uppercase text-brand-navy">
+                          {statusLabel(org)}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] font-medium uppercase text-foreground/50">
+                          {statusLabel(org)}
+                        </span>
+                      )}
+                      {org.featured ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold/20 px-2.5 py-0.5 text-[11px] font-semibold uppercase text-brand-navy">
+                          <Award className="h-3.5 w-3.5" aria-hidden />
+                          {t("orgDirectoryFeatured")}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <h2 className="mt-1 text-2xl font-bold leading-tight text-brand-navy">{org.name}</h2>
+
+                    <p className="mt-1 flex items-center gap-1.5 text-sm text-foreground/70">
+                      <MapPin className="h-4 w-4 shrink-0 text-brand-gold" aria-hidden />
+                      {org.location}
+                    </p>
+
+                    <p
+                      className="mt-3 text-[22px] leading-relaxed text-foreground/80"
+                      title={org.description.length > 420 ? org.description : undefined}
+                    >
+                      {org.description}
+                    </p>
+                  </div>
+
+                  <div className="flex shrink-0 flex-col gap-2 sm:w-48 sm:items-end">
+                    <Link
+                      href={`/organizations/${encodeURIComponent(org.slug)}`}
+                      className="inline-flex min-h-[2.5rem] w-full cursor-pointer items-center justify-center rounded-xl bg-brand-navy px-4 py-2 text-sm font-semibold text-white hover:bg-brand-navy-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-navy/35"
+                    >
+                      {t("orgDirectoryViewProfile")}
+                    </Link>
+                    <Link
+                      href={`/opportunities?orgId=${encodeURIComponent(org.id)}`}
+                      className="inline-flex min-h-[2.5rem] w-full items-center justify-center rounded-xl border border-brand-border px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+                    >
+                      {t("orgDirectoryViewOpportunities")}
+                    </Link>
+                    {org.website ? (
+                      <a
+                        href={org.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-[2.5rem] w-full items-center justify-center rounded-xl border border-brand-border px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+                      >
+                        {t("orgDirectoryWebsite")}
+                      </a>
+                    ) : null}
+                    {org.claimed === false ? (
+                      <Link
+                        href={buildClaimContactHref(org)}
+                        className="inline-flex min-h-[2.5rem] w-full items-center justify-center rounded-xl border border-brand-border px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+                      >
+                        {t("orgDirectoryClaimProfile")}
+                      </Link>
+                    ) : null}
+                  </div>
+                </div>
+
+                {showCuratedNotice ? (
+                  <div className="mt-4 rounded-xl border border-[#d8d1c7] bg-[#faf8f5] px-3 py-2.5 text-sm leading-relaxed text-foreground/75">
+                    This organization profile was created from publicly available or admin-provided information. The organization has not yet claimed this profile. Organizations may contact us to claim or update their profile.
+                  </div>
                 ) : null}
-                {org.claimed === false ? (
-                  <Link
-                    href={buildClaimContactHref(org)}
-                    className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg border border-brand-border px-4 py-2.5 text-center text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
-                  >
-                    {t("orgDirectoryClaimProfile")}
-                  </Link>
-                ) : null}
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       ) : (
         <ul className="divide-y divide-brand-border rounded-2xl border border-brand-border bg-white shadow-sm">
