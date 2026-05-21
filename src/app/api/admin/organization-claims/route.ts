@@ -28,6 +28,7 @@ export async function GET() {
       message: true,
       createdAt: true,
       organization: { select: { name: true, slug: true, claimed: true, verificationStatus: true } },
+      requester: { select: { role: true, organizationId: true, isActive: true } },
     },
   });
 

@@ -53,12 +53,41 @@ export async function POST(req: Request) {
       id: true,
       status: true,
       organizationId: true,
+      requesterUserId: true,
       organization: { select: { verificationStatus: true } },
+      requester: {
+        select: {
+          role: true,
+          organizationId: true,
+          isActive: true,
+        },
+      },
     },
   });
 
   if (!claim || claim.status !== "PENDING") {
     return NextResponse.json({ ok: false, error: "Claim request not found or already processed." }, { status: 404 });
+  }
+
+  if (!claim.requester.isActive) {
+    return NextResponse.json(
+      { ok: false, error: "Requester account is inactive and cannot be linked." },
+      { status: 409 },
+    );
+  }
+
+  if (
+    claim.requester.organizationId &&
+    claim.requester.organizationId !== claim.organizationId
+  ) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          "Requester account is already linked to another organization. Reassign the account first, then approve.",
+      },
+      { status: 409 },
+    );
   }
 
   if (parsed.data.action === "reject") {
@@ -73,6 +102,14 @@ export async function POST(req: Request) {
     await tx.organizationClaimRequest.update({
       where: { id: claim.id },
       data: { status: "APPROVED" },
+    });
+
+    await tx.user.update({
+      where: { id: claim.requesterUserId },
+      data: {
+        role: "ORG_USER",
+        organizationId: claim.organizationId,
+      },
     });
 
     await tx.organization.update({

@@ -147,6 +147,11 @@ export default function AdminDashboardPage() {
     requesterName: string | null;
     message: string | null;
     createdAt: string;
+    requester: {
+      role: "INDIVIDUAL" | "ORG_USER" | "ADMIN";
+      organizationId: string | null;
+      isActive: boolean;
+    };
     organization: {
       name: string;
       slug: string;
@@ -286,7 +291,7 @@ export default function AdminDashboardPage() {
 
   const moderateClaimRequest = async (claimId: string, action: "approve" | "reject") => {
     if (action === "approve") {
-      if (!confirm("Approve this claim and mark the profile as claimed?")) return;
+      if (!confirm("Approve this claim, link the requester account to this organization, and mark the profile as claimed?")) return;
     } else if (!confirm("Reject this claim request?")) {
       return;
     }
@@ -580,7 +585,7 @@ export default function AdminDashboardPage() {
       <section className="mt-8 rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
         <h2 className="text-base font-bold text-brand-navy">Profile claim requests</h2>
         <p className="mt-2 text-sm text-foreground/70">
-          Review requests from signed-in users who want to claim an unclaimed curated profile.
+          Review requests from signed-in users who want to claim an unclaimed curated profile. Approving a claim links the requester account to that organization so they can manage profile updates in the employer dashboard.
         </p>
         {claimMsg ? <p className="mt-3 text-sm text-amber-800">{claimMsg}</p> : null}
         {claimLoading ? (
@@ -594,6 +599,7 @@ export default function AdminDashboardPage() {
                 <tr>
                   <th className="px-4 py-3 font-semibold">Organization</th>
                   <th className="px-4 py-3 font-semibold">Requester</th>
+                  <th className="px-4 py-3 font-semibold">Account status</th>
                   <th className="px-4 py-3 font-semibold">Message</th>
                   <th className="px-4 py-3 font-semibold">Submitted</th>
                   <th className="px-4 py-3 font-semibold">Actions</th>
@@ -605,10 +611,27 @@ export default function AdminDashboardPage() {
                     <td className="px-4 py-3">
                       <div className="font-medium text-brand-navy">{row.organization.name}</div>
                       <div className="text-xs text-foreground/55">{row.organization.slug}</div>
+                      <Link
+                        href={`/organizations/${encodeURIComponent(row.organization.slug)}`}
+                        className="mt-1 inline-flex text-xs font-semibold text-brand-gold underline underline-offset-2"
+                      >
+                        View profile
+                      </Link>
                     </td>
                     <td className="px-4 py-3 text-foreground/75">
                       <div>{row.requesterName?.trim() || "(No name)"}</div>
                       <div className="text-xs">{row.requesterEmail}</div>
+                    </td>
+                    <td className="px-4 py-3 text-foreground/75">
+                      <div className="text-xs">
+                        Role: <span className="font-semibold text-brand-navy">{row.requester.role}</span>
+                      </div>
+                      <div className="mt-1 text-xs">
+                        Linked org: {row.requester.organizationId ? row.requester.organizationId : "None"}
+                      </div>
+                      {!row.requester.isActive ? (
+                        <div className="mt-1 text-xs font-semibold text-red-700">Inactive account</div>
+                      ) : null}
                     </td>
                     <td className="px-4 py-3 text-foreground/75">
                       {row.message?.trim() || "—"}
