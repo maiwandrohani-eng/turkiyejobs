@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Award, BadgeCheck, MapPin } from "lucide-react";
+import { ClaimProfileButton } from "@/components/ClaimProfileButton";
 import type { Organization } from "@/lib/types";
 import { ViewModeToggle } from "@/components/ViewModeToggle";
 import { usePersistedViewMode } from "@/hooks/usePersistedViewMode";
@@ -59,15 +60,6 @@ function extractLocationTags(value?: string): string[] {
         .filter(Boolean),
     ),
   );
-}
-
-function buildClaimContactHref(org: Organization): string {
-  const params = new URLSearchParams({
-    subject: `Claim profile: ${org.name}`,
-    message: `Hello, I would like to claim the organization profile for ${org.name}.\n\nOrganization profile: /organizations/${org.slug}`,
-  });
-
-  return `/contact?${params.toString()}`;
 }
 
 function parseFilterParam(value: string | null): string {
@@ -410,12 +402,11 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                       </a>
                     ) : null}
                     {org.claimed === false ? (
-                      <Link
-                        href={buildClaimContactHref(org)}
-                        className="inline-flex min-h-[2.5rem] w-full items-center justify-center rounded-xl border border-brand-border px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
-                      >
-                        {t("orgDirectoryClaimProfile")}
-                      </Link>
+                      <ClaimProfileButton
+                        organizationId={org.id}
+                        organizationName={org.name}
+                        className="inline-flex min-h-[2.5rem] w-full items-center justify-center rounded-xl border border-brand-border px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 disabled:opacity-60"
+                      />
                     ) : null}
                   </div>
                 </div>
@@ -474,12 +465,11 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                   {org.description}
                 </p>
                 {org.claimed === false ? (
-                  <Link
-                    href={buildClaimContactHref(org)}
-                    className="mt-2 inline-flex text-xs font-semibold text-brand-navy underline decoration-brand-gold/60 underline-offset-4 hover:text-brand-gold"
-                  >
-                    {t("orgDirectoryClaimProfile")}
-                  </Link>
+                  <ClaimProfileButton
+                    organizationId={org.id}
+                    organizationName={org.name}
+                    className="mt-2 inline-flex min-h-[2.25rem] items-center justify-center rounded-lg border border-brand-border px-3 py-1.5 text-xs font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 disabled:opacity-60"
+                  />
                 ) : null}
               </div>
               <div className="mt-3 flex shrink-0 flex-col gap-2 sm:mt-0 sm:items-end">
