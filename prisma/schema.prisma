@@ -56,6 +56,7 @@ model Organization {
   /// * When false, the org is hidden from the public directory and cannot post.
   isActive            Boolean                     @default(true)
   abbreviation        String?
+  sector              String?
   organizationType    String?
   sourceType          String?
   country             String?

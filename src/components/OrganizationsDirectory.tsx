@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Award, BadgeCheck, MapPin } from "lucide-react";
 import type { Organization } from "@/lib/types";
 import { ViewModeToggle } from "@/components/ViewModeToggle";
@@ -21,11 +22,73 @@ function scrollToOrgAnchor(anchorId: string): boolean {
   return true;
 }
 
+function normalizeOrganizationType(value?: string): string | undefined {
+  if (!value) return undefined;
+  const normalized = value.trim();
+  if (!normalized) return undefined;
+  const upper = normalized.toUpperCase();
+
+  if (upper.includes("UN")) return "UN";
+  if (upper.includes("INGO") || upper.includes("INT.")) return "INGO";
+  if (
+    upper.includes("DERNEK") ||
+    upper.includes("VAKIF") ||
+    upper.includes("CEMIYET") ||
+    upper.includes("COMMUNITY") ||
+    upper.includes("LOCAL") ||
+    upper.includes("SYRIAN-LED")
+  ) {
+    return "Local";
+  }
+  if (upper.includes("DONOR") || upper.includes("BILATERAL")) return "Donor";
+  if (upper.includes("BANK") || upper.includes("MULTILATERAL") || upper.includes("FINANCE")) {
+    return "Multilateral";
+  }
+
+  return normalized;
+}
+
+function extractLocationTags(value?: string): string[] {
+  if (!value) return [];
+  return Array.from(
+    new Set(
+      value
+        .split(",")
+        .map((part) => part.replace(/\(.*?\)/g, "").trim())
+        .map((part) => part.split("/")[0]?.trim() ?? "")
+        .filter(Boolean),
+    ),
+  );
+}
+
+function buildClaimContactHref(org: Organization): string {
+  const params = new URLSearchParams({
+    subject: `Claim profile: ${org.name}`,
+    message: `Hello, I would like to claim the organization profile for ${org.name}.\n\nOrganization profile: /organizations/${org.slug}`,
+  });
+
+  return `/contact?${params.toString()}`;
+}
+
+function parseFilterParam(value: string | null): string {
+  if (!value) return "all";
+  const normalized = value.trim();
+  return normalized || "all";
+}
+
 /** Deep links to `/organizations#org-…` (bookmark / email) scroll the directory list. */
 
 export function OrganizationsDirectory({ organizations }: { organizations: Organization[] }) {
   const { mode, setMode } = usePersistedViewMode("turkiyejobs:v1:viewOrganizationsDirectory");
   const { t } = useLanguage();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") ?? "");
+  const [sectorFilter, setSectorFilter] = useState(parseFilterParam(searchParams.get("sector")));
+  const [typeFilter, setTypeFilter] = useState(parseFilterParam(searchParams.get("type")));
+  const [locationFilter, setLocationFilter] = useState(parseFilterParam(searchParams.get("location")));
+  const [profileFilter, setProfileFilter] = useState(parseFilterParam(searchParams.get("profile")));
 
   const statusLabel = (org: Organization): string => {
     if (org.verificationStatus === "VERIFIED") return t("orgDirectoryVerifiedEmployer");
@@ -34,8 +97,96 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
     return t("orgDirectoryPendingVerification");
   };
 
+  const sectorOptions = useMemo(
+    () => Array.from(new Set(organizations.map((org) => org.sector).filter(Boolean))).sort(),
+    [organizations],
+  );
+
+  const typeOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(organizations.map((org) => normalizeOrganizationType(org.organizationType)).filter(Boolean)),
+      ).sort(),
+    [organizations],
+  );
+
+  const locationOptions = useMemo(
+    () => Array.from(new Set(organizations.flatMap((org) => extractLocationTags(org.location)))).sort(),
+    [organizations],
+  );
+
+  const filteredOrganizations = useMemo(() => {
+    const searchTerm = search.trim().toLowerCase();
+
+    return organizations.filter((org) => {
+      const orgType = normalizeOrganizationType(org.organizationType);
+      const orgLocations = extractLocationTags(org.location);
+      const profileType =
+        org.verificationStatus === "VERIFIED"
+          ? "verified"
+          : org.claimed
+            ? "claimed"
+            : "not-claimed";
+
+      if (searchTerm) {
+        const haystack = [org.name, org.description, org.location, org.sector, org.organizationType]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        if (!haystack.includes(searchTerm)) return false;
+      }
+
+      if (sectorFilter !== "all" && org.sector !== sectorFilter) return false;
+      if (typeFilter !== "all" && orgType !== typeFilter) return false;
+      if (locationFilter !== "all" && !orgLocations.includes(locationFilter)) return false;
+      if (profileFilter !== "all" && profileType !== profileFilter) return false;
+
+      return true;
+    });
+  }, [locationFilter, organizations, profileFilter, search, sectorFilter, typeFilter]);
+
+  useEffect(() => {
+    const nextSearch = searchParams.get("search") ?? "";
+    const nextSector = parseFilterParam(searchParams.get("sector"));
+    const nextType = parseFilterParam(searchParams.get("type"));
+    const nextLocation = parseFilterParam(searchParams.get("location"));
+    const nextProfile = parseFilterParam(searchParams.get("profile"));
+
+    if (nextSearch !== search) setSearch(nextSearch);
+    if (nextSector !== sectorFilter) setSectorFilter(nextSector);
+    if (nextType !== typeFilter) setTypeFilter(nextType);
+    if (nextLocation !== locationFilter) setLocationFilter(nextLocation);
+    if (nextProfile !== profileFilter) setProfileFilter(nextProfile);
+  }, [locationFilter, profileFilter, search, searchParams, sectorFilter, typeFilter]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    const normalizedSearch = search.trim();
+
+    if (normalizedSearch) params.set("search", normalizedSearch);
+    else params.delete("search");
+
+    if (sectorFilter !== "all") params.set("sector", sectorFilter);
+    else params.delete("sector");
+
+    if (typeFilter !== "all") params.set("type", typeFilter);
+    else params.delete("type");
+
+    if (locationFilter !== "all") params.set("location", locationFilter);
+    else params.delete("location");
+
+    if (profileFilter !== "all") params.set("profile", profileFilter);
+    else params.delete("profile");
+
+    const current = searchParams.toString();
+    const next = params.toString();
+    if (current !== next) {
+      router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false });
+    }
+  }, [locationFilter, pathname, profileFilter, router, search, searchParams, sectorFilter, typeFilter]);
+
   const scrollFromLocationHash = useCallback(() => {
-    if (typeof window === "undefined" || organizations.length === 0) return;
+    if (typeof window === "undefined" || filteredOrganizations.length === 0) return;
     const raw = window.location.hash.replace(/^#/, "");
     if (!raw.startsWith("org-")) return;
     const tryScroll = () => scrollToOrgAnchor(raw);
@@ -43,7 +194,7 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
     requestAnimationFrame(tryScroll);
     setTimeout(tryScroll, 0);
     setTimeout(tryScroll, 80);
-  }, [organizations]);
+  }, [filteredOrganizations]);
 
   useLayoutEffect(() => {
     scrollFromLocationHash();
@@ -57,22 +208,130 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
 
   return (
     <div>
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-foreground/70">
-          <span className="font-semibold text-brand-navy">{organizations.length}</span>{" "}
-          {t("orgDirectoryCount")}
-        </p>
-        <ViewModeToggle
-          value={mode}
-          onChange={setMode}
-          groupAriaLabel={t("orgDirectoryLayoutLabel")}
-          className="self-stretch sm:self-auto"
-        />
+      <div className="mb-4 rounded-2xl border border-brand-border bg-white p-4 shadow-sm">
+        <div className="grid gap-3 lg:grid-cols-[minmax(0,2fr)_repeat(4,minmax(0,1fr))]">
+          <label className="text-sm font-medium text-brand-navy">
+            <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-foreground/55">
+              {t("filterKeyword")}
+            </span>
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder={t("orgDirectorySearchPlaceholder")}
+              className="w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
+            />
+          </label>
+
+          <label className="text-sm font-medium text-brand-navy">
+            <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-foreground/55">
+              {t("orgDirectorySector")}
+            </span>
+            <select
+              value={sectorFilter}
+              onChange={(event) => setSectorFilter(event.target.value)}
+              className="w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
+            >
+              <option value="all">{t("orgDirectoryAllSectors")}</option>
+              {sectorOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="text-sm font-medium text-brand-navy">
+            <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-foreground/55">
+              {t("filterType")}
+            </span>
+            <select
+              value={typeFilter}
+              onChange={(event) => setTypeFilter(event.target.value)}
+              className="w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
+            >
+              <option value="all">{t("filterAllTypes")}</option>
+              {typeOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="text-sm font-medium text-brand-navy">
+            <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-foreground/55">
+              {t("filterLocation")}
+            </span>
+            <select
+              value={locationFilter}
+              onChange={(event) => setLocationFilter(event.target.value)}
+              className="w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
+            >
+              <option value="all">{t("orgDirectoryAllLocations")}</option>
+              {locationOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="text-sm font-medium text-brand-navy">
+            <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-foreground/55">
+              {t("orgDirectoryProfileType")}
+            </span>
+            <select
+              value={profileFilter}
+              onChange={(event) => setProfileFilter(event.target.value)}
+              className="w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40"
+            >
+              <option value="all">{t("orgDirectoryAllProfiles")}</option>
+              <option value="verified">{t("orgDirectoryVerifiedEmployer")}</option>
+              <option value="claimed">{t("orgDirectoryClaimed")}</option>
+              <option value="not-claimed">{t("orgDirectoryNotClaimed")}</option>
+            </select>
+          </label>
+        </div>
       </div>
 
-      {mode === "card" ? (
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-foreground/70">
+          <span className="font-semibold text-brand-navy">{filteredOrganizations.length}</span>{" "}
+          {t("orgDirectoryCount")}
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          {(search || sectorFilter !== "all" || typeFilter !== "all" || locationFilter !== "all" || profileFilter !== "all") ? (
+            <button
+              type="button"
+              onClick={() => {
+                setSearch("");
+                setSectorFilter("all");
+                setTypeFilter("all");
+                setLocationFilter("all");
+                setProfileFilter("all");
+              }}
+              className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg border border-brand-border px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+            >
+              {t("filterClearAll")}
+            </button>
+          ) : null}
+          <ViewModeToggle
+            value={mode}
+            onChange={setMode}
+            groupAriaLabel={t("orgDirectoryLayoutLabel")}
+            className="self-stretch sm:self-auto"
+          />
+        </div>
+      </div>
+
+      {filteredOrganizations.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-brand-border bg-white px-6 py-10 text-center text-sm text-foreground/70 shadow-sm">
+          {t("orgDirectoryNoMatch")}
+        </div>
+      ) : mode === "card" ? (
         <div className="grid gap-5 sm:grid-cols-2">
-          {organizations.map((org) => (
+          {filteredOrganizations.map((org) => (
             <article
               key={org.id}
               id={orgAnchorId(org.id)}
@@ -143,13 +402,21 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                     {t("orgDirectoryWebsite")}
                   </a>
                 ) : null}
+                {org.claimed === false ? (
+                  <Link
+                    href={buildClaimContactHref(org)}
+                    className="inline-flex min-h-[2.75rem] items-center justify-center rounded-lg border border-brand-border px-4 py-2.5 text-center text-sm font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50 sm:min-h-0"
+                  >
+                    {t("orgDirectoryClaimProfile")}
+                  </Link>
+                ) : null}
               </div>
             </article>
           ))}
         </div>
       ) : (
         <ul className="divide-y divide-brand-border rounded-2xl border border-brand-border bg-white shadow-sm">
-          {organizations.map((org) => (
+          {filteredOrganizations.map((org) => (
             <li
               key={org.id}
               id={orgAnchorId(org.id)}
@@ -192,7 +459,12 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                   {org.description}
                 </p>
                 {org.claimed === false ? (
-                  <p className="mt-2 text-xs font-medium text-foreground/65">{t("orgDirectoryClaimProfile")}</p>
+                  <Link
+                    href={buildClaimContactHref(org)}
+                    className="mt-2 inline-flex text-xs font-semibold text-brand-navy underline decoration-brand-gold/60 underline-offset-4 hover:text-brand-gold"
+                  >
+                    {t("orgDirectoryClaimProfile")}
+                  </Link>
                 ) : null}
               </div>
               <div className="mt-3 flex shrink-0 flex-col gap-2 sm:mt-0 sm:items-end">

@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function ContactForm() {
   const { t } = useLanguage();
+  const searchParams = useSearchParams();
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [successDetail, setSuccessDetail] = useState<string | null>(null);
+  const defaultSubject = searchParams.get("subject") ?? "";
+  const defaultMessage = searchParams.get("message") ?? "";
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,6 +96,7 @@ export function ContactForm() {
           <input
             required
             name="subject"
+            defaultValue={defaultSubject}
             disabled={loading}
             className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40 disabled:opacity-60"
           />
@@ -102,6 +107,7 @@ export function ContactForm() {
             required
             name="message"
             rows={5}
+            defaultValue={defaultMessage}
             disabled={loading}
             className="mt-1 w-full rounded-xl border border-brand-border bg-brand-muted/40 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-gold/40 disabled:opacity-60"
           />

@@ -80,6 +80,32 @@ export type OpportunityRow = PrismaOpportunity & {
   featured: FeaturedOpportunity | null;
 };
 
+function deriveOrganizationSector(org: PrismaOrganization): string | undefined {
+  if ("sector" in org && typeof org.sector === "string" && org.sector.trim()) {
+    return org.sector;
+  }
+
+  const text = `${org.description ?? ""} ${org.organizationType ?? ""}`.toLowerCase();
+  if (!text.trim()) return undefined;
+
+  const sectorMatchers: Array<[string, RegExp]> = [
+    ["Health", /health|public health|maternal health|reproductive health|disease/],
+    ["WASH", /wash|water|sanitation|hygiene/],
+    ["Education", /education|school|learning|literacy/],
+    ["Food Security", /food security|food assistance|school feeding|agriculture|livelihood/],
+    ["Protection", /protection|gbv|gender equality|child protection|refugee protection|safeguarding/],
+    ["Migration", /migration|displacement|refugee|resettlement|return/],
+    ["Humanitarian", /humanitarian|emergency response|relief/],
+    ["Development", /development finance|development|economic policy|social protection|governance/],
+  ];
+
+  for (const [label, re] of sectorMatchers) {
+    if (re.test(text)) return label;
+  }
+
+  return undefined;
+}
+
 export function mapOrganizationRecord(org: PrismaOrganization): Organization {
   const verificationStatus = (
     org.verificationStatus === "VERIFIED" ||
@@ -97,6 +123,8 @@ export function mapOrganizationRecord(org: PrismaOrganization): Organization {
     slug: org.slug,
     description: org.description ?? "",
     location: org.location ?? "",
+    sector: deriveOrganizationSector(org),
+    organizationType: "organizationType" in org ? (org.organizationType as string | null | undefined) ?? undefined : undefined,
     website: org.website ?? undefined,
     verificationStatus,
     claimed: "claimed" in org ? (org.claimed as boolean | null | undefined) ?? null : null,

@@ -12,6 +12,7 @@ type ParsedOrg = {
   description: string | null;
   logoUrl: string | null;
   abbreviation: string | null;
+  sector: string | null;
   organizationType: string | null;
   sourceUrl: string | null;
   profileCompleteness: number;
@@ -33,6 +34,7 @@ type ExistingOrg = {
   verifiedAt: Date | null;
   isActive: boolean;
   abbreviation: string | null;
+  sector: string | null;
   organizationType: string | null;
   sourceType: string | null;
   sourceUrl: string | null;
@@ -85,6 +87,28 @@ function extractDomain(input: string | null): string | null {
   }
 }
 
+function classifySector(description: string | null, organizationType: string | null): string | null {
+  const text = `${description ?? ""} ${organizationType ?? ""}`.toLowerCase().trim();
+  if (!text) return null;
+
+  const sectorMatchers: Array<[string, RegExp]> = [
+    ["Health", /health|public health|maternal health|reproductive health|disease/],
+    ["WASH", /wash|water|sanitation|hygiene/],
+    ["Education", /education|school|learning|literacy/],
+    ["Food Security", /food security|food assistance|school feeding|agriculture|livelihood/],
+    ["Protection", /protection|gbv|gender equality|child protection|refugee protection|safeguarding/],
+    ["Migration", /migration|displacement|refugee|resettlement|return/],
+    ["Humanitarian", /humanitarian|emergency response|relief/],
+    ["Development", /development finance|development|economic policy|social protection|governance/],
+  ];
+
+  for (const [label, re] of sectorMatchers) {
+    if (re.test(text)) return label;
+  }
+
+  return null;
+}
+
 function mapRow(row: ExcelRow): ParsedOrg | null {
   const cols = Object.entries(row).reduce<Record<string, unknown>>((acc, [key, value]) => {
     acc[key.trim().toLowerCase()] = value;
@@ -111,6 +135,7 @@ function mapRow(row: ExcelRow): ParsedOrg | null {
   const abbreviation = pick("Abbreviation", "Short Name", "Acronym");
   const organizationType = pick("Organization Type", "Type");
   const sourceUrl = pick("Source URL", "Reference URL", "Source");
+  const sector = classifySector(description, organizationType);
 
   const profileBase = [email, website, location, description, logoUrl, abbreviation, organizationType]
     .filter(Boolean).length;
@@ -124,6 +149,7 @@ function mapRow(row: ExcelRow): ParsedOrg | null {
     description,
     logoUrl,
     abbreviation,
+    sector,
     organizationType,
     sourceUrl,
     profileCompleteness,
@@ -370,6 +396,7 @@ export async function importOrganizationsFromWorkbookBuffer(
       verifiedAt: true,
       isActive: true,
       abbreviation: true,
+      sector: true,
       organizationType: true,
       sourceType: true,
       sourceUrl: true,
@@ -414,6 +441,7 @@ export async function importOrganizationsFromWorkbookBuffer(
           name: row.name,
           slug,
           abbreviation: row.abbreviation,
+          sector: row.sector,
           organizationType: row.organizationType,
           email: row.email,
           website: row.website,
@@ -444,6 +472,7 @@ export async function importOrganizationsFromWorkbookBuffer(
 
     const patch: Record<string, unknown> = {};
     if (isMissing(duplicate.abbreviation) && !isMissing(row.abbreviation)) patch.abbreviation = row.abbreviation;
+    if (isMissing(duplicate.sector) && !isMissing(row.sector)) patch.sector = row.sector;
     if (isMissing(duplicate.organizationType) && !isMissing(row.organizationType)) patch.organizationType = row.organizationType;
     if (isMissing(duplicate.email) && !isMissing(row.email)) patch.email = row.email;
     if (isMissing(duplicate.website) && !isMissing(row.website)) patch.website = row.website;

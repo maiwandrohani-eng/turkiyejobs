@@ -131,6 +131,7 @@ export interface Organization {
   location: string;
   /** Shown in directory card/list (e.g. humanitarian, development). */
   sector?: string;
+  organizationType?: string;
   website?: string;
   verificationStatus: "VERIFIED" | "PENDING" | "REJECTED" | "CURATED_PUBLIC_PROFILE" | "UNCLAIMED_PROFILE";
   claimed?: boolean | null;

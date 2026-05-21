@@ -125,7 +125,7 @@ export default async function OrganizationProfilePage({ params }: Props) {
           {org.claimed === false ? (
             <div className="mt-4">
               <ClaimProfileButton
-                organizationId={org.id}
+                organizationName={org.name}
                 returnPath={`/organizations/${encodeURIComponent(org.slug)}`}
               />
             </div>
