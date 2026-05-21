@@ -27,6 +27,13 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
   const { mode, setMode } = usePersistedViewMode("turkiyejobs:v1:viewOrganizationsDirectory");
   const { t } = useLanguage();
 
+  const statusLabel = (org: Organization): string => {
+    if (org.verificationStatus === "VERIFIED") return t("orgDirectoryVerifiedEmployer");
+    if (org.verificationStatus === "CURATED_PUBLIC_PROFILE") return t("orgDirectoryCuratedPublicProfile");
+    if (org.verificationStatus === "UNCLAIMED_PROFILE") return t("orgDirectoryUnclaimedProfile");
+    return t("orgDirectoryPendingVerification");
+  };
+
   const scrollFromLocationHash = useCallback(() => {
     if (typeof window === "undefined" || organizations.length === 0) return;
     const raw = window.location.hash.replace(/^#/, "");
@@ -88,13 +95,18 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                       <Award className="h-3.5 w-3.5" aria-hidden /> {t("orgDirectoryFeatured")}
                     </span>
                   ) : null}
-                  {org.verified ? (
+                  {org.verificationStatus === "VERIFIED" ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold-muted px-2.5 py-0.5 text-xs font-semibold text-brand-navy ring-1 ring-brand-gold/35">
-                      <BadgeCheck className="h-3.5 w-3.5" aria-hidden /> {t("orgDirectoryVerified")}
+                      <BadgeCheck className="h-3.5 w-3.5" aria-hidden /> {statusLabel(org)}
+                    </span>
+                  ) : org.verificationStatus === "CURATED_PUBLIC_PROFILE" ||
+                    org.verificationStatus === "UNCLAIMED_PROFILE" ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2.5 py-0.5 text-xs font-semibold text-sky-900 ring-1 ring-sky-200">
+                      {statusLabel(org)}
                     </span>
                   ) : (
                     <span className="text-xs font-medium text-foreground/50">
-                      {t("orgDirectoryPendingVerification")}
+                      {statusLabel(org)}
                     </span>
                   )}
                 </div>
@@ -105,6 +117,9 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
               >
                 {org.description}
               </p>
+              {org.claimed === false ? (
+                <p className="mt-2 text-xs font-medium text-foreground/65">{t("orgDirectoryClaimProfile")}</p>
+              ) : null}
               <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Link
                   href={`/organizations/${encodeURIComponent(org.slug)}`}
@@ -151,9 +166,14 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                       {t("orgDirectoryFeatured")}
                     </span>
                   ) : null}
-                  {org.verified ? (
+                  {org.verificationStatus === "VERIFIED" ? (
                     <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold-muted px-2 py-0.5 text-[10px] font-semibold uppercase text-brand-navy ring-1 ring-brand-gold/35">
-                      {t("orgDirectoryVerified")}
+                      {t("orgDirectoryVerifiedEmployer")}
+                    </span>
+                  ) : org.verificationStatus === "CURATED_PUBLIC_PROFILE" ||
+                    org.verificationStatus === "UNCLAIMED_PROFILE" ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold uppercase text-sky-900 ring-1 ring-sky-200">
+                      {statusLabel(org)}
                     </span>
                   ) : (
                     <span className="text-[10px] font-medium uppercase text-foreground/50">
@@ -171,6 +191,9 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
                 >
                   {org.description}
                 </p>
+                {org.claimed === false ? (
+                  <p className="mt-2 text-xs font-medium text-foreground/65">{t("orgDirectoryClaimProfile")}</p>
+                ) : null}
               </div>
               <div className="mt-3 flex shrink-0 flex-col gap-2 sm:mt-0 sm:items-end">
                 <Link

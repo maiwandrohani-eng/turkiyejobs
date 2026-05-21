@@ -81,6 +81,16 @@ export type OpportunityRow = PrismaOpportunity & {
 };
 
 export function mapOrganizationRecord(org: PrismaOrganization): Organization {
+  const verificationStatus = (
+    org.verificationStatus === "VERIFIED" ||
+    org.verificationStatus === "PENDING" ||
+    org.verificationStatus === "REJECTED" ||
+    org.verificationStatus === "CURATED_PUBLIC_PROFILE" ||
+    org.verificationStatus === "UNCLAIMED_PROFILE"
+      ? org.verificationStatus
+      : "PENDING"
+  ) as Organization["verificationStatus"];
+
   return {
     id: org.id,
     name: org.name,
@@ -88,6 +98,8 @@ export function mapOrganizationRecord(org: PrismaOrganization): Organization {
     description: org.description ?? "",
     location: org.location ?? "",
     website: org.website ?? undefined,
+    verificationStatus,
+    claimed: "claimed" in org ? (org.claimed as boolean | null | undefined) ?? null : null,
     verified: org.verificationStatus === "VERIFIED",
     featured: org.featuredBadge,
   };

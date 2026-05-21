@@ -15,7 +15,8 @@
     "db:setup": "prisma generate && prisma db push && prisma db seed",
     "db:bootstrap-user": "tsx scripts/bootstrap-user.ts",
     "db:bootstrap-admin": "tsx scripts/bootstrap-user.ts",
-    "db:verify-login": "tsx scripts/verify-login.ts"
+    "db:verify-login": "tsx scripts/verify-login.ts",
+    "db:import-orgs": "tsx scripts/import-organizations.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -34,6 +35,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",
+    "xlsx": "^0.18.5",
     "tailwind-merge": "^3.6.0",
     "zod": "^4.4.3"
   },

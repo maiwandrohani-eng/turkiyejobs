@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Award, BadgeCheck, MapPin } from "lucide-react";
+import { ClaimProfileButton } from "@/components/ClaimProfileButton";
 import { PageShell } from "@/components/PageShell";
 import {
   loadPublicOrganizationByRef,
@@ -50,6 +51,9 @@ export default async function OrganizationProfilePage({ params }: Props) {
   if (!row) notFound();
 
   const org = mapOrganizationRecord(row);
+  const showCuratedNotice =
+    org.verificationStatus === "CURATED_PUBLIC_PROFILE" ||
+    org.verificationStatus === "UNCLAIMED_PROFILE";
 
   const oppRows = await loadPublishedOpportunitiesForOrganization(prisma, org.id);
   const listings = oppRows.flatMap((r) => {
@@ -96,9 +100,13 @@ export default async function OrganizationProfilePage({ params }: Props) {
                   <Award className="h-3.5 w-3.5" aria-hidden /> Featured employer
                 </span>
               ) : null}
-              {org.verified ? (
+              {org.verificationStatus === "VERIFIED" ? (
                 <span className="inline-flex items-center gap-1 rounded-full bg-brand-gold-muted px-3 py-1 text-xs font-semibold text-brand-navy ring-1 ring-brand-gold/35">
-                  <BadgeCheck className="h-3.5 w-3.5" aria-hidden /> Verified
+                  <BadgeCheck className="h-3.5 w-3.5" aria-hidden /> Verified Employer
+                </span>
+              ) : showCuratedNotice ? (
+                <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-900 ring-1 ring-sky-200">
+                  Curated Public Profile
                 </span>
               ) : (
                 <span className="text-xs font-medium text-foreground/50">
@@ -107,6 +115,21 @@ export default async function OrganizationProfilePage({ params }: Props) {
               )}
             </div>
           </div>
+
+          {showCuratedNotice ? (
+            <div className="mt-6 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm leading-relaxed text-sky-900">
+              This organization profile was created from publicly available or admin-provided information. The organization has not yet claimed this profile. Organizations may contact TurkiyeJobs.org to claim or update their profile.
+            </div>
+          ) : null}
+
+          {org.claimed === false ? (
+            <div className="mt-4">
+              <ClaimProfileButton
+                organizationId={org.id}
+                returnPath={`/organizations/${encodeURIComponent(org.slug)}`}
+              />
+            </div>
+          ) : null}
 
           {org.description ? (
             <div className="mt-8 border-t border-brand-border pt-8">

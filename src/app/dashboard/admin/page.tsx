@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { AdminOrganizationImportPanel } from "@/components/AdminOrganizationImportPanel";
 import { ChangePasswordForm } from "@/components/ChangePasswordForm";
 import { AdminNeonRegistryPanel } from "@/components/AdminNeonRegistryPanel";
 import { AdminSiteContactPanel } from "@/components/AdminSiteContactPanel";
@@ -139,6 +140,25 @@ export default function AdminDashboardPage() {
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileMsg, setProfileMsg] = useState<string | null>(null);
 
+  type OrgClaimRow = {
+    id: string;
+    organizationId: string;
+    requesterEmail: string;
+    requesterName: string | null;
+    message: string | null;
+    createdAt: string;
+    organization: {
+      name: string;
+      slug: string;
+      claimed: boolean;
+      verificationStatus: string;
+    };
+  };
+
+  const [claimRows, setClaimRows] = useState<OrgClaimRow[]>([]);
+  const [claimLoading, setClaimLoading] = useState(false);
+  const [claimMsg, setClaimMsg] = useState<string | null>(null);
+
   const previewAuth = isDemoAuthEnabled();
 
   useEffect(() => {
@@ -207,6 +227,37 @@ export default function AdminDashboardPage() {
     };
   }, [hydrated, session?.role, previewAuth]);
 
+  useEffect(() => {
+    if (!hydrated || session?.role !== "admin" || previewAuth) return;
+    let cancelled = false;
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      setClaimLoading(true);
+      setClaimMsg(null);
+      void fetch("/api/admin/organization-claims", { credentials: "include" })
+        .then(async (res) => {
+          const body = (await res.json()) as { ok?: boolean; items?: OrgClaimRow[]; error?: string };
+          if (cancelled) return;
+          if (!res.ok || !body.ok) {
+            setClaimRows([]);
+            setClaimMsg(body.error ?? "Could not load pending claim requests.");
+            return;
+          }
+          setClaimRows(body.items ?? []);
+        })
+        .catch(() => {
+          if (!cancelled) setClaimMsg("Could not load pending claim requests.");
+        })
+        .finally(() => {
+          if (!cancelled) setClaimLoading(false);
+        });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated, session?.role, previewAuth]);
+
   const moderateOrgProfile = async (changeId: string, action: "approve" | "reject") => {
     if (action === "approve") {
       if (!confirm("Apply these changes to the live organization profile and public directory?"))
@@ -227,6 +278,32 @@ export default function AdminDashboardPage() {
         return;
       }
       setProfileRows((prev) => prev.filter((r) => r.id !== changeId));
+      refreshPublicCatalog();
+    } catch {
+      alert("Network error.");
+    }
+  };
+
+  const moderateClaimRequest = async (claimId: string, action: "approve" | "reject") => {
+    if (action === "approve") {
+      if (!confirm("Approve this claim and mark the profile as claimed?")) return;
+    } else if (!confirm("Reject this claim request?")) {
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/admin/organization-claims/moderate", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ claimId, action }),
+      });
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !data.ok) {
+        alert(data.error ?? "Update failed.");
+        return;
+      }
+      setClaimRows((prev) => prev.filter((r) => r.id !== claimId));
       refreshPublicCatalog();
     } catch {
       alert("Network error.");
@@ -351,6 +428,8 @@ export default function AdminDashboardPage() {
           </div>
         ))}
       </div>
+
+      <AdminOrganizationImportPanel disabled={previewAuth} />
 
       <section className="mt-10 rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
         <h2 className="text-base font-bold text-brand-navy">Pending organizations</h2>
@@ -494,6 +573,71 @@ export default function AdminDashboardPage() {
                 </dl>
               </div>
             ))}
+          </div>
+        )}
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-brand-border bg-white p-6 shadow-sm">
+        <h2 className="text-base font-bold text-brand-navy">Profile claim requests</h2>
+        <p className="mt-2 text-sm text-foreground/70">
+          Review requests from signed-in users who want to claim an unclaimed curated profile.
+        </p>
+        {claimMsg ? <p className="mt-3 text-sm text-amber-800">{claimMsg}</p> : null}
+        {claimLoading ? (
+          <p className="mt-3 text-sm text-foreground/60">Loading pending claims…</p>
+        ) : claimRows.length === 0 ? (
+          <p className="mt-3 text-sm text-foreground/70">No pending claim requests.</p>
+        ) : (
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full min-w-[860px] text-left text-sm">
+              <thead className="border-b border-brand-border bg-brand-muted/60 text-xs uppercase text-foreground/55">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Organization</th>
+                  <th className="px-4 py-3 font-semibold">Requester</th>
+                  <th className="px-4 py-3 font-semibold">Message</th>
+                  <th className="px-4 py-3 font-semibold">Submitted</th>
+                  <th className="px-4 py-3 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {claimRows.map((row) => (
+                  <tr key={row.id} className="border-b border-brand-border last:border-0">
+                    <td className="px-4 py-3">
+                      <div className="font-medium text-brand-navy">{row.organization.name}</div>
+                      <div className="text-xs text-foreground/55">{row.organization.slug}</div>
+                    </td>
+                    <td className="px-4 py-3 text-foreground/75">
+                      <div>{row.requesterName?.trim() || "(No name)"}</div>
+                      <div className="text-xs">{row.requesterEmail}</div>
+                    </td>
+                    <td className="px-4 py-3 text-foreground/75">
+                      {row.message?.trim() || "—"}
+                    </td>
+                    <td className="px-4 py-3 text-foreground/75">
+                      {new Date(row.createdAt).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => void moderateClaimRequest(row.id, "approve")}
+                          className="rounded-lg bg-brand-gold px-3 py-2 text-xs font-semibold text-brand-navy shadow-sm hover:bg-brand-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/60"
+                        >
+                          Approve claim
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => void moderateClaimRequest(row.id, "reject")}
+                          className="rounded-lg border border-brand-border px-3 py-2 text-xs font-semibold text-brand-navy hover:bg-brand-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </section>
