@@ -84,6 +84,7 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const searchParamsString = searchParams.toString();
   const [search, setSearch] = useState(searchParams.get("search") ?? "");
   const [sectorFilter, setSectorFilter] = useState(parseFilterParam(searchParams.get("sector")));
   const [typeFilter, setTypeFilter] = useState(parseFilterParam(searchParams.get("type")));
@@ -157,10 +158,10 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
     if (nextType !== typeFilter) setTypeFilter(nextType);
     if (nextLocation !== locationFilter) setLocationFilter(nextLocation);
     if (nextProfile !== profileFilter) setProfileFilter(nextProfile);
-  }, [locationFilter, profileFilter, search, searchParams, sectorFilter, typeFilter]);
+  }, [searchParamsString]);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParamsString);
     const normalizedSearch = search.trim();
 
     if (normalizedSearch) params.set("search", normalizedSearch);
@@ -178,12 +179,12 @@ export function OrganizationsDirectory({ organizations }: { organizations: Organ
     if (profileFilter !== "all") params.set("profile", profileFilter);
     else params.delete("profile");
 
-    const current = searchParams.toString();
+    const current = searchParamsString;
     const next = params.toString();
     if (current !== next) {
       router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false });
     }
-  }, [locationFilter, pathname, profileFilter, router, search, searchParams, sectorFilter, typeFilter]);
+  }, [locationFilter, pathname, profileFilter, router, search, searchParamsString, sectorFilter, typeFilter]);
 
   const scrollFromLocationHash = useCallback(() => {
     if (typeof window === "undefined" || filteredOrganizations.length === 0) return;
